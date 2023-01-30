@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name_bn'); //Lender Name in Bangla
             $table->string('name_en')->nullable(); //Lender Name in English
             $table->date('lend_date');
-            $table->string('lend_note');
+            $table->string('lend_note')->nullable();
             $table->boolean('in_lend')->default(1);
             $table->boolean('returned')->default(0);
             $table->date('return_date')->nullable();
