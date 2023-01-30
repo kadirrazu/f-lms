@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lends', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books');
-            $table->string('name_bn'); //Lender Name in Bangla
-            $table->string('name_en')->nullable(); //Lender Name in English
-            $table->date('lend_date');
-            $table->string('lend_note');
-            $table->boolean('in_lend')->default(1);
-            $table->boolean('returned')->default(0);
-            $table->date('return_date')->nullable();
+            $table->string('name_bn'); //Requester Name in Bangla
+            $table->string('name_en')->nullable(); //Requester Name in English
+            $table->string('mobile');
+            $table->boolean('return_ack')->default(0);
+            $table->unsignedBigInteger('book_status_id');
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lends');
+        Schema::dropIfExists('requests');
     }
 };
