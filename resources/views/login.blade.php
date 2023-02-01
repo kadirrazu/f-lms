@@ -31,24 +31,21 @@
                     @csrf
 
                     <div class="col-12">
-                      <label for="youremail" class="form-label">Email</label>
+
+                      <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="youremail" value="{{ old('email') }}" required>
+                        <x-form.input name="email" type="email" required />
                       </div>
 
-                      @error('email')
-                        <p class="text-danger">{{ $message }}</p>
-                      @enderror
+                      <x-form.error name="email"/>
 
                     </div>
 
                     <div class="col-12">
+
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      
-                      @error('password')
-                        <p class="text-danger">{{ $message }}</p>
-                      @enderror
+                      <x-form.input name="password" type="password" required />
+                      <x-form.error name="password"/>
 
                     </div>
 
@@ -63,7 +60,7 @@
                     </div>
                     <div class="col-12 text-center">
                       <p class="small mb-0">
-                        Don't have an user account? <a href="#">Register!</a>
+                        Don't have an user account? <a href="{{ url('registration') }}">Register!</a>
                       </p>
                     </div>
                   </form>

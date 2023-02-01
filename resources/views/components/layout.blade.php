@@ -10,4 +10,6 @@
 
 </main><!-- End #main -->
 
+@include('partials/footer-credit')
+
 @include('partials/footer')

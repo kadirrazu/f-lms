@@ -4,7 +4,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="{{ url('dashboard') }}">
+    <a class="nav-link " href="{{ url('admin/dashboard') }}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
@@ -39,12 +39,12 @@
     </a>
     <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
-        <a href="forms-elements.html">
+        <a href="{{ url('admin/user') }}">
           <i class="bi bi-circle"></i><span>All Users</span>
         </a>
       </li>
       <li>
-        <a href="forms-layouts.html">
+        <a href="{{ url('admin/user/create') }}">
           <i class="bi bi-circle"></i><span>Add New</span>
         </a>
       </li>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +22,23 @@ Route::get('/', function(){
 });
 
 //Login and Registration Routes
-Route::get('/login', [SessionController::class, 'login']);
+Route::get('/login', [SessionController::class, 'login'])->middleware('auth.redirect');
 Route::post('/login', [SessionController::class, 'processLogin']);
 Route::get('/guest-logout', [SessionController::class, 'guestLogout']);
 
+Route::get('/registration', [UserController::class, 'registration'])->middleware('auth.redirect');
+Route::post('/registration', [UserController::class, 'processRegistration']);
+
 //Dashboard and Admin Area Routes
-Route::middleware('administrator')->group(function(){
-    Route::get('/logout', [SessionController::class, 'logout']);
-    Route::get('/dashboard', [SessionController::class, 'dashboard']);
+Route::prefix('admin')->group(function () {
+    Route::middleware('administrator')->group(function(){
+        Route::get('/logout', [SessionController::class, 'logout']);
+        Route::get('/dashboard', [SessionController::class, 'dashboard']);
+
+        Route::resource('/user', AdminUserController::class);
+    });
 });
+
 
 
 

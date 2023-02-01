@@ -1258,3 +1258,13 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+
+/*Custom Stylesheet by Kadir*/
+.db-work-area{
+  min-height: 700px;
+}
+
+table.admin-table tr th{
+  width: 250px;
+}

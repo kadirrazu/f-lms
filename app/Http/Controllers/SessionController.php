@@ -9,7 +9,9 @@ class SessionController extends Controller
 {
     public function login()
     {
+
         return view('login');
+        
     }
 
     public function processLogin()
@@ -21,7 +23,7 @@ class SessionController extends Controller
 
         if( auth()->attempt($attributes) )
         {
-            return redirect('dashboard')->withSuccess('Welcome to Dashboard!');
+            return redirect('admin/dashboard')->withSuccess('Welcome to Dashboard!');
         }
 
         return back()->withInput()->withError('Email and Password does not matched with the database.');
