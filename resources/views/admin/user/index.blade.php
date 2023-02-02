@@ -30,6 +30,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Name (Bangla)</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
                                         <th scope="col">Role</th>
@@ -44,6 +45,7 @@
                                     <tr>
                                         <th scope="row">{{ $count }}</th>
                                         <td>{{ $user->name }}</td>
+                                        <td>{{ $user->name_bn ?? '-' }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->mobile ?? "-" }}</td>
                                         <td>
@@ -56,7 +58,12 @@
                                         <td>
                                             <a class="btn btn-sm btn-success" href="{{ url('admin/user/' . $user->id) }}">View</a> &nbsp;
                                             <a class="btn btn-sm btn-info" href="{{ url('admin/user/' . $user->id . '/edit') }}">Edit</a> &nbsp;
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            <form class="d-inline" method="POST" action="{{ url('admin/user/' . $user->id) }}">
+                                                @csrf 
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger" confirm="Sure? You really want to Delete?">Delete</button>
+                                            </form>
+                                            
                                         </td>
                                     </tr>
 

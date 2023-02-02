@@ -15,7 +15,12 @@
                     <div class="card recent-sales overflow-auto">
                         <div class="card-body">
 
-                            <h5 class="card-title">{{ $page_subtitle ?? "" }}</span></h5>
+                            <h5 class="card-title">
+                                {{ $page_subtitle ?? ""}}
+                                | <span>
+                                    <a href="{{ url('admin/user') }}">All User</a>
+                                </span>
+                            </h5>
 
                             <div class="form-panel">
                             
@@ -29,7 +34,7 @@
                                             <x-form.input name="name" type="text" required />
                                         </div>
 
-                                        <x-form.error name="name" />
+                                        <x-form.error name="name"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
@@ -38,7 +43,7 @@
                                             <x-form.input name="name_bn" type="text" />
                                         </div>
 
-                                        <x-form.error name="name_bn" />
+                                        <x-form.error name="name_bn"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
@@ -47,50 +52,66 @@
                                             <x-form.input name="avatar" type="text" />
                                         </div>
 
-                                        <x-form.error name="avatar" />
+                                        <x-form.error name="avatar"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="mobile" class="form-label">Mobile <x-form.field-required /></label>
+                                        <label for="mobile" class="form-label">Mobile <x-form.field-required/></label>
                                         <div class="input-group has-validation">
                                             <x-form.input name="mobile" type="text" required />
                                         </div>
 
-                                        <x-form.error name="mobile" />
+                                        <x-form.error name="mobile"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="email" class="form-label">Email <x-form.field-required /></label>
+                                        <label for="email" class="form-label">Email <x-form.field-required/></label>
                                         <div class="input-group has-validation">
                                             <x-form.input name="email" type="email" required />
                                         </div>
 
-                                        <x-form.error name="email" />
+                                        <x-form.error name="email"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="username" class="form-label">Username <x-form.field-required /></label>
+                                        <label for="username" class="form-label">Username <x-form.field-required/></label>
                                         <div class="input-group has-validation">
                                             <x-form.input name="username" type="text" required />
                                         </div>
 
-                                        <x-form.error name="username" />
+                                        <x-form.error name="username"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="password" class="form-label">Password <x-form.field-required /></label>
+                                        <label for="password" class="form-label">Password <x-form.field-required/></label>
                                         <x-form.input name="password" type="password" required />
-                                        <x-form.error name="password" />
+                                        <x-form.error name="password"/>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="password_confirmation" class="form-label">Confirm Password <x-form.field-required /></label>
+                                        <label for="password_confirmation" class="form-label">Confirm Password <x-form.field-required/></label>
                                         <x-form.input name="password_confirmation" type="password" required />
-                                        <x-form.error name="password_confirmation" />
+                                        <x-form.error name="password_confirmation"/>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 align-bottom">
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 form-label">Select Role <x-form.field-required/></label>
+                                            <div class="col-sm-8">
+                                                <select name="role" class="form-select" aria-label="Select Role">
+                                                    <option value="">Selec Appropriate Role</option>
+                                                    <option value="user" <?php echo old("role") == 'user' ? "selected" : "" ?>>User</option>
+                                                    <option value="administrator" <?php echo old("role") == 'administrator' ? "selected" : "" ?>>Administrator</option>
+                                                </select>
+
+                                                <x-form.error name="role"/>
+
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12">
-                                        <p class="text-info m-0">Note: Fields marked with <x-form.field-required /> are required.</p>
+                                        <p class="text-info m-0">Note: Fields marked with <x-form.field-required/> are required.</p>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12">
@@ -100,8 +121,7 @@
                                     
                                 </form>
 
-
-                            </div>
+                            </div> <!-- End of .form-panel -->
                             
                         </div>
 

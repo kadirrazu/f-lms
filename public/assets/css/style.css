@@ -1268,3 +1268,9 @@ h6 {
 table.admin-table tr th{
   width: 250px;
 }
+
+.fixed-alert{
+  position: fixed;
+  bottom: 40px;
+  right: 15px;
+}

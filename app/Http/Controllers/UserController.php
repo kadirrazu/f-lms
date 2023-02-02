@@ -28,6 +28,8 @@ class UserController extends Controller
         //Convert the provided password to HASHED version
         $attributes['password'] = bcrypt($attributes['password']);
 
+        unset($attributes['password_confirmation']);
+
         $user = User::create( $attributes );
 
         //Logged In the registered user automatically

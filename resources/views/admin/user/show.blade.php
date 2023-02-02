@@ -53,9 +53,9 @@
                                     <td>{{ ucfirst($user->role) }}</td>
                                 </tr>
                             </table>
-
-                            <a class="btn btn-sm btn-success" href="{{ url('admin/user') }}">All Users</a> &nbsp;
-                            <a class="btn btn-sm btn-info" href="{{ url('admin/user/' . $user->id . '/edit') }}">Edit</a>
+                            
+                            <a class="btn btn-sm btn-success" href="{{ url('admin/user') }}">Back to All Users</a> &nbsp;
+                            <a class="btn btn-sm btn-warning" href="{{ url('admin/user/' . $user->id . '/edit') }}">Edit</a>
 
                             @else
 
