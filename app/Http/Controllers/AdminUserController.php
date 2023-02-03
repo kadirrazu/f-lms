@@ -11,7 +11,7 @@ class AdminUserController extends Controller
     public function index()
     {
         
-        $users = User::paginate();
+        $users = User::orderBy('role', 'asc')->orderBy('name', 'asc')->paginate(15);
 
         return view('admin.user.index', [
             'page_title' => "All Users",
@@ -110,8 +110,8 @@ class AdminUserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        //$user->delete();
+        $user->delete();
 
-        return redirect('/admin/user')->with('warning', 'User was deleted!'); 
+        return redirect('/admin/user')->with('info', 'User was deleted!'); 
     }
 }

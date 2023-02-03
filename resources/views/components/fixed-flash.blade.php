@@ -1,4 +1,4 @@
-<div class="fixed-alert">
+<div class="fixed-alert fw-bold">
 
     @if(session()->has('success'))
         <p class="alert alert-success" x-data="{ show : true }"

@@ -55,13 +55,24 @@
                                                 <span class="badge bg-warning">{{ ucfirst($user->role) }}</span>
                                             @endif
                                         </td>
-                                        <td>
+                                        <td x-data="{
+                                            confirm : function(event){
+                                                result = confirm('Sure? You want to delete this record?');
+                                                if( result === false){
+                                                    event.preventDefault()
+                                                }
+                                            }
+                                        }">
                                             <a class="btn btn-sm btn-success" href="{{ url('admin/user/' . $user->id) }}">View</a> &nbsp;
                                             <a class="btn btn-sm btn-info" href="{{ url('admin/user/' . $user->id . '/edit') }}">Edit</a> &nbsp;
                                             <form class="d-inline" method="POST" action="{{ url('admin/user/' . $user->id) }}">
                                                 @csrf 
                                                 @method('DELETE')
-                                                <button class="btn btn-sm btn-danger" confirm="Sure? You really want to Delete?">Delete</button>
+                                                <button class="btn btn-sm btn-danger" confirm="Sure? You really want to Delete?"
+                                                @click="confirm"
+                                                >
+                                                    Delete
+                                                </button>
                                             </form>
                                             
                                         </td>

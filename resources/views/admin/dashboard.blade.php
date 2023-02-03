@@ -12,85 +12,134 @@
             <div class="col-lg-8">
             <div class="row">
 
-                <!-- Sales Card -->
+                <!-- Card Wrapper -->
                 <div class="col-xxl-4 col-md-6">
-                <div class="card info-card sales-card">
-                    <div class="card-body">
-                    <h5 class="card-title">Sales <span>| Today</span></h5>
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Books <span>| Total Number</span></h5>
 
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-cart"></i>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-book-half"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="ps-3">
-                        <h6>145</h6>
-                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
-                        </div>
-                    </div>
-                    </div>
-
-                </div>
-                </div><!-- End Sales Card -->
-
-                <!-- Revenue Card -->
+                <!-- Card Wrapper -->
                 <div class="col-xxl-4 col-md-6">
-                <div class="card info-card revenue-card">
-                    <div class="card-body">
-                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Author <span>| Total Number</span></h5>
 
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-currency-dollar"></i>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="ps-3">
-                        <h6>$3,264</h6>
-                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
+                <!-- Card Wrapper -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Categories <span>| Topic Variations</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-tags"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+                            
                         </div>
-                    </div>
-                    </div>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
-                </div>
-                </div><!-- End Revenue Card -->
+                <!-- Card Wrapper -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Purchase Cost <span>| Gross Amount</span></h5>
 
-                <!-- Customers Card -->
-                <div class="col-xxl-4 col-xl-12">
-
-                <div class="card info-card customers-card">
-                    <div class="card-body">
-                    <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-people"></i>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-cash"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="ps-3">
-                        <h6>1244</h6>
-                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
+                <!-- Card Wrapper -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Pages <span>| All Pages in Collection</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-file-earmark-word"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+                            
                         </div>
-                    </div>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
-                    </div>
-                </div>
+                <!-- Card Wrapper -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Recommendations <span>| By Readers</span></h5>
 
-                </div><!-- End Customers Card -->
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-clipboard-check"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>145</h6>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!-- End Card -->
+                </div><!-- Card Wrapper -->
 
-                <!-- Recent Sales -->
+                <!-- Recent Purchase -->
                 <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
-                    <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Purchase <span>| Today</span></h5>
 
                     <table class="table table-borderless datatable">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Product</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Category</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -135,7 +184,7 @@
                     </div>
 
                 </div>
-                </div><!-- End Recent Sales -->
+                </div><!-- End Recent Purchase -->
 
             </div>
             </div><!-- End Left side columns -->
@@ -147,55 +196,39 @@
             <div class="card">
 
                 <div class="card-body">
-                <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+                <h5 class="card-title">Recently Read <span>| Last 10 Books</span></h5>
 
                 <div class="activity">
 
                     <div class="activity-item d-flex">
-                    <div class="activite-label">32 min</div>
+                    <div class="activite-label">10 Jun, 2022</div>
                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                     <div class="activity-content">
-                        Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                        মহুয়ার সংসার (সিজার ভৌমিক)
                     </div>
                     </div><!-- End activity item-->
 
                     <div class="activity-item d-flex">
-                    <div class="activite-label">56 min</div>
+                    <div class="activite-label">11 Oct, 2022</div>
                     <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                     <div class="activity-content">
-                        Voluptatem blanditiis blanditiis eveniet
+                        All Golder Sky (Herth Clev)
                     </div>
                     </div><!-- End activity item-->
 
                     <div class="activity-item d-flex">
-                    <div class="activite-label">2 hrs</div>
+                    <div class="activite-label">03 Nov, 2022</div>
                     <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
                     <div class="activity-content">
-                        Voluptates corrupti molestias voluptatem
+                        আরণ্যক (বিভূতিভূষণ বন্দোপাধ্যায়)
                     </div>
                     </div><!-- End activity item-->
 
                     <div class="activity-item d-flex">
-                    <div class="activite-label">1 day</div>
+                    <div class="activite-label">23 Nov, 2022</div>
                     <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
                     <div class="activity-content">
-                        Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                    </div>
-                    </div><!-- End activity item-->
-
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">2 days</div>
-                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                    <div class="activity-content">
-                        Est sit eum reiciendis exercitationem
-                    </div>
-                    </div><!-- End activity item-->
-
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">4 weeks</div>
-                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                    <div class="activity-content">
-                        Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                        যতোনের বাধন (মিলি আক্তার)
                     </div>
                     </div><!-- End activity item-->
 
