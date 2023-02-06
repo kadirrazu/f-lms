@@ -3,14 +3,14 @@
 
 <ul class="sidebar-nav" id="sidebar-nav">
 
-  <li class="nav-item">
-    <a class="nav-link " href="{{ url('admin/dashboard') }}">
+  <li class="nav-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/dashboard') }}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
 
-  <li class="nav-item">
+  <li class="nav-item {{ request()->is('admin/book') ? 'active' : '' }}">
     <a class="nav-link collapsed" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-book"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
@@ -31,9 +31,51 @@
         </a>
       </li>
     </ul>
-  </li><!-- End Components Nav -->
+  </li><!-- End Nav Item -->
 
-  <li class="nav-item">
+  <li class="nav-item {{ request()->is('admin/category') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/category') }}">
+      <i class="bi bi-bounding-box"></i>
+      <span>Category</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/author') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/author') }}">
+      <i class="bi bi-person-video"></i>
+      <span>Author</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/publisher') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/publisher') }}">
+      <i class="bi bi-card-list"></i>
+      <span>Publishers</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/collection_method') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/collection_method') }}">
+      <i class="bi bi-truck"></i>
+      <span>Collection Methods</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/storage') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/storage') }}">
+      <i class="bi bi-bookshelf"></i>
+      <span>Storages</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/state') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/state') }}">
+      <i class="bi bi-activity"></i>
+      <span>States</span>
+    </a>
+  </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-people"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
@@ -49,19 +91,12 @@
         </a>
       </li>
     </ul>
-  </li><!-- End Forms Nav -->
+  </li><!-- End Nav Item -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-register.html">
-      <i class="bi bi-card-list"></i>
-      <span>Register</span>
-    </a>
-  </li><!-- End Register Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-blank.html">
-      <i class="bi bi-file-earmark"></i>
-      <span>Blank</span>
+  <li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/setting') }}">
+      <i class="bi bi-gear"></i>
+      <span>Settings</span>
     </a>
   </li><!-- End Blank Page Nav -->
 

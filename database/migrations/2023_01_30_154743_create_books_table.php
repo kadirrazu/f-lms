@@ -36,12 +36,12 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();
 			
-            $table->foreign('writer_id')->references('id')->on('writers');
-            $table->foreign('publisher_id')->references('id')->on('publishers');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('collection_method_id')->references('id')->on('collection_methods');
-            $table->foreign('storage_id')->references('id')->on('storages');
-            $table->foreign('state_id')->references('id')->on('states');
+            $table->foreign('writer_id')->references('id')->on('writers'); //Many to Many - DUE
+            $table->foreign('publisher_id')->references('id')->on('publishers'); //One to One - Table OK - Code Done
+            $table->foreign('category_id')->references('id')->on('categories'); //Many to Many - DUE
+            $table->foreign('collection_method_id')->references('id')->on('collection_methods'); //One to One - Table OK - Code Done
+            $table->foreign('storage_id')->references('id')->on('storages'); //One to One - Table OK - Code Done
+            $table->foreign('state_id')->references('id')->on('states'); //One to One - Table OK - Code Done
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });

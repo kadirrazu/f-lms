@@ -4,6 +4,10 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\CollectionMethodController;
+use App\Http\Controllers\StorageController;
+use App\Http\Controllers\StateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +40,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [SessionController::class, 'dashboard']);
 
         Route::resource('/user', AdminUserController::class);
+        Route::resource('/publisher', PublisherController::class);
+        Route::resource('/collection_method', CollectionMethodController::class);
+        Route::resource('/storage', StorageController::class);
+        Route::resource('/state', StateController::class);
     });
 });
 

@@ -114,7 +114,7 @@
                                         <p class="text-info m-0">Note: Fields marked with <x-form.field-required/> are required.</p>
                                     </div>
 
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12 mt-3">
                                         <button class="btn btn-sm btn-primary w-auto" type="submit">Add User</button> &nbsp;
                                         <a class="btn btn-sm btn-warning" href="{{ url('admin/user') }}">Back to All Users</a>
                                     </div>
