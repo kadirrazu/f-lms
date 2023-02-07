@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('title_bn');
             $table->string('title_en')->nullable();
             $table->string('slug')->nullable();
-            $table->unsignedBigInteger('writer_id');
             $table->unsignedBigInteger('publisher_id');
-            $table->unsignedBigInteger('category_id');
             $table->integer('printed_price')->nullable();
             $table->integer('purchase_price')->nullable();
             $table->integer('pages')->nullable();
@@ -28,17 +26,15 @@ return new class extends Migration
             $table->unsignedBigInteger('collection_method_id');
             $table->integer('entry_no')->nullable();
             $table->date('entry_date')->nullable();
-            $table->unsignedBigInteger('storage_id');
+            $table->unsignedBigInteger('storage_id')->nullable();
             $table->unsignedBigInteger('state_id');
-            $table->boolean('recommended')->default(0);
+            $table->boolean('recommended')->default(0)->nullable();
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 			
-            $table->foreign('writer_id')->references('id')->on('writers'); //Many to Many - DUE
             $table->foreign('publisher_id')->references('id')->on('publishers'); //One to One - Table OK - Code Done
-            $table->foreign('category_id')->references('id')->on('categories'); //Many to Many - DUE
             $table->foreign('collection_method_id')->references('id')->on('collection_methods'); //One to One - Table OK - Code Done
             $table->foreign('storage_id')->references('id')->on('storages'); //One to One - Table OK - Code Done
             $table->foreign('state_id')->references('id')->on('states'); //One to One - Table OK - Code Done

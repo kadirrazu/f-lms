@@ -8,6 +8,9 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\CollectionMethodController;
 use App\Http\Controllers\StorageController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +47,9 @@ Route::prefix('admin')->group(function () {
         Route::resource('/collection_method', CollectionMethodController::class);
         Route::resource('/storage', StorageController::class);
         Route::resource('/state', StateController::class);
+        Route::resource('/category', CategoryController::class);
+        Route::resource('/author', AuthorController::class);
+        Route::resource('/book', BookController::class);
     });
 });
 

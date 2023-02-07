@@ -10,23 +10,23 @@
     </a>
   </li><!-- End Dashboard Nav -->
 
-  <li class="nav-item {{ request()->is('admin/book') ? 'active' : '' }}">
+  <li class="nav-item {{ (request()->is('admin/book') || request()->is('admin/book/create')) ? 'active' : '' }}">
     <a class="nav-link collapsed" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-book"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="books-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <ul id="books-nav" class="nav-content collapse {{ (request()->is('admin/book') || request()->is('admin/book/create')) ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
       <li>
-        <a href="#">
+        <a href="{{ url('admin/book') }}" class="{{ (request()->is('admin/book')) ? 'active' : '' }}">
           <i class="bi bi-circle"></i><span>All Books</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="{{ url('admin/book/create') }}" class="{{ (request()->is('admin/book/create')) ? 'active' : '' }}">
           <i class="bi bi-circle"></i><span>Add New</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="{{ url('admin/utility/export') }}">
           <i class="bi bi-circle"></i><span>Export</span>
         </a>
       </li>

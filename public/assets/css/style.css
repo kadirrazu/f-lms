@@ -1275,6 +1275,10 @@ table.admin-table tr th{
   right: 15px;
 }
 
-.nav-item.active a.nav-link, .nav-item.active a.nav-link i.bi{
+.nav-item.active a.nav-link, .nav-item.active a.nav-link i.bi, .nav-item ul li a.active{
   color: #4154f1;
+}
+
+.custom-badge{
+  font-size: 13px;
 }
