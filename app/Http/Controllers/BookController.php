@@ -18,7 +18,7 @@ class BookController extends Controller
     public function index()
     {
         
-        $models = Book::orderBy('title_bn', 'asc')->paginate(15);
+        $models = Book::with(['authors', 'categories'])->orderBy('title_bn', 'asc')->paginate(15);
 
         return view('admin.book.index', [
             'page_title' => "All Books",
@@ -95,13 +95,32 @@ class BookController extends Controller
     public function update(Book $book)
     {
         $attributes = request()->validate([
-            'title_bn' => ['required', Rule::unique('authors', 'title_bn')->ignore($book)],
-            'title_en' => ['nullable', Rule::unique('authors', 'title_en')->ignore($book)],
-            'slug' => ['nullable', Rule::unique('authors', 'slug')->ignore($book)],
-            'status' => 'required|boolean'
+            'title_bn' => 'required|max:255',
+            'title_en' => 'nullable',
+            'slug' => ['nullable', Rule::unique('books', 'slug')->ignore($book)],
+            'publisher_id' => 'required|numeric',
+            'printed_price' => 'nullable|numeric',
+            'purchase_price' => 'nullable|numeric',
+            'pages' => 'nullable|numeric',
+            'image' => 'nullable',
+            'collection_method_id' => 'required|numeric',
+            'entry_no' => ['nullable', Rule::unique('books', 'entry_no')->ignore($book)],
+            'entry_date' => 'nullable|date',
+            'storage_id' => 'nullable|numeric',
+            'state_id' => 'required|numeric',
+            'recommended' => 'required|numeric',
+            'notes' => 'nullable',
         ]);
 
+        $attributes['updated_by'] = auth()->user()->id;
+
+        $authors = request()->input('author');
+        $categories = request()->input('category');
+
         $book->update( $attributes );
+
+        $book->authors()->sync($authors);
+        $book->categories()->sync($categories);
 
         return redirect('/admin/book')->withSuccess('Book was updated successfully.');
         
@@ -110,6 +129,9 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+
+        $book->authors()->detach();
+        $book->categories()->detach();
 
         $book->delete();
 

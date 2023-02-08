@@ -15,107 +15,305 @@
                     <div class="card recent-sales overflow-auto">
                         <div class="card-body">
 
-                            <h5 class="card-title">{{ $page_subtitle ?? "" }} | <span>{{ ' ' . $user->name ?? "" }}</span></h5>
+                            <h5 class="card-title">
+                                {{ $page_subtitle ?? "" }} - <span>{{ ' ' . $model->title_bn ?? "" }}</span>
+                                | <span>
+                                    <a href="{{ url('admin/book') }}">All Books</a>
+                                </span>
+                            </h5>
 
-                            @if( !empty($user) )
+                            @if( !empty($model) )
 
                             <div class="form-panel">
                             
-                                <form class="row g-3" method="POST" action="{{ url('admin/user/' . $user->id) }}">
+                                <form class="row g-3" method="POST" action="{{ url('admin/book/' . $model->id) }}">
 
                                     @csrf
 
                                     @method('PATCH')
 
+                                    <!-- Title (Bangla) -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="name" class="form-label">Name <x-form.field-required /></label>
+                                        <label for="title_bn" class="form-label">Title (Bangla) <x-form.field-required /></label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="name" type="text" :value="old('name', $user->name)" required />
+                                            <x-form.input name="title_bn" type="text" required :value="old('title_bn', $model->title_bn)"/>
                                         </div>
 
-                                        <x-form.error name="name"/>
+                                        <x-form.error name="title_bn"/>
                                     </div>
 
+                                    <!-- Title (English) -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="name_bn" class="form-label">Name (In Bangla, optional)</label>
+                                        <label for="title_en" class="form-label">Title (English)</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="name_bn" type="text" :value="old('name_bn', $user->name_bn)" />
+                                            <x-form.input name="title_en" type="text" :value="old('title_en', $model->title_en)"/>
                                         </div>
 
-                                        <x-form.error name="name_bn"/>
+                                        <x-form.error name="title_en"/>
                                     </div>
 
+                                    <!-- Slug -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="avatar" class="form-label">Avatar ID (optional)</label>
+                                        <label for="slug" class="form-label">Slug</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="avatar" type="text" :value="old('avatar', $user->avatar)" />
+                                            <x-form.textarea name="slug" rows=1>{{  old('slug', $model->slug) }}</x-form.textarea>
                                         </div>
 
-                                        <x-form.error name="avatar"/>
+                                        <x-form.error name="slug"/>
                                     </div>
 
+                                    <!-- Publisher -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="mobile" class="form-label">Mobile <x-form.field-required/></label>
+                                        <label class="form-label">Select Publisher <x-form.field-required/></label>
+                                        <div class="input-group">
+
+                                            <select name="publisher_id" class="form-select select2" aria-label="Select Publisher">
+
+                                                @foreach( \App\Models\Publisher::all() as $publisher )
+
+                                                <option value="{{ $publisher->id }}" <?php echo old("publisher_id", $model->publisher_id) == $publisher->id ? "selected" : "" ?>>{{ $publisher->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="publisher_id"/>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Author -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="form-label">Select Author <x-form.field-required/></label>
+                                        <div class="input-group">
+
+                                            <select name="author[]" class="form-select select2" aria-label="Select Author" multiple>
+
+                                                <option value="">Selec Author</option>
+
+                                                @foreach( \App\Models\Author::all() as $author )
+
+                                                <option value="{{ $author->id }}" <?php echo multi_array_search($author->id, $model->authors->toArray()) ? "selected" : "" ?>>{{ $author->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="author[]"/>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Category -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="form-label">Select Category <x-form.field-required/></label>
+                                        <div class="input-group">
+
+                                            <select name="category[]" class="form-select select2" aria-label="Select Category" multiple>
+
+                                                <option value="">Selec Category</option>
+
+                                                @foreach( \App\Models\Category::all() as $category )
+
+                                                <option value="{{ $category->id }}"  <?php echo multi_array_search($category->id, $model->categories->toArray()) ? "selected" : "" ?>>{{ $category->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="category[]"/>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Printed Price -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="printed_price" class="form-label">Printed Price</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="mobile" type="text" :value="old('mobile', $user->mobile)" required />
+                                            <x-form.input name="printed_price" type="number" :value="old('printed_price', $model->printed_price)"/>
                                         </div>
 
-                                        <x-form.error name="mobile"/>
+                                        <x-form.error name="printed_price"/>
                                     </div>
 
+                                    <!-- Purchase Price -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="email" class="form-label">Email <x-form.field-required/></label>
+                                        <label for="purchase_price" class="form-label">Purchase Price</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="email" type="email" :value="old('email', $user->email)" required />
+                                            <x-form.input name="purchase_price" type="number" :value="old('purchase_price', $model->purchase_price)" />
                                         </div>
 
-                                        <x-form.error name="email"/>
+                                        <x-form.error name="purchase_price"/>
                                     </div>
 
+                                    <!-- Pages -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="username" class="form-label">Username <x-form.field-required/></label>
+                                        <label for="pages" class="form-label">Pages</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="username" type="text" :value="old('username', $user->username)" required />
+                                            <x-form.input name="pages" type="number" :value="old('pages', $model->pages)"/>
                                         </div>
 
-                                        <x-form.error name="username"/>
+                                        <x-form.error name="pages"/>
                                     </div>
 
+                                    <!-- Thumbnail Image -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="password" class="form-label">Password <x-form.field-required/></label>
-                                        <x-form.input name="password" type="password"/>
-                                        <x-form.error name="password"/>
+                                        <label for="image" class="form-label">Thumbnail Image</label>
+                                        <div class="input-group has-validation">
+                                            <x-form.input name="image" type="text" :value="old('image', $model->image)"/>
+                                        </div>
+
+                                        <x-form.error name="image"/>
                                     </div>
 
+                                    <!-- Entry Number -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="password_confirmation" class="form-label">Confirm Password <x-form.field-required/></label>
-                                        <x-form.input name="password_confirmation" type="password"/>
-                                        <x-form.error name="password_confirmation"/>
+                                        <label for="entry_no" class="form-label">Entry / Index Number</label>
+                                        <div class="input-group has-validation">
+                                            <x-form.input name="entry_no" type="number" :value="old('entry_no', $model->entry_no)"/>
+                                        </div>
+
+                                        <x-form.error name="entry_no"/>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-12 align-bottom">
-                                        <div class="row mb-3">
-                                            <label class="col-sm-4 form-label">Select Role <x-form.field-required/></label>
-                                            <div class="col-sm-8">
-                                                <select name="role" class="form-select" aria-label="Select Role">
-                                                    <option value="">Selec Appropriate Role</option>
-                                                    <option value="user" <?php echo old("role", $user->role) == 'user' ? "selected" : "" ?>>User</option>
-                                                    <option value="administrator" <?php echo old("role", $user->role) == 'administrator' ? "selected" : "" ?>>Administrator</option>
-                                                </select>
+                                    <!-- Entry Date -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="entry_date" class="form-label">Entry / Index Date</label>
+                                        <div class="input-group has-validation">
+                                            <x-form.input name="entry_date" type="date" :value="old('entry_date', $model->entry_date)" />
+                                        </div>
 
-                                                <x-form.error name="role"/>
+                                        <x-form.error name="entry_date"/>
+                                    </div>
+                                    
+                                    <!-- Collection Method -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="form-label">Collection Method <x-form.field-required/></label>
+                                        <div class="input-group">
 
+                                            <select name="collection_method_id" class="form-select" aria-label="Select Collection Method">
+
+                                                <option value="">Selec Collection Method</option>
+
+                                                @foreach( \App\Models\CollectionMethod::all() as $cm )
+
+                                                <option value="{{ $cm->id }}" <?php echo old("collection_method_id", $model->collection_method_id) == $cm->id ? "selected" : "" ?>>{{ $cm->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="collection_method_id"/>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Storage -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="form-label">Storage Location <x-form.field-required/></label>
+                                        <div class="input-group">
+
+                                            <select name="storage_id" class="form-select select2" aria-label="Select Storage Location">
+
+                                                <option value="">Selec Storage Location</option>
+
+                                                @foreach( \App\Models\Storage::all() as $storage )
+
+                                                <option value="{{ $storage->id }}" <?php echo old("storage_id", $model->storage_id) == $storage->id ? "selected" : "" ?>>{{ $storage->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="storage_id"/>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- State/Status -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <label class="form-label">Current State / Status <x-form.field-required/></label>
+                                        <div class="input-group">
+
+                                            <select name="state_id" class="form-select" aria-label="Select Storage Location">
+
+                                                <option value="">Selec Storage Location</option>
+
+                                                @foreach( \App\Models\State::all() as $state )
+
+                                                <option value="{{ $state->id }}" <?php echo old("state_id", $model->state_id) == $state->id ? "selected" : "" ?>>{{ $state->title_bn }}</option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                            <x-form.error name="state_id"/>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Recommendation -->
+                                    <div class="col-md-6 col-sm-12">
+                                        <fieldset class="row mb-3">
+                                            <legend class="col-form-label pt-0 mb-2">Recommendation</legend>
+                                            <div class="input-group">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">    
+                                                        <input class="form-check-input" 
+                                                            type="radio" 
+                                                            name="recommended" 
+                                                            value="0" 
+                                                            {{ $model->recommended == 0 ? 'checked' : '' }}
+                                                        >
+                                                        Not Yet Set
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-5">
+                                                    <label class="form-check-label">    
+                                                        <input class="form-check-input" 
+                                                            type="radio" 
+                                                            name="recommended" 
+                                                            value="1"
+                                                            {{ $model->recommended == 1 ? 'checked' : '' }}
+                                                        >
+                                                        Recommended
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-5">
+                                                    <label class="form-check-label">    
+                                                        <input class="form-check-input" 
+                                                            type="radio" 
+                                                            name="recommended" 
+                                                            value="2"
+                                                            {{ $model->recommended == 2 ? 'checked' : '' }}
+                                                        >
+                                                        Not Recommended
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </fieldset>
                                     </div>
 
+                                    <!-- Notes -->
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="notes" class="form-label">Notes</label>
+                                        <div class="input-group has-validation">
+                                            <x-form.textarea name="notes" rows=3>{{  old('notes', $model->notes) }}</x-form.textarea>
+                                        </div>
+
+                                        <x-form.error name="notes"/>
+                                    </div>
+
+                                    <!-- End of Input Fields -->
+
+                                    <div class="col-md-12 col-sm-12 mt-2">
                                         <p class="text-info m-0">Note: Fields marked with <x-form.field-required/> are required.</p>
                                     </div>
 
                                     <div class="col-md-12 col-sm-12">
                                         <button class="btn btn-sm btn-warning w-auto" type="submit">Update</button> &nbsp;
-                                        <a class="btn btn-sm btn-secondary" href="{{ url('admin/user') }}">Back to All Users</a>
+                                        <a class="btn btn-sm btn-secondary" href="{{ url('admin/book/' . $model->id) }}">View</a> &nbsp;
+                                        <a class="btn btn-sm btn-primary" href="{{ url('admin/book') }}">Back to All Books</a>
                                     </div>
                                     
                                 </form>

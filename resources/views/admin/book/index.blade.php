@@ -32,8 +32,9 @@
                                             <th scope="col">Name (Bn)</th>
                                             <th scope="col">Author</th>
                                             <th scope="col">Publisher</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Collection Date</th>
+                                            <th scope="col" class="text-center">Price</th>
+                                            <th scope="col" class="text-center">Entry No</th>
+                                            <th scope="col" class="text-center">Collection Date</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -61,9 +62,14 @@
                                                         -
                                                     @endif
                                                 </td>
-                                                <td>{{ $book->publisher->title_bn }}</td>
-                                                <td>{{ convertEnToBnNumber($book->purchase_price ?? "-") }}</td>
-                                                <td>{{ date("d-m-Y", strtotime($book->entry_date)) }}</td>
+                                                <td>
+                                                    <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
+                                                        {{ $book->publisher->title_bn }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">{{ convertEnToBnNumber($book->purchase_price ?? "-") }}</td>
+                                                <td class="text-center">{{ convertEnToBnNumber($book->entry_no) }}</td>
+                                                <td class="text-center">{{ date("d-m-Y", strtotime($book->entry_date)) }}</td>
                                                 <td>
 
                                                     <x-action-buttons model="book" id="{{ $book->id }}"/>

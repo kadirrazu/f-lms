@@ -22,7 +22,7 @@
                                 </span>
                             </h5>
 
-                            <div class="form-panel" x-data="{ title_en : '' }" >
+                            <div class="form-panel" x-data="{ title_en : '<?php echo old('title_en', '') ?>' }" >
                             
                                 <form class="row g-3" method="POST" action="{{ url('admin/book') }}">
 
@@ -65,7 +65,7 @@
                                         <label class="form-label">Select Publisher <x-form.field-required/></label>
                                         <div class="input-group">
 
-                                            <select name="publisher_id" class="form-select" aria-label="Select Publisher">
+                                            <select name="publisher_id" class="form-select select2" aria-label="Select Publisher">
 
                                                 <option value="">Selec Publisher</option>
 
@@ -87,13 +87,13 @@
                                         <label class="form-label">Select Author <x-form.field-required/></label>
                                         <div class="input-group">
 
-                                            <select name="author[]" class="form-select" aria-label="Select Author" multiple>
+                                            <select name="author[]" class="form-select select2" aria-label="Select Author" multiple>
 
                                                 <option value="">Selec Author</option>
 
                                                 @foreach( \App\Models\Author::all() as $author )
 
-                                                <option value="{{ $author->id }}" <?php echo old("author") == $author->id ? "selected" : "" ?>>{{ $author->title_bn }}</option>
+                                                <option value="{{ $author->id }}" <?php echo in_array( $author->id, old("author") ?? [] ) ? "selected" : "" ?>>{{ $author->title_bn }}</option>
 
                                                 @endforeach
 
@@ -109,13 +109,13 @@
                                         <label class="form-label">Select Category <x-form.field-required/></label>
                                         <div class="input-group">
 
-                                            <select name="category[]" class="form-select" aria-label="Select Category" multiple>
+                                            <select name="category[]" class="form-select select2" aria-label="Select Category" multiple>
 
                                                 <option value="">Selec Category</option>
 
                                                 @foreach( \App\Models\Category::all() as $category )
 
-                                                <option value="{{ $category->id }}" <?php echo old("category") == $category->id ? "selected" : "" ?>>{{ $category->title_bn }}</option>
+                                                <option value="{{ $category->id }}" <?php echo in_array( $category->id, old("category") ?? [] ) ? "selected" : "" ?>>{{ $category->title_bn }}</option>
 
                                                 @endforeach
 
@@ -215,7 +215,7 @@
                                         <label class="form-label">Storage Location <x-form.field-required/></label>
                                         <div class="input-group">
 
-                                            <select name="storage_id" class="form-select" aria-label="Select Storage Location">
+                                            <select name="storage_id" class="form-select select2" aria-label="Select Storage Location">
 
                                                 <option value="">Selec Storage Location</option>
 
@@ -261,19 +261,19 @@
                                             <div class="input-group">
                                                 <div class="form-check">
                                                     <label class="form-check-label">    
-                                                        <input class="form-check-input" type="radio" name="recommended" value="0" checked>
+                                                        <input class="form-check-input" type="radio" name="recommended" value="0" <?php echo old("recommended", 0) == 0 ? "checked" : "" ?>>
                                                         Not Yet Set
                                                     </label>
                                                 </div>
                                                 <div class="form-check ms-5">
                                                     <label class="form-check-label">    
-                                                        <input class="form-check-input" type="radio" name="recommended" value="1">
+                                                        <input class="form-check-input" type="radio" name="recommended" value="1" <?php echo old("recommended") == 1 ? "checked" : "" ?>>
                                                         Recommended
                                                     </label>
                                                 </div>
                                                 <div class="form-check ms-5">
                                                     <label class="form-check-label">    
-                                                        <input class="form-check-input" type="radio" name="recommended" value="2">
+                                                        <input class="form-check-input" type="radio" name="recommended" value="2" <?php echo old("recommended") == 2 ? "checked" : "" ?>>
                                                         Not Recommended
                                                     </label>
                                                 </div>
@@ -285,7 +285,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <label for="notes" class="form-label">Notes</label>
                                         <div class="input-group has-validation">
-                                            <x-form.textarea name="notes" rows=3/>
+                                            <x-form.textarea name="notes" rows=3>{{  old('notes') }}</x-form.textarea>
                                         </div>
 
                                         <x-form.error name="notes"/>
@@ -316,5 +316,7 @@
         </div> <!-- End of .row -->
 
     </section> <!-- End of .section wrapper -->
+
+    <script src="https://res.cloudinary.com/dotvbcgs2/raw/upload/v1611869793/alpasearch.js"></script>
 
 </x-layout>

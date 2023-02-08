@@ -16,4 +16,17 @@ if (! function_exists('convertEnToBnNumber'))
         return str_replace($english_numsets, $bangla_numsets, $input);
     }
 }
+
+
+if (! function_exists('multi_array_search')) 
+{
+    function multi_array_search($search_for, $search_in) {
+        foreach ($search_in as $element) {
+            if ( ($element['id'] === $search_for) ){
+                return true;
+            }
+        }
+        return false;
+    }
+}
   

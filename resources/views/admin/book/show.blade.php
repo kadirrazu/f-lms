@@ -139,6 +139,14 @@
                                     <th>Notes</th>
                                     <td>{{ $model->notes ?? '-' }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Entry Created By</th>
+                                    <td>{{ $model->createdBy->name ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Updated By</th>
+                                    <td>{{ $model->updatedBy->name ?? '-' }}</td>
+                                </tr>
                             </table>
                             
                             <a class="btn btn-sm btn-success" href="{{ url('admin/book') }}">Back to All Books</a> &nbsp;
