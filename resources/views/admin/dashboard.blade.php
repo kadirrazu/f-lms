@@ -4,6 +4,12 @@
     <h1>Dashboard</h1>
     </div><!-- End Page Title -->
 
+    @php
+
+    $allBooks = \App\Models\Book::with('authors')->get();
+
+    @endphp
+
     <section class="section dashboard">
 
         <div class="row">
@@ -23,7 +29,7 @@
                                     <i class="bi bi-book-half"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ count($allBooks) }}</h6>
                                 </div>
                             </div>
 
@@ -42,7 +48,7 @@
                                     <i class="bi bi-person"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ \App\Models\AuthorBook::select('author_id')->distinct()->get()->count() }}</h6>
                                 </div>
                             </div>
                             
@@ -61,7 +67,7 @@
                                     <i class="bi bi-tags"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ \App\Models\BookCategory::select('category_id')->distinct()->get()->count() }}</h6>
                                 </div>
                             </div>
                             
@@ -80,7 +86,7 @@
                                     <i class="bi bi-cash"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>{{ convertEnToBnNumber(145) }}</h6>
+                                    <h6>{{ $allBooks->sum('purchase_price') }}</h6>
                                 </div>
                             </div>
                             
@@ -99,7 +105,7 @@
                                     <i class="bi bi-file-earmark-word"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ $allBooks->sum('pages') }}</h6>
                                 </div>
                             </div>
                             
@@ -118,7 +124,7 @@
                                     <i class="bi bi-clipboard-check"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>145</h6>
+                                    <h6>{{ \App\Models\Book::where('recommended', 2)->count() }}</h6>
                                 </div>
                             </div>
                             
@@ -130,54 +136,64 @@
                 <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
-                    <h5 class="card-title">Recent Purchase <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Purchase <span>| Last 10 Purchase</span></h5>
 
                     <table class="table table-borderless datatable">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Category</th>
-                        </tr>
+                            <tr>
+                                <th scope="col" class="text-center">Entry No</th>
+                                <th scope="col" class="text-center">Collection Date</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col" class="text-center">Purchase Price</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row"><a href="#">#2457</a></th>
-                            <td>Brandon Jacob</td>
-                            <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                            <td>$64</td>
-                            <td><span class="badge bg-success">Approved</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">#2147</a></th>
-                            <td>Bridie Kessler</td>
-                            <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                            <td>$47</td>
-                            <td><span class="badge bg-warning">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">#2049</a></th>
-                            <td>Ashleigh Langosh</td>
-                            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                            <td>$147</td>
-                            <td><span class="badge bg-success">Approved</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">#2644</a></th>
-                            <td>Angus Grady</td>
-                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                            <td>$67</td>
-                            <td><span class="badge bg-danger">Rejected</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a href="#">#2644</a></th>
-                            <td>Raheem Lehner</td>
-                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                            <td>$165</td>
-                            <td><span class="badge bg-success">Approved</span></td>
-                        </tr>
+
+                            @php
+
+                                $books = \App\Models\Book::with('authors')->with('categories')->orderBy('entry_no', 'desc')->take(10)->get();
+
+                            @endphp
+
+                            @foreach( $books as $book )
+
+                            <tr>
+                                <td scope="col" class="text-center">
+                                    <a href="{{ url( 'admin/book/' . $book->id ) }}">
+                                        {{ convertEnToBnNumber( $book->entry_no ) }}
+                                    </a>
+                                </td>
+                                <td scope="col" class="text-center">
+                                    {{ convertEnToBnNumber( date("d-m-Y", strtotime($book->entry_date)) ) }}
+                                </td>
+                                <td scope="col">
+                                    <a href="{{ url( 'admin/book/' . $book->id ) }}">
+                                        {{ $book->title_bn }}
+                                    </a>
+                                </td>
+                                <td scope="col">
+                                    @if(count($book->authors) > 0)
+                                        @foreach($book->authors as $author)
+                                        <a href="{{ url('admin/search-author/' . $author->id) }}">
+                                            {{ $author->title_bn }}
+                                        </a>
+                                        @endforeach
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td scope="col">
+                                    <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
+                                        {{ $book->publisher->title_bn }}
+                                    </a>
+                                </td>
+                                <td scope="col" class="text-center">{{ convertEnToBnNumber( $book->purchase_price ) }}</td>
+                            </tr>
+
+                            @endforeach
+                        
                         </tbody>
                     </table>
 
@@ -196,41 +212,40 @@
             <div class="card">
 
                 <div class="card-body">
-                <h5 class="card-title">Recently Read <span>| Last 10 Books</span></h5>
+                <h5 class="card-title">Recently Read <span>| Last 15 Books</span></h5>
 
                 <div class="activity">
 
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">10 Jun, 2022</div>
-                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                    <div class="activity-content">
-                        মহুয়ার সংসার (সিজার ভৌমিক)
-                    </div>
-                    </div><!-- End activity item-->
+                    <?php
 
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">11 Oct, 2022</div>
-                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                    <div class="activity-content">
-                        All Golder Sky (Herth Clev)
-                    </div>
-                    </div><!-- End activity item-->
+                        $reads = \App\Models\Read::orderBy('end_date', 'desc')->take(15)->get();
 
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">03 Nov, 2022</div>
-                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                    <div class="activity-content">
-                        আরণ্যক (বিভূতিভূষণ বন্দোপাধ্যায়)
-                    </div>
-                    </div><!-- End activity item-->
+                    ?>
 
-                    <div class="activity-item d-flex">
-                    <div class="activite-label">23 Nov, 2022</div>
-                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                    <div class="activity-content">
-                        যতোনের বাধন (মিলি আক্তার)
-                    </div>
-                    </div><!-- End activity item-->
+                    @if( $reads->count() > 0 )
+
+                        @foreach( $reads as $read )
+
+                        <div class="activity-item d-flex">
+                            <div class="activite-label me-2">
+                                {{ convertEnToBnNumber( date("d-m-Y", strtotime($read->end_date)) ) }}
+                            </div>
+                            <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                            <div class="activity-content ms-2">
+                                {{ $read->book->title_bn }}
+                                <span class="fst-italic" style="font-size: 12px;">
+                                (
+                                    {{ convertEnToBnNumber( date("d-m-Y", strtotime($read->start_date)) ) .' থেকে '. convertEnToBnNumber( date("d-m-Y", strtotime($read->end_date)) ) }}
+                                )
+                                </span>
+                            </div>
+                        </div><!-- End activity item-->
+
+                        @endforeach
+
+                    @else
+                        <p class="fst-italic text-danger">Reading list is empty!</p>
+                    @endif
 
                 </div>
 

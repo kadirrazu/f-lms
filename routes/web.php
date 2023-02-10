@@ -11,6 +11,8 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReadController;
+use App\Http\Controllers\AdminUtilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,9 @@ Route::post('/registration', [UserController::class, 'processRegistration']);
 
 //Dashboard and Admin Area Routes
 Route::prefix('admin')->group(function () {
+
     Route::middleware('administrator')->group(function(){
+        
         Route::get('/logout', [SessionController::class, 'logout']);
         Route::get('/dashboard', [SessionController::class, 'dashboard']);
 
@@ -50,7 +54,17 @@ Route::prefix('admin')->group(function () {
         Route::resource('/category', CategoryController::class);
         Route::resource('/author', AuthorController::class);
         Route::resource('/book', BookController::class);
+        Route::resource('/reading-list', ReadController::class)->except([
+            'create'
+        ]);
+
+        Route::get('/reading-list-add/{book_id?}', [ReadController::class, 'create']);
+
+        Route::get('/utility', [AdminUtilityController::class, 'index']);
+        Route::get('/utility/delete-unused-images', [AdminUtilityController::class, 'deleteUnusedImages']);
+
     });
+
 });
 
 

@@ -26,6 +26,11 @@
         </a>
       </li>
       <li>
+        <a href="{{ url('admin/reading-list') }}">
+          <i class="bi bi-circle"></i><span>Reading List</span>
+        </a>
+      </li>
+      <li>
         <a href="{{ url('admin/utility/export') }}">
           <i class="bi bi-circle"></i><span>Export</span>
         </a>
@@ -92,6 +97,13 @@
       </li>
     </ul>
   </li><!-- End Nav Item -->
+
+  <li class="nav-item {{ request()->is('admin/utility') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/utility') }}">
+      <i class="bi bi-sliders2-vertical"></i>
+      <span>Utility</span>
+    </a>
+  </li><!-- End Blank Page Nav -->
 
   <li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
     <a class="nav-link collapsed" href="{{ url('admin/setting') }}">

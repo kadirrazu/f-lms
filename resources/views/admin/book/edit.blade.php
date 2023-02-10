@@ -26,7 +26,7 @@
 
                             <div class="form-panel">
                             
-                                <form class="row g-3" method="POST" action="{{ url('admin/book/' . $model->id) }}">
+                                <form class="row g-3" method="POST" action="{{ url('admin/book/' . $model->id) }}" enctype="multipart/form-data">
 
                                     @csrf
 
@@ -158,12 +158,30 @@
 
                                     <!-- Thumbnail Image -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="image" class="form-label">Thumbnail Image</label>
-                                        <div class="input-group has-validation">
-                                            <x-form.input name="image" type="text" :value="old('image', $model->image)"/>
-                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
 
-                                        <x-form.error name="image"/>
+                                                <label for="image" class="form-label">Current Thumbnail Image</label>
+                                                <div class="input-group has-validation">
+
+                                                    @if( $model->image ?? false )
+                                                        <img src="{{ asset( 'storage/' . $model->image ) }}" alt="Book Thumbnail" height="75">
+                                                    @else
+                                                        <span class="text-danger fst-italic">No image is set</span>
+                                                    @endif
+                                                    
+                                                </div>
+
+                                            </div>
+                                            <div class="col-8">
+                                                <label for="image_updated" class="form-label">New Thumbnail Image</label>
+                                                <div class="input-group has-validation">
+                                                    <x-form.input name="image" type="file" :value="old('image', $model->image)" />
+
+                                                    <x-form.error name="image"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!-- Entry Number -->

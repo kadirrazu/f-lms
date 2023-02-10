@@ -31,7 +31,8 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name (Bangla)</th>
                                             <th scope="col">Name (English)</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col" class="text-center">Book Count</th>
+                                            <th scope="col" class="text-center">Status</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -44,7 +45,10 @@
                                             <th scope="row">{{ $count }}</th>
                                             <td>{{ $item->title_bn }}</td>
                                             <td>{{ $item->title_en ?? '-' }}</td>
-                                            <td>
+                                            <td class="text-center">
+                                                {{ \App\Models\BookCategory::where('category_id', $item->id)->distinct()->get()->count() }}
+                                            </td>
+                                            <td class="text-center">
                                                 @if($item->status == 1 )
                                                     <span class="badge bg-success">Active</span>
                                                 @else

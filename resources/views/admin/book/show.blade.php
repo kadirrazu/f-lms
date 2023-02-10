@@ -89,7 +89,13 @@
                                 </tr>
                                 <tr>
                                     <th>Thumbnail</th>
-                                    <td>{{ $model->image ?? '-' }}</td>
+                                    <td>
+                                        @if( $model->image ?? false )
+                                            <img src="{{ asset( 'storage/' . $model->image ) }}" alt="Book Thumbnail" width="150">
+                                        @else
+                                            <span class="text-danger fst-italic">No image is set</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Collection Method</th>
@@ -150,7 +156,8 @@
                             </table>
                             
                             <a class="btn btn-sm btn-success" href="{{ url('admin/book') }}">Back to All Books</a> &nbsp;
-                            <a class="btn btn-sm btn-warning" href="{{ url('admin/book/' . $model->id . '/edit') }}">Edit</a>
+                            <a class="btn btn-sm btn-warning" href="{{ url('admin/book/' . $model->id . '/edit') }}">Edit</a> &nbsp;
+                            <a class="btn btn-sm btn-info" href="{{ url('admin/reading-list-add/?book_id=' . $model->id) }}">Add to Reading List</a>
 
                             @else
 

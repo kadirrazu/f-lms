@@ -18,7 +18,7 @@
                             <h5 class="card-title">
                                 {{ $page_subtitle ?? ""}}
                                 | <span>
-                                    <a href="{{ url('admin/author/create') }}">Add New Author</a>
+                                    <a href="{{ url('admin/reading-list-add') }}">Add New Book in Reading List</a>
                                 </span>
                             </h5>
                             
@@ -29,10 +29,12 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Name (Bangla)</th>
-                                            <th scope="col">Name (English)</th>
-                                            <th scope="col" class="text-center">Book Count</th>
-                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col">Book Title</th>
+                                            <th scope="col">Reader</th>
+                                            <th scope="col" class="text-center">Start Date</th>
+                                            <th scope="col" class="text-center">End Date</th>
+                                            <th scope="col" class="text-center">Recommendation</th>
+                                            <th scope="col" class="text-center">Comments</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -43,21 +45,27 @@
                                         @foreach( $models as $item )
                                         <tr>
                                             <th scope="row">{{ $count }}</th>
-                                            <td>{{ $item->title_bn }}</td>
-                                            <td>{{ $item->title_en ?? '-' }}</td>
+                                            <td>{{ $item->book->title_bn }}</td>
+                                            <td>{{ $item->user->name ?? '-' }}</td>
                                             <td class="text-center">
-                                                {{ \App\Models\AuthorBook::where('author_id', $item->id)->distinct()->get()->count() }}
+                                                {{ $item->start_date ?? '-' }}
                                             </td>
                                             <td class="text-center">
-                                                @if($item->status == 1 )
-                                                    <span class="badge bg-success">Active</span>
+                                                {{ $item->end_date ?? '-' }}
+                                            </td>
+                                            <td class="text-center">
+                                                @if( $item->reader_recommended == 0 )
+                                                    <span class="badge bg-warning">Yet to Recommend</span>
+                                                @elseif( $item->reader_recommended == 1 )
+                                                    <span class="badge bg-success">Recommended</span>
                                                 @else
-                                                    <span class="badge bg-danger">Inactive</span>
+                                                    <span class="badge bg-danger">Not Recommended</span>
                                                 @endif
                                             </td>
+                                            <td class="fst-italic">{{ $item->comments ?? '-' }}</td>
                                             <td>
 
-                                                <x-action-buttons model="author" id="{{ $item->id }}"/>
+                                                <x-action-buttons model="reading-list" id="{{ $item->id }}"/>
                                                 
                                             </td>
                                         </tr>

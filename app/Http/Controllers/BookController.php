@@ -46,7 +46,7 @@ class BookController extends Controller
             'printed_price' => 'nullable|numeric',
             'purchase_price' => 'nullable|numeric',
             'pages' => 'nullable|numeric',
-            'image' => 'nullable',
+            'image' => 'nullable|image|max:1536',
             'collection_method_id' => 'required|numeric',
             'entry_no' => ['nullable', Rule::unique('books', 'entry_no')],
             'entry_date' => 'nullable|date',
@@ -59,7 +59,11 @@ class BookController extends Controller
         $attributes['created_by'] = auth()->user()->id;
 
         $authors = $request->input('author');
-        $categories = $request->input('category');     
+        $categories = $request->input('category');
+        
+        $imagePath = $request->file('image')->store('thumbnails');
+
+        $attributes['image'] = $imagePath;
 
         $book = Book::create( $attributes );
 
@@ -103,6 +107,7 @@ class BookController extends Controller
             'purchase_price' => 'nullable|numeric',
             'pages' => 'nullable|numeric',
             'image' => 'nullable',
+            'image_updated' => 'nullable|image|max:1536',
             'collection_method_id' => 'required|numeric',
             'entry_no' => ['nullable', Rule::unique('books', 'entry_no')->ignore($book)],
             'entry_date' => 'nullable|date',
@@ -113,6 +118,10 @@ class BookController extends Controller
         ]);
 
         $attributes['updated_by'] = auth()->user()->id;
+
+        if ($attributes['image'] ?? false) {
+            $attributes['image'] = request()->file('image')->store('thumbnails');
+        }
 
         $authors = request()->input('author');
         $categories = request()->input('category');

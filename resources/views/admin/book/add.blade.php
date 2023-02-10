@@ -24,7 +24,7 @@
 
                             <div class="form-panel" x-data="{ title_en : '<?php echo old('title_en', '') ?>' }" >
                             
-                                <form class="row g-3" method="POST" action="{{ url('admin/book') }}">
+                                <form class="row g-3" method="POST" action="{{ url('admin/book') }}" enctype="multipart/form-data">
 
                                     @csrf
 
@@ -160,7 +160,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <label for="image" class="form-label">Thumbnail Image</label>
                                         <div class="input-group has-validation">
-                                            <x-form.input name="image" type="text" />
+                                            <x-form.input name="image" type="file" />
                                         </div>
 
                                         <x-form.error name="image"/>
