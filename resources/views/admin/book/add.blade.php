@@ -22,7 +22,47 @@
                                 </span>
                             </h5>
 
-                            <div class="form-panel" x-data="{ title_en : '<?php echo old('title_en', '') ?>' }" >
+                            <div class="form-panel" x-data="{ 
+                                title_en : '<?php echo old('title_en', '') ?>',
+                                publisherQuery : '', 
+                                authorQuery : '', 
+                                publishers : '',
+                                authors : [],
+                                async publisherQuerySubmit(){
+
+                                    this.publishers = await(
+                                        
+                                        await fetch('/admin/publisher-search', {
+                                            method : 'POST',
+                                            headers : {
+                                                'Content-type' : 'application/json',
+                                                'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content,
+                                            },
+                                            body : JSON.stringify({ 
+                                                query : this.publisherQuery 
+                                            }),
+                                        })).json();
+
+                                }, 
+                                async authorQuerySubmit(){
+
+                                    this.authors = await(
+                                        
+                                        await fetch('/admin/author-search', {
+                                            method : 'POST',
+                                            headers : {
+                                                'Content-type' : 'application/json',
+                                                'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content,
+                                            },
+                                            body : JSON.stringify({ 
+                                                query : this.authorQuery 
+                                            }),
+                                        })).json();
+
+                                }, 
+                            }" >
+
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
                             
                                 <form class="row g-3" method="POST" action="{{ url('admin/book') }}" enctype="multipart/form-data">
 
@@ -65,15 +105,15 @@
                                         <label class="form-label">Select Publisher <x-form.field-required/></label>
                                         <div class="input-group">
 
-                                            <select name="publisher_id" class="form-select select2" aria-label="Select Publisher">
+                                            <input class="form-control" type="text" x-model="publisherQuery" placeholder="Search Publisher" @input.debounce="publisherQuerySubmit">
+
+                                            <select name="publisher_id" class="form-select" aria-label="Select Publisher">
 
                                                 <option value="">Selec Publisher</option>
 
-                                                @foreach( \App\Models\Publisher::all() as $publisher )
-
-                                                <option value="{{ $publisher->id }}" <?php echo old("publisher_id") == $publisher->id ? "selected" : "" ?>>{{ $publisher->title_bn }}</option>
-
-                                                @endforeach
+                                                <template x-for="publisher in publishers">
+                                                    <option x-bind:value="publisher.id" x-text="publisher.title_bn"></option>
+                                                </template>
 
                                             </select>
 
@@ -84,18 +124,23 @@
 
                                     <!-- Author -->
                                     <div class="col-md-6 col-sm-12">
-                                        <label class="form-label">Select Author <x-form.field-required/></label>
+                                        <label class="form-label">
+                                            Select Author 
+                                            <x-form.field-required/>
+                                            <span class="text-info fst-italic d-block my-1">Hint: Type '+' to combine multiple search query in results.</span>
+                                        </label>
+
+                                        <input class="form-control mb-2" type="text" x-model="authorQuery" placeholder="Search Author" @input.debounce="authorQuerySubmit">
+
                                         <div class="input-group">
 
-                                            <select name="author[]" class="form-select select2" aria-label="Select Author" multiple>
+                                            <select name="author[]" class="form-select" aria-label="Select Author" multiple>
 
-                                                <option value="">Selec Author</option>
+                                                <option value="">Selec Author(s)</option>
 
-                                                @foreach( \App\Models\Author::all() as $author )
-
-                                                <option value="{{ $author->id }}" <?php echo in_array( $author->id, old("author") ?? [] ) ? "selected" : "" ?>>{{ $author->title_bn }}</option>
-
-                                                @endforeach
+                                                <template x-for="author in authors">
+                                                    <option x-bind:value="author.id" x-text="author.title_bn"></option>
+                                                </template>
 
                                             </select>
 

@@ -18,7 +18,7 @@ class BookController extends Controller
     public function index()
     {
         
-        $models = Book::with(['authors', 'categories'])->orderBy('title_bn', 'asc')->paginate(15);
+        $models = Book::with(['authors', 'categories'])->orderBy('title_bn', 'asc')->orderBy('entry_no', 'desc')->paginate(15);
 
         return view('admin.book.index', [
             'page_title' => "All Books",
@@ -145,6 +145,22 @@ class BookController extends Controller
         $book->delete();
 
         return redirect('/admin/book')->with('info', 'Book was deleted!'); 
+    }
+
+    /*Ajax Request using Alpine to Search for Books*/
+    public function ajaxBookSearch(Request $request)
+    {
+        $book = '{}';
+
+        if( $request->post('query') != '' )
+        {
+            $book = Book::where('title_bn', 'like', '%' . $request->post('query') . '%')
+                ->orWhere('title_en', 'like', '%' . $request->post('query') . '%')
+                ->with('authors')
+                ->get();
+        }
+
+        return $book;
     }
 
 }

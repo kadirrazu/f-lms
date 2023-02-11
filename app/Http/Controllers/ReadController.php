@@ -38,7 +38,7 @@ class ReadController extends Controller
 
         $attributes = request()->validate([
             'book_id' => 'required|numeric',
-            'start_date' => 'nullable|date',
+            'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'reader_recommended' => 'nullable|numeric',
             'comments' => 'nullable',
@@ -80,7 +80,7 @@ class ReadController extends Controller
 
         $attributes = request()->validate([
             'book_id' => 'required|numeric',
-            'start_date' => 'nullable|date',
+            'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'reader_recommended' => 'nullable|numeric',
             'comments' => 'nullable',

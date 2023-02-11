@@ -138,7 +138,7 @@
                     <div class="card-body">
                     <h5 class="card-title">Recent Purchase <span>| Last 10 Purchase</span></h5>
 
-                    <table class="table table-borderless datatable">
+                    <table class="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Entry No</th>
@@ -238,6 +238,7 @@
                                     {{ convertEnToBnNumber( date("d-m-Y", strtotime($read->start_date)) ) .' থেকে '. convertEnToBnNumber( date("d-m-Y", strtotime($read->end_date)) ) }}
                                 )
                                 </span>
+                                <p class="badge text-info text-start d-block fw-semibold">by {{ $read->user->name }}</p>
                             </div>
                         </div><!-- End activity item-->
 

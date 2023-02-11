@@ -91,4 +91,19 @@ class PublisherController extends Controller
         return redirect('/admin/publisher')->with('info', 'Publisher was deleted!'); 
     }
 
+    /*Ajax Request using Alpine to Search for Books*/
+    public function ajaxPublisherSearch(Request $request)
+    {
+        $publishers = '{}';
+
+        if( $request->post('query') != '' )
+        {
+            $publishers = Publisher::where('title_bn', 'like', '%' . $request->post('query') . '%')
+                ->orWhere('title_en', 'like', '%' . $request->post('query') . '%')
+                ->get();
+        }
+
+        return $publishers;
+    }
+
 }

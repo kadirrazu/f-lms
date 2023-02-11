@@ -91,4 +91,65 @@ class AuthorController extends Controller
         return redirect('/admin/author')->with('info', 'Author was deleted!'); 
     }
 
+    /*Ajax Request using Alpine to Search for Authors*/
+    public function ajaxAuthorSearch(Request $request)
+    {
+        $authors = [];
+        $queries = [];
+
+        $query = $request->post('query');
+
+        if( $query == '' )
+        {
+            return $authors;
+        }
+
+        if( $query != '' && strpos($query, '+') !== true )
+        {
+            $queries = explode("+", $query);
+
+            foreach( $queries as $query)
+            {
+                if( trim($query) == '' )
+                {
+                    continue;
+                }
+
+                $items = Author::where('title_bn', 'like', '%' . trim($query) . '%')
+                ->orWhere('title_en', 'like', '%' . trim($query) . '%')
+                ->get();
+
+                foreach( $items as $item )
+                {
+                    if( !array_search($item->id, array_column($authors, 'id')) )
+                    {
+                        $authors[] = [
+                            'id' => $item->id,
+                            'title_bn' => $item->title_bn,
+                        ];
+                    }
+                }
+            }
+        }
+        else
+        {
+            $items = Author::where('title_bn', 'like', '%' . $request->post('query') . '%')
+                ->orWhere('title_en', 'like', '%' . $request->post('query') . '%')
+                ->get();
+
+            foreach( $items as $item )
+            {
+                if( !array_search($item->id, array_column($authors, 'id')) )
+                {
+                    $authors[] = [
+                        'id' => $item->id,
+                        'title_bn' => $item->title_bn,
+                    ];
+                }
+            }
+        }
+
+        return $authors;
+    }
+
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReadController;
 use App\Http\Controllers\AdminUtilityController;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,8 +61,15 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/reading-list-add/{book_id?}', [ReadController::class, 'create']);
 
+        Route::post('/book-search', [BookController::class, 'ajaxBookSearch']);
+        Route::post('/publisher-search', [PublisherController::class, 'ajaxPublisherSearch']);
+        Route::post('/author-search', [AuthorController::class, 'ajaxAuthorSearch']);
+
         Route::get('/utility', [AdminUtilityController::class, 'index']);
         Route::get('/utility/delete-unused-images', [AdminUtilityController::class, 'deleteUnusedImages']);
+
+        Route::get('/export', [ExportController::class, 'index']);
+        Route::get('/export/excel', [ExportController::class, 'exportToExcel']);
 
     });
 
