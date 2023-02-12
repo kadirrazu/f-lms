@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         
-        $models = Category::orderBy('title_bn', 'asc')->paginate(15);
+        $models = Category::orderBy('title_bn', 'asc')->get();
 
         return view('admin.category.index', [
             'page_title' => "All Categories",

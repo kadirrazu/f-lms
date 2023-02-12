@@ -12,7 +12,7 @@ class PublisherController extends Controller
     public function index()
     {
         
-        $models = Publisher::orderBy('title_bn', 'asc')->paginate(15);
+        $models = Publisher::orderBy('title_bn', 'asc')->get();
 
         return view('admin.publisher.index', [
             'page_title' => "All Publishers",

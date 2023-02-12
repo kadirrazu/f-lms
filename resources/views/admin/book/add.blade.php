@@ -244,7 +244,7 @@
 
                                                 @foreach( \App\Models\CollectionMethod::all() as $cm )
 
-                                                <option value="{{ $cm->id }}" <?php echo old("collection_method_id") == $cm->id ? "selected" : "" ?>>{{ $cm->title_bn }}</option>
+                                                <option value="{{ $cm->id }}" <?php echo old("collection_method_id", 1) == $cm->id ? "selected" : "" ?>>{{ $cm->title_bn }}</option>
 
                                                 @endforeach
 
@@ -266,7 +266,7 @@
 
                                                 @foreach( \App\Models\Storage::all() as $storage )
 
-                                                <option value="{{ $storage->id }}" <?php echo old("storage_id") == $storage->id ? "selected" : "" ?>>{{ $storage->title_bn }}</option>
+                                                <option value="{{ $storage->id }}" <?php echo old("storage_id", 16) == $storage->id ? "selected" : "" ?>>{{ $storage->title_bn }}</option>
 
                                                 @endforeach
 
@@ -288,7 +288,7 @@
 
                                                 @foreach( \App\Models\State::all() as $state )
 
-                                                <option value="{{ $state->id }}" <?php echo old("state_id") == $state->id ? "selected" : "" ?>>{{ $state->title_bn }}</option>
+                                                <option value="{{ $state->id }}" <?php echo old("state_id", 1) == $state->id ? "selected" : "" ?>>{{ $state->title_bn }}</option>
 
                                                 @endforeach
 

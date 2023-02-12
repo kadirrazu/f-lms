@@ -12,7 +12,7 @@ class AuthorController extends Controller
     public function index()
     {
         
-        $models = Author::orderBy('title_bn', 'asc')->paginate(15);
+        $models = Author::orderBy('title_bn', 'asc')->get();
 
         return view('admin.author.index', [
             'page_title' => "All Authors",

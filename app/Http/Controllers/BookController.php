@@ -60,8 +60,13 @@ class BookController extends Controller
 
         $authors = $request->input('author');
         $categories = $request->input('category');
-        
-        $imagePath = $request->file('image')->store('thumbnails');
+
+        $imagePath = null;
+
+        if( $request->hasFile('image') )
+        {
+            $imagePath = $request->file('image')->store('thumbnails');
+        }
 
         $attributes['image'] = $imagePath;
 
