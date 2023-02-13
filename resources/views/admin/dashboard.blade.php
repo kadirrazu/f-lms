@@ -117,14 +117,14 @@
                 <div class="col-xxl-4 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Recommendations <span>| By Readers</span></h5>
+                            <h5 class="card-title">Recommendations <span>| By Admin</span></h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-clipboard-check"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>{{ \App\Models\Book::where('recommended', 2)->count() }}</h6>
+                                    <h6>{{ \App\Models\Book::where('recommended', 1)->count() }}</h6>
                                 </div>
                             </div>
                             

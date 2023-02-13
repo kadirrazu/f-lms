@@ -62,7 +62,13 @@
                                                     <span class="badge bg-danger">Not Recommended</span>
                                                 @endif
                                             </td>
-                                            <td class="fst-italic">{{ $item->comments ?? '-' }}</td>
+                                            <td class="fst-italic text-center">
+                                                @if( $item->comments != null )
+                                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                                @else
+                                                    <i class="bi bi-clipboard-x text-danger"></i>
+                                                @endif
+                                            </td>
                                             <td>
 
                                                 <x-action-buttons model="reading-list" id="{{ $item->id }}"/>
