@@ -25,13 +25,14 @@
 
                             @if( $models->count() > 0 )
 
-                                <table class="table table-borderless datatable align-middle">
+                                <table class="table table-borderless align-middle">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name (Bn)</th>
                                             <th scope="col">Author</th>
                                             <th scope="col">Publisher</th>
+                                            <th scope="col" class="text-center">Image</th>
                                             <th scope="col" class="text-center">Price</th>
                                             <th scope="col" class="text-center">Entry No</th>
                                             <th scope="col" class="text-center">Collection Date</th>
@@ -62,11 +63,21 @@
                                                         -
                                                     @endif
                                                 </td>
+                                                
                                                 <td>
                                                     <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
                                                         {{ $book->publisher->title_bn }}
                                                     </a>
                                                 </td>
+
+                                                <td class="text-center">
+                                                    @if( $book->image != null )
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    @else
+                                                        <i class="bi bi-clipboard-x text-danger"></i>
+                                                    @endif
+                                                </td>
+
                                                 <td class="text-center">{{ convertEnToBnNumber($book->purchase_price ?? "-") }}</td>
                                                 <td class="text-center">{{ convertEnToBnNumber($book->entry_no) }}</td>
                                                 <td class="text-center">{{ date("d-m-Y", strtotime($book->entry_date)) }}</td>
