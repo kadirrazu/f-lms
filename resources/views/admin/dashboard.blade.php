@@ -232,13 +232,18 @@
                             </div>
                             <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                             <div class="activity-content ms-2">
-                                {{ $read->book->title_bn }}
-                                <span class="fst-italic" style="font-size: 12px;">
-                                (
-                                    {{ convertEnToBnNumber( date("d-m-Y", strtotime($read->start_date)) ) .' থেকে '. convertEnToBnNumber( date("d-m-Y", strtotime($read->end_date)) ) }}
-                                )
+                                <span class="text-primary">
+                                    {{ $read->book->title_bn }}
                                 </span>
-                                <p class="badge text-info text-start d-block fw-semibold">by {{ $read->user->name }}</p>
+                                <span class="fst-italic d-block" style="font-size: 12px;">
+                                ({{ convertEnToBnNumber( date("d-m-Y", strtotime($read->start_date)) ) .' থেকে '. convertEnToBnNumber( date("d-m-Y", strtotime($read->end_date)) ) }})
+                                </span>
+                                <p class="text-start d-block badge text-info">
+                                    <span style="color: #888;">by </span>
+                                    <span class="fw-semibold">
+                                        {{ $read->user->name_bn ?? $read->user->name }}
+                                    </span>
+                                </p>
                             </div>
                         </div><!-- End activity item-->
 
