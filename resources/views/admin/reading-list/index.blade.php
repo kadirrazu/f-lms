@@ -82,8 +82,6 @@
                                     </tbody>
                                 </table>
 
-                                {{ $models->links() }}
-
                             @else
 
                                 <x-items-not-found/>

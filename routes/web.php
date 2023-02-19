@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminSearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/export', [ExportController::class, 'index']);
         Route::get('/export/excel', [ExportController::class, 'exportToExcel']);
+
+        Route::get('/search-author/{id}', [AdminSearchController::class, 'searchAuthorById']);
+        Route::get('/search-publisher/{id}', [AdminSearchController::class, 'searchPublisherById']);
+        Route::post('/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
     });
 

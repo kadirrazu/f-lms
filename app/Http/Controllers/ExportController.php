@@ -16,8 +16,11 @@ class ExportController extends Controller
     public function exportToExcel()
     {
 
-        $timestamp = date("Y-m-d-h:i:s");
-        $filename = 'all-books-'.$timestamp.'.xlsx';
+        // set the default timezone to use.
+        date_default_timezone_set('Asia/Dhaka');
+
+        $timestamp = date("d-m-Y-h:i:s");
+        $filename = 'Exported_Books_List-'.$timestamp.'.xlsx';
 
         return Excel::download(new BookExport, $filename);
 

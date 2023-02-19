@@ -8,11 +8,87 @@
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar">
-  <form class="search-form d-flex align-items-center" method="POST" action="#">
-    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+<div class="search-bar" x-data="{ 
+    
+    searchQuery : '',
+    books : '',
+    showNothingInSearch : false,
+    showResultInSearch : false,
+
+    baseUrl : '<?php echo url('admin/book') ?>',
+
+    async searchQuerySubmit(){
+
+      if(this.searchQuery.trim().length > 2){
+
+        this.books = await(
+            
+            await fetch('/admin/anything-search', {
+                method : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                    'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content,
+                },
+                body : JSON.stringify({ 
+                    query : this.searchQuery 
+                }),
+            })).json();
+
+        if(this.books.length < 1 ){
+            this.showNothingInSearch = true;
+            this.showResultInSearch = false;
+        }
+        else{
+            this.showNothingInSearch = false;
+            this.showResultInSearch = true;
+        }
+
+      }
+      else
+      {
+        this.showNothingInSearch = false;
+        this.showResultInSearch = false;
+      }
+
+    }, 
+
+  }">
+  <form class="search-form d-flex align-items-center" method="POST" action="#" x-on:submit.prevent="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword" x-model="searchQuery" @input.debounce="searchQuerySubmit">
     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
   </form>
+
+  <div class="topbar-search-results position-absolute">
+    
+    <div class="positive-result bg-light p-2 border border-info rounded-bottom" x-show="showResultInSearch" style="display: none;">
+      <ul class="m-0 list-unstyled p-2">
+        <template x-for="book in books">
+          <li>
+            <a x-bind:href=" baseUrl + '/' + book.id">
+              <span x-text="book.title_bn"></span>
+              <p class="fw-sm text-secondary">
+                <template x-for="author in book.authors">
+                    <span x-text="author.title_bn"></span>
+                </template>
+                <span class="s-publisher text-info d-block">
+                  <template x-if="typeof(book.publisher) !== 'undefined'">
+                    <span class="fw-light" x-text="book.publisher.title_bn"></span>
+                  </template>
+                </span>
+              </p>
+            </a>
+          </li>
+        </template>      
+      </ul>
+    </div>
+
+    <p x-show="showNothingInSearch" class="nothing-result text-danger positive-result bg-light p-2 border border-dark rounded-bottom" style="display: none;">
+      Nothing found according to the query.
+    </p>
+
+  </div>
+
 </div><!-- End Search Bar -->
 
 <nav class="header-nav ms-auto">

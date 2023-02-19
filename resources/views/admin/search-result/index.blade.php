@@ -1,7 +1,7 @@
 <x-layout>
 
     <div class="pagetitle">
-        <h1>{{ $page_title ?? "Dashboard"}}</h1>
+        <h1>Search Results</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard db-work-area">
@@ -15,23 +15,22 @@
                     <div class="card recent-sales overflow-auto">
                         <div class="card-body">
 
-                            <h5 class="card-title">
-                                {{ $page_subtitle ?? ""}}
-                                | <span>
-                                    <a href="{{ url('admin/book/create') }}">Add New Book</a>
-                                </span>
+                            <h5 class="card-title fw-normal">
+                                Search Results for 
+                                <span class="fw-bolder text-info text-decoration-underline"><{{ $key->title_bn }}></span> in type
+                                <span class="fw-bolder text-danger text-decoration-underline">{{ $key_type ?? '' }}</span>
                             </h5>
                             
 
                             @if( $models->count() > 0 )
 
-                                <table class="table table-borderless align-middle">
+                                <table class="table table-borderless datatable align-middle">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Book Title</th>
                                             <th scope="col">Author</th>
-                                            <th scope="col" class="text-center">Publisher</th>
+                                            <th scope="col" class="text-start">Publisher</th>
                                             <th scope="col" class="text-center">Image</th>
                                             <th scope="col" class="text-center">Price</th>
                                             <th scope="col" class="text-center">Entry No</th>
@@ -70,7 +69,7 @@
                                                     @endif
                                                 </td>
                                                 
-                                                <td class="text-center">
+                                                <td class="text-start">
                                                     <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
                                                         {{ $book->publisher->title_bn }}
                                                     </a>
@@ -99,10 +98,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-                                <div class="my-5">
-                                    {{ $models->links() }}
-                                </div>
 
                             @else
 

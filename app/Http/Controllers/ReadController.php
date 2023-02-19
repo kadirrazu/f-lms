@@ -11,7 +11,7 @@ class ReadController extends Controller
     public function index()
     {
         
-        $models = Read::orderBy('id', 'desc')->paginate(15);
+        $models = Read::orderBy('id', 'desc')->get();
 
         return view('admin.reading-list.index', [
             'page_title' => "All Readings",

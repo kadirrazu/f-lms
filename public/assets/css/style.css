@@ -1282,3 +1282,11 @@ table.admin-table tr th{
 .custom-badge{
   font-size: 13px;
 }
+
+.topbar-search-results{
+  min-width: 320px;
+}
+
+.topbar-search-results p{
+  font-size: 13px;
+}

@@ -136,16 +136,16 @@
                 <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                     <div class="card-body">
-                    <h5 class="card-title">Recent Purchase <span>| Last 10 Purchase</span></h5>
+                    <h5 class="card-title">Recent Collections <span>| Last 10 Purchase</span></h5>
 
                     <table class="table table-borderless">
                         <thead>
-                            <tr>
+                            <tr class="align-middle">
                                 <th scope="col" class="text-center">Entry No</th>
                                 <th scope="col" class="text-center">Collection Date</th>
-                                <th scope="col">Title</th>
+                                <th scope="col">Book Title</th>
                                 <th scope="col">Author</th>
-                                <th scope="col">Publisher</th>
+                                <th scope="col" class="text-center">Publisher</th>
                                 <th scope="col" class="text-center">Purchase Price</th>
                             </tr>
                         </thead>
@@ -153,13 +153,13 @@
 
                             @php
 
-                                $books = \App\Models\Book::with('authors')->with('categories')->orderBy('entry_no', 'desc')->take(10)->get();
+                                $books = \App\Models\Book::with('authors')->orderBy('entry_no', 'desc')->take(10)->get();
 
                             @endphp
 
                             @foreach( $books as $book )
 
-                            <tr>
+                            <tr class="align-middle">
                                 <td scope="col" class="text-center">
                                     <a href="{{ url( 'admin/book/' . $book->id ) }}">
                                         {{ convertEnToBnNumber( $book->entry_no ) }}
@@ -175,16 +175,22 @@
                                 </td>
                                 <td scope="col">
                                     @if(count($book->authors) > 0)
+
                                         @foreach($book->authors as $author)
+
                                         <a href="{{ url('admin/search-author/' . $author->id) }}">
                                             {{ $author->title_bn }}
                                         </a>
+
+                                        {!! ($loop->count > 1 && !$loop->last) ? '<br>' : '' !!}
+
                                         @endforeach
+
                                     @else
                                         -
                                     @endif
                                 </td>
-                                <td scope="col">
+                                <td scope="col" class="text-center">
                                     <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
                                         {{ $book->publisher->title_bn }}
                                     </a>
@@ -212,13 +218,13 @@
             <div class="card">
 
                 <div class="card-body">
-                <h5 class="card-title">Recently Read <span>| Last 15 Books</span></h5>
+                <h5 class="card-title">Recently Read <span>| Last 10 Books</span></h5>
 
                 <div class="activity">
 
                     <?php
 
-                        $reads = \App\Models\Read::orderBy('end_date', 'desc')->take(15)->get();
+                        $reads = \App\Models\Read::orderBy('end_date', 'desc')->take(10)->get();
 
                     ?>
 

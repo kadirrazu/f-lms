@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use App\Models\Book;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class BookExport implements FromCollection
+class BookExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -18,19 +19,33 @@ class BookExport implements FromCollection
 
         foreach( $books as $book )
         {
-            $booksToReturn[] = [
-                'id' => $book->id,
+            $returnData1 = [
+                'entry_no' => $book->entry_no,
+                'entry_date' => date("d-m-Y", strtotime($book->entry_date)) ?? '-',
                 'title_bn' => $book->title_bn,
-                'title_en' => $book->title_en,
-                'author' => $book->author_id,
+                'title_en' => strtoupper($book->title_en),
+            ];
+
+            $returnData3 = [
                 'publisher' => $book->publisher->title_bn,
                 'pages' => $book->pages,
                 'printed_price' => $book->printed_price,
-                'purchase_price' => $book->purchase_price,
-                'entry_no' => $book->entry_no,
-                'entry_date' => $book->entry_date,
-                'created_by' => $book->createdBy->name
+                'purchase_price' => $book->purchase_price ?? 0,
+                'created_by' => $book->createdBy->name,
+                'book_id' => $book->id
             ];
+
+            $authorData = '';
+
+            foreach($book->authors as $author){
+                $authorData .= $author->title_bn . ' ';
+            }
+
+            $returnData2 = [
+                'authors' => trim($authorData)
+            ];
+
+            $booksToReturn[] = array_merge($returnData1, $returnData2, $returnData3);
         }
 
         return collect($booksToReturn);
@@ -44,17 +59,17 @@ class BookExport implements FromCollection
     public function headings(): array
     {
         return [
-            "ID", 
-            "Title_Bn", 
-            "Title_En", 
-            "Author", 
-            "Publisher", 
-            "Pages", 
-            "Printed Price", 
-            "Purchase Price", 
-            "Entry No", 
-            "Entry Date", 
-            "Entry By"
+            "ENTRY NO", 
+            "ENTRY DATE", 
+            "BOOK TITLE (BN)", 
+            "BOOK TITLE (EN)", 
+            "AUTHOR(S)", 
+            "PUBLISHER", 
+            "PAGES", 
+            "PRINTED PRICE", 
+            "PURCHASE PRICE",
+            "ENTRY BY",
+            "BOOK ID"
         ];
     }
 }
