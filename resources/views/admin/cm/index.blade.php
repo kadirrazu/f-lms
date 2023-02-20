@@ -41,7 +41,11 @@
                                         @foreach( $models as $item )
                                         <tr>
                                             <th scope="row">{{ $count }}</th>
-                                            <td>{{ $item->title_bn }}</td>
+                                            <td>
+                                                <a href="{{ url('admin/search-collection-method/' . $item->id) }}">
+                                                    {{ $item->title_bn }}
+                                                </a>
+                                            </td>
                                             <td>{{ $item->title_en ?? '-' }}</td>
                                             <td>
 

@@ -68,4 +68,26 @@ class AdminUtilityController extends Controller
 
         return redirect()->back()->withError($msg);
     }
+
+    public function resizeUploadedImages()
+    {
+
+	    $this->validate($request, [
+            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+        ]);
+        $image = $request->file('file');
+        $input['file'] = time().'.'.$image->getClientOriginalExtension();
+        
+        $destinationPath = public_path('/thumbnail');
+        $imgFile = Image::make($image->getRealPath());
+        $imgFile->resize(150, 150, function ($constraint) {
+		    $constraint->aspectRatio();
+		})->save($destinationPath.'/'.$input['file']);
+        $destinationPath = public_path('/uploads');
+        $image->move($destinationPath, $input['file']);
+        return back()
+        	->with('success','Image has successfully uploaded.')
+        	->with('fileName',$input['file']);
+            
+    }
 }

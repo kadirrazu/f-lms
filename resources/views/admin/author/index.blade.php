@@ -43,7 +43,11 @@
                                         @foreach( $models as $item )
                                         <tr>
                                             <th scope="row">{{ $count }}</th>
-                                            <td>{{ $item->title_bn }}</td>
+                                            <td>
+                                                <a href="{{ url('admin/search-author/' . $item->id) }}">
+                                                    {{ $item->title_bn }}
+                                                </a>
+                                            </td>
                                             <td>{{ $item->title_en ?? '-' }}</td>
                                             <td class="text-center">
                                                 {{ \App\Models\AuthorBook::where('author_id', $item->id)->distinct()->get()->count() }}

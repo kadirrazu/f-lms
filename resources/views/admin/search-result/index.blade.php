@@ -17,10 +17,9 @@
 
                             <h5 class="card-title fw-normal">
                                 Search Results for 
-                                <span class="fw-bolder text-info text-decoration-underline"><{{ $key->title_bn }}></span> in type
-                                <span class="fw-bolder text-danger text-decoration-underline">{{ $key_type ?? '' }}</span>
-                            </h5>
-                            
+                                <span class="fw-bolder text-info text-decoration-underline">{{ '< ' . $key->title_bn . ' >' }}</span> in type
+                                <span class="fw-bolder text-danger text-decoration-underline">{{ '<' }} {{ $key_type ?? '' }} {{ '>' }}</span>
+                            </h5>                            
 
                             @if( $models->count() > 0 )
 
@@ -31,8 +30,7 @@
                                             <th scope="col">Book Title</th>
                                             <th scope="col">Author</th>
                                             <th scope="col" class="text-start">Publisher</th>
-                                            <th scope="col" class="text-center">Image</th>
-                                            <th scope="col" class="text-center">Price</th>
+                                            <th scope="col" class="tbl-category-col">Category</th>
                                             <th scope="col" class="text-center">Entry No</th>
                                             <th scope="col" class="text-center">Collection Date</th>
                                             <th scope="col">Actions</th>
@@ -74,18 +72,28 @@
                                                         {{ $book->publisher->title_bn }}
                                                     </a>
                                                 </td>
+                                                
+                                                <td class="tbl-category-col">
+                                                    @if(count($book->categories) > 0)
 
-                                                <td class="text-center">
-                                                    @if( $book->image != null )
-                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                        @foreach($book->categories as $category)
+
+                                                            <a class="badge bg-secondary fw-light" href="{{ url('admin/search-category/' . $category->id) }}">
+                                                                {{ $category->title_bn }}
+                                                            </a>
+
+                                                            {!! ($loop->count > 1 && !$loop->last) ? ' ' : '' !!}
+
+                                                        @endforeach
+
                                                     @else
-                                                        <i class="bi bi-clipboard-x text-danger"></i>
+                                                        -
                                                     @endif
                                                 </td>
 
-                                                <td class="text-center">{{ convertEnToBnNumber($book->purchase_price ?? "-") }}</td>
                                                 <td class="text-center">{{ convertEnToBnNumber($book->entry_no) }}</td>
                                                 <td class="text-center">{{ date("d-m-Y", strtotime($book->entry_date)) }}</td>
+
                                                 <td>
 
                                                     <x-action-buttons model="book" id="{{ $book->id }}"/>
@@ -101,7 +109,9 @@
 
                             @else
 
-                                <x-items-not-found/>
+                                <div class="alert alert-danger">
+                                    No items found according to the search query.
+                                </div>
 
                             @endif
 

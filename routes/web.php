@@ -15,6 +15,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReadController;
 use App\Http\Controllers\AdminUtilityController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,8 @@ use App\Http\Controllers\ExportController;
 */
 
 //Frontend Routes
-Route::get('/', function(){
-    return view('frontend.index');
-});
+Route::get('/', [FrontendController::class, 'index']);
+Route::post('front-end/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
 //Login and Registration Routes
 Route::get('/login', [SessionController::class, 'login'])->middleware('auth.redirect');
@@ -74,6 +74,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/search-author/{id}', [AdminSearchController::class, 'searchAuthorById']);
         Route::get('/search-publisher/{id}', [AdminSearchController::class, 'searchPublisherById']);
+        Route::get('/search-category/{id}', [AdminSearchController::class, 'searchCategoryById']);
+        Route::get('/search-collection-method/{id}', [AdminSearchController::class, 'searchCollectionMethodById']);
         Route::post('/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
     });

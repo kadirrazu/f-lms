@@ -10,4 +10,10 @@ class CollectionMethod extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function books()
+    {
+        return $this->hasMany(Book::class)->orderBy('title_bn');
+    }
+
 }

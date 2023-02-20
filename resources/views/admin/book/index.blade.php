@@ -32,6 +32,7 @@
                                             <th scope="col">Book Title</th>
                                             <th scope="col">Author</th>
                                             <th scope="col" class="text-center">Publisher</th>
+                                            <th scope="col" class="tbl-category-col">Category</th>
                                             <th scope="col" class="text-center">Image</th>
                                             <th scope="col" class="text-center">Price</th>
                                             <th scope="col" class="text-center">Entry No</th>
@@ -52,16 +53,17 @@
                                                         {{ $book->title_bn }}
                                                     </a>
                                                 </td>
+
                                                 <td>
                                                     @if(count($book->authors) > 0)
 
                                                         @foreach($book->authors as $author)
 
-                                                        <a href="{{ url('admin/search-author/' . $author->id) }}">
-                                                            {{ $author->title_bn }}
-                                                        </a>
+                                                            <a href="{{ url('admin/search-author/' . $author->id) }}">
+                                                                {{ $author->title_bn }}
+                                                            </a>
 
-                                                        {!! ($loop->count > 1 && !$loop->last) ? '<br>' : '' !!}
+                                                            {!! ($loop->count > 1 && !$loop->last) ? '<br>' : '' !!}
 
                                                         @endforeach
 
@@ -74,6 +76,24 @@
                                                     <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
                                                         {{ $book->publisher->title_bn }}
                                                     </a>
+                                                </td>
+                                                
+                                                <td class="tbl-category-col">
+                                                    @if(count($book->categories) > 0)
+
+                                                        @foreach($book->categories as $category)
+
+                                                            <a class="badge bg-secondary fw-light" href="{{ url('admin/search-category/' . $category->id) }}">
+                                                                {{ $category->title_bn }}
+                                                            </a>
+
+                                                            {!! ($loop->count > 1 && !$loop->last) ? ' ' : '' !!}
+
+                                                        @endforeach
+
+                                                    @else
+                                                        -
+                                                    @endif
                                                 </td>
 
                                                 <td class="text-center">
