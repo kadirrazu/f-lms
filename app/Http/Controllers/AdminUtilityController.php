@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Book;
+use Image;
 
 class AdminUtilityController extends Controller
 {
@@ -37,8 +38,6 @@ class AdminUtilityController extends Controller
         
         $filesInFolder = File::files( storage_path( $directory ) );
 
-        //dd($filesInFolder);
-
         foreach($filesInFolder as $path) 
         { 
             $file = pathinfo($path);
@@ -69,25 +68,67 @@ class AdminUtilityController extends Controller
         return redirect()->back()->withError($msg);
     }
 
-    public function resizeUploadedImages()
+    public function resizeImages(Request $request)
     {
+	    
+        $imagesExistsInThumbnailsFolder = [];
+        $imagesExistsInResizedFolder = [];
+        $imagesToResize = [];
 
-	    $this->validate($request, [
-            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
-        ]);
-        $image = $request->file('file');
-        $input['file'] = time().'.'.$image->getClientOriginalExtension();
-        
-        $destinationPath = public_path('/thumbnail');
-        $imgFile = Image::make($image->getRealPath());
-        $imgFile->resize(150, 150, function ($constraint) {
-		    $constraint->aspectRatio();
-		})->save($destinationPath.'/'.$input['file']);
-        $destinationPath = public_path('/uploads');
-        $image->move($destinationPath, $input['file']);
-        return back()
-        	->with('success','Image has successfully uploaded.')
-        	->with('fileName',$input['file']);
+        $imgInResizeFolder = File::files( public_path( 'resized-images/thumbs-75' ) );
+
+        $filesInFolder = File::files( storage_path( 'app/public/thumbnails' ) );
+
+        foreach($filesInFolder as $path) 
+        { 
+            $file = pathinfo($path);
+            $imagesExistsInThumbnailsFolder[] = $file['filename'] . '.' . $file['extension'];
+        }
+
+        if( count($imgInResizeFolder) > 0 )
+        {
+            foreach($imgInResizeFolder as $path) 
+            { 
+                $file = pathinfo($path);
+                $imagesExistsInResizedFolder[] = $file['filename'] . '.' . $file['extension'];
+            }
+        }
+
+        foreach($filesInFolder as $path) 
+        { 
+            $file = pathinfo($path);
+            $imageName = $file['filename'] . '.' . $file['extension'];
+            if( !in_array($imageName, $imagesExistsInResizedFolder))
+            {
+                $imagesToResize[] = $imageName;
+            }
+        }
+
+        $destinationPath1 = public_path('/resized-images/thumbs-75');
+        $destinationPath2 = public_path('/resized-images/thumbs-150');
+
+        $count = 0;
+
+        foreach($imagesToResize as $toReziseImg) 
+        {
+
+            $imgFile = Image::make(storage_path( 'app/public/thumbnails/' . $toReziseImg ));
+    
+            $imgFile->resize(75, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath1.'/'.$toReziseImg);
+
+            $imgFile->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath2.'/'.$toReziseImg);
+
+            $count++;
+            
+        }
+
+        $msg = $count . ' image file(s) were resized and placed in storage.';
+
+        return redirect()->back()->withSuccess($msg);
             
     }
 }

@@ -63,7 +63,7 @@
                         <a x-bind:href=" baseUrl + '/view-book/' + book.id">
                             <template x-if="typeof(book.image) !== 'undefined'">
                                 <div class="search-thumb-wrapper">
-                                    <img x-bind:src=" baseUrl + '/storage/' + book.image" alt="IMG" class="search-thumb-img">
+                                    <img x-bind:src=" baseUrl + '/resized-images/thumbs-150/' + book.image.replace('thumbnails/','')" alt="IMG" class="search-thumb-img">
                                 </div>
                             </template>
                             <div class="search-info">
@@ -121,7 +121,7 @@
         
     @if( $models->count() > 0 )
 
-    <table class="table table-bordered align-middle datatable">
+    <table class="table table-bordered align-middle">
         <thead>
             <tr class="align-middle">
                 <th scope="col" class="text-center">Sr</th>
@@ -136,7 +136,7 @@
         </thead>
         <tbody>
 
-            @php($count = 1)
+            @php( $count = ($models->perPage() * ($models->currentPage() - 1)) + 1 )
 
             @foreach( $models as $book )
 
@@ -144,11 +144,13 @@
                     <td class="text-center">{{ $count }}</td>
                     <td scope="row">
                         @if( $book->image != null )
-                            <img src="{{ asset('storage/' . $book->image) }}" alt="IMG" class="table-thumb-img">
+                            <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
+                        @else
+                            <img src="https://via.placeholder.com/75x80?text=No+Image" alt="IMG" class="table-thumb-img">
                         @endif
                     </td>
                     <td>
-                        <a href="{{ url('admin/book/' . $book->id) }}">
+                        <a href="{{ url('view-book/' . $book->id) }}">
                             {{ $book->title_bn }}
                         </a>
                     </td>
@@ -158,7 +160,7 @@
 
                             @foreach($book->authors as $author)
 
-                                <a href="{{ url('admin/search-author/' . $author->id) }}">
+                                <a href="{{ url('admin/view-author/' . $author->id) }}">
                                     {{ $author->title_bn }}
                                 </a>
 
@@ -172,7 +174,7 @@
                     </td>
                     
                     <td class="text-center">
-                        <a href="{{ url('admin/search-publisher/' . $book->publisher->id) }}">
+                        <a href="{{ url('admin/view-publisher/' . $book->publisher->id) }}">
                             {{ $book->publisher->title_bn }}
                         </a>
                     </td>
@@ -182,7 +184,7 @@
 
                             @foreach($book->categories as $category)
 
-                                <a class="badge bg-secondary fw-light" href="{{ url('admin/search-category/' . $category->id) }}">
+                                <a class="badge bg-secondary fw-light" href="{{ url('view-category/' . $category->id) }}">
                                     {{ $category->title_bn }}
                                 </a>
 
@@ -205,7 +207,7 @@
     </table>
 
     <div class="my-5">
-
+        {{ $models->links() }}
     </div>
 
     @else

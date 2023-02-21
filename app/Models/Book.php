@@ -54,4 +54,9 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function reads()
+    {
+        return $this->hasMany(Read::class);
+    }
 }

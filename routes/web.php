@@ -33,12 +33,14 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::post('front-end/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
 //Login and Registration Routes
-Route::get('/login', [SessionController::class, 'login'])->middleware('auth.redirect');
+Route::get('/login/{refferer?}', [SessionController::class, 'login'])->middleware('auth.redirect');
 Route::post('/login', [SessionController::class, 'processLogin']);
-Route::get('/guest-logout', [SessionController::class, 'guestLogout']);
+Route::get('/guest-logout/{refferer?}', [SessionController::class, 'guestLogout']);
 
 Route::get('/registration', [UserController::class, 'registration'])->middleware('auth.redirect');
 Route::post('/registration', [UserController::class, 'processRegistration']);
+
+Route::get('/view-book/{id}', [FrontendController::class, 'viewBookById']);
 
 //Dashboard and Admin Area Routes
 Route::prefix('admin')->group(function () {
@@ -68,6 +70,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/utility', [AdminUtilityController::class, 'index']);
         Route::get('/utility/delete-unused-images', [AdminUtilityController::class, 'deleteUnusedImages']);
+        Route::get('/utility/resize-images', [AdminUtilityController::class, 'resizeImages']);
 
         Route::get('/export', [ExportController::class, 'index']);
         Route::get('/export/excel', [ExportController::class, 'exportToExcel']);

@@ -21,8 +21,15 @@ class SessionController extends Controller
             'password' => 'required|min:6'
         ]);
 
+        $redirect = request()->input('refferer') ?? '';
+
         if( auth()->attempt($attributes) )
         {
+            if( $redirect != '' )
+            {
+                return redirect($redirect)->withSuccess('Welcome! Login done Successfully.');
+            }
+
             return redirect('admin/dashboard')->withSuccess('Welcome to Dashboard!');
         }
 
@@ -37,11 +44,18 @@ class SessionController extends Controller
     public function logout(Request $request)
     {
 
+        $redirect = $request->input('refferer') ?? '';
+
         Auth::logout();
  
         $request->session()->invalidate();
     
         $request->session()->regenerateToken();
+
+        if( $redirect != '' )
+        {
+            return redirect($redirect)->with('info', 'You have logged out from the system.');
+        }
     
         return redirect('/login')->with('info', 'You have logged out from the system.');
 

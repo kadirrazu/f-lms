@@ -11,10 +11,39 @@
             </a>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#">Login</a>
+                
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/') }}">Home</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#">Advance Search</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#">Category Clouds</a>
-                <a class="py-2 text-dark text-decoration-none" href="#">Facts</a>
+                <a class="py-2 text-dark text-decoration-none me-3" href="#">Facts</a>
+
+                @if( !auth()->check() )  
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/login?refferer=/') }}">Login</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/registration') }}">Register</a>
+                @else
+                    <div class="dropdown">
+                        <button class="btn btn-light border-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, {{ auth()->user()->name }}
+                        </button>
+                        <ul class="dropdown-menu dr-align-right">
+                            @if( auth()->check() && auth()->user()->role == 'administrator' )
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('admin/dashboard') }}" target="_blank">
+                                        <i class="bi bi-speedometer me-1"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                            @endif
+                            <li>
+                                <a class="dropdown-item" href="{{ url('guest-logout?refferer=/') }}">
+                                    <i class="bi bi-box-arrow-in-left me-1"></i>
+                                    Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
+
             </nav>
 
         </div>
@@ -28,7 +57,10 @@
     </main>
 
     <footer class="pt-4 border-top mt-4">
-        <div class="row">      
+        <div class="row">
+            <div class="col-12 mb-3 text-center">
+                <div id="google_translate_element"></div>
+            </div>      
             <div class="col-12 col-md text-center">
                 Developed and Maintained by <a href="http://www.kadir.tech" target="_blank">Md. Abdul Kadir</a> 
                 <br>

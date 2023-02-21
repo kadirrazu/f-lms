@@ -9,10 +9,19 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $models = Book::with(['authors', 'publisher', 'categories'])->orderBy('title_bn', 'asc')->get();
+        $models = Book::with(['authors', 'publisher', 'categories'])->orderBy('title_bn', 'asc')->paginate(10);
 
         return view('frontend.index',[
             'models' => $models
+        ]);
+    }
+
+    public function viewBookById($id)
+    {
+        $book = Book::findOrFail($id);
+
+        return view('frontend.view-book',[
+            'book' => $book
         ]);
     }
 }

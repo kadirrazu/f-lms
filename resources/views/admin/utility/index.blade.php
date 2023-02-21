@@ -64,7 +64,59 @@
                                     </li>
                                 </ul>
 
-                            </div>
+                            </div> <!-- End of Card 01 -->
+
+                            <div class="col-md-6 col-sm-12">
+
+                                <?php 
+                                    $filesInResizedFolder = \Illuminate\Support\Facades\File::files( public_path( 'resized-images/thumbs-75' ) );
+
+                                    $fileResizeCount = count($filesInResizedFolder)
+                                ?>
+
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <div class="alert alert-secondary">
+                                            <span class="fs-5">Image Resize & Copy</span>
+                                            <hr>
+                                            <table class="table table-striped" style="max-width: 400px;">
+                                                <tr>
+                                                    <td>Images in Storage Folder:</td>
+                                                    <td>
+                                                        <span class="fw-bold">{{ $folderImgCount }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Images in Resized Folder:</td>
+                                                    <td>
+                                                        <span class="fw-bold">{{ $fileResizeCount }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Images to Work on:</td>
+                                                    <td>
+                                                        <span class="fw-bold">{{ $folderImgCount - $fileResizeCount }}</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="mt-4">
+                                                @if( ($folderImgCount - $fileResizeCount) > 0 )
+                                                    <a class="btn btn-sm btn-warning fs-6" href="{{ url('admin/utility/resize-images') }}">
+                                                        <i class="bi bi-aspect-ratio"></i>&nbsp; 
+                                                        Resize & Copy Images
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-sm btn-info fs-6">
+                                                        <i class="bi bi-check-all"></i>&nbsp;
+                                                        Nothing to Resize & Copy
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div> <!-- End of Card 02 -->
 
                         </div>
 
