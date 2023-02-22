@@ -12,11 +12,13 @@
 
     <div class="row">
         <div class="col-md-4">
-            @if( $book->image != null )
-                <img src="{{ asset('/storage/' . $book->image) }}" alt="IMG" class="detail-thumb-img">
-            @else
-                <img src="https://via.placeholder.com/150x180?text=No+Image" alt="IMG" class="detail-thumb-img">
-            @endif
+            <div class="img-block-left mt-2">
+                @if( $book->image != null )
+                    <img src="{{ asset('/storage/' . $book->image) }}" alt="IMG" class="detail-thumb-img">
+                @else
+                    <img src="https://via.placeholder.com/150x180?text=No+Image" alt="IMG" class="detail-thumb-img">
+                @endif
+            </div>
         </div>
         <div class="col-md-8 ps-5 border-start">
             <table class="table table-stripped">
@@ -80,9 +82,7 @@
 
                             @foreach($book->categories as $category)
                                 
-                                <a href="{{ url('view-author/' . $category->id) }}">{{ $category->title_bn }}</a>
-                                
-                                {!! ($loop->count > 1 && !$loop->last) ? ', ' : '' !!}
+                                <a href="{{ url('view-category/' . $category->id) }}">{{ $category->title_bn }}</a>{!! ($loop->count > 1 && !$loop->last) ? ',' : '' !!}
 
                             @endforeach
 
@@ -138,6 +138,38 @@
                         <span>{{ $book->notes ?? '-' }}</span>
                     </td>
                 </tr>
+                <tr class="text-center">
+                    @if(auth()->check())
+                        <td colspan=2>
+                            <button class="btn btn-success">
+                                <i class="bi bi-bookmark-plus"></i>
+                                বইটি পড়ার জন্য নিতে চান কি?
+                            </button>
+                            @php
+
+                                $favCheckForBooks = \App\Models\Favourite::where('user_id', auth()->user()->id)->where('book_id', $book->id)->get();
+
+                            @endphp
+
+                            @if( count($favCheckForBooks) < 1 )
+                                <a class="btn btn-light border border-success text-success" href="{{ url('add-favourite/' . $book->id) }}">
+                                    <i class="bi bi-bookmark-heart"></i>
+                                    বইটি পছন্দ তালিকায় যুক্ত করুন
+                                </a>
+                            @else
+                            <button class="btn border border-info text-success">
+                                <i class="bi bi-bookmark-check"></i>
+                                এই বইটি আপনার পছন্দ তালিকায় যুক্ত রয়েছে
+                            </button>
+                            @endif
+                        </td>
+                    @else
+                        <td colspan=2 class="login-notice">
+                            <span class="text-success">আপনি কি এই বইটি পড়ার জন্য নিতে ইচ্ছুক?</span> অথবা <span class="text-primary">এই বইটি কি আপনার পছন্দ তালিকায় যুক্ত করতে চান?</span> তাহলে 
+                            <a href="{{ url( 'login/?refferer=' . url()->full() ) }}" class="btn btn-sm btn-outline-success">লগইন করুন</a>
+                        </td>
+                    @endif
+                </tr>
             </table>
         </div>
     </div>
@@ -154,18 +186,43 @@
                 @foreach( $book->reads as $read )
 
                     <figure class="text-left">
+
                         <blockquote class="blockquote">
-                            <p>{{ convertEnToBnNumber($count) }}) {{ $read->comments }}</p>
+
+                            @if( $read->comments != null )
+                                <p class="text-secondary">{{ convertEnToBnNumber($count) }}) {{ $read->comments ?? 'No comment texts were made by the reader!' }}</p>
+                            @else
+                                <p class="text-secondary">{{ convertEnToBnNumber($count) }}) No comments have been written by the reader!</p>
+                            @endif
+
                         </blockquote>
+
                         <figcaption class="blockquote-footer ms-3 mt-1">
-                            পাঠকঃ {{ \App\Models\User::find($read->user_id)->get()->first()->name }} <cite title="Source Title">@ {{ convertEnToBnNumber(date("d-m-Y H:i:s", strtotime($read->created_at))) }}</cite>
+                            <span>পাঠকঃ</span>
+                            {{ $read->user->name_bn ?? $read->user->name }} 
+                            <cite>
+                                @ {{ convertEnToBnNumber(date("d-m-Y H:i:s", strtotime($read->created_at))) }}
+                            </cite>
                         </figcaption>
                         
                         <figcaption class="blockquote-footer ms-3">
-                            পড়ার তারিখ:  
-                            <cite title="Source Title">
+                            <span>পড়ার তারিখঃ</span>  
+                            <cite>
                                 {{ convertEnToBnNumber(date("d-m-Y", strtotime($read->start_date))) }}
                                 থেকে {{ convertEnToBnNumber(date("d-m-Y", strtotime($read->end_date))) }}
+                            </cite>
+                        </figcaption>
+                        
+                        <figcaption class="blockquote-footer ms-3">
+                            <span>রেকমেন্ডেশনঃ</span>  
+                            <cite>
+                                @if($read->reader_recommended == 0)
+                                    <span class="badge border border-warning text-secondary">রেকমেন্ডেশন প্রদান করা হয়নি</span>
+                                @elseif($read->reader_recommended == 1)
+                                    <span class="badge border border-success text-success">দারুণ! রেকমেন্ডেড।</span>
+                                @else
+                                    <span class="badge border border-danger text-danger">রেকমেন্ডেড নয়।</span>
+                                @endif
                             </cite>
                         </figcaption>
                     </figure>
@@ -175,7 +232,7 @@
 
             @else
                 <p class="alert alert-info">
-                    No comments made yet on this books!
+                    No comments made yet on this book!
                 </p>
             @endif
         </div>

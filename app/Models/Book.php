@@ -59,4 +59,9 @@ class Book extends Model
     {
         return $this->hasMany(Read::class);
     }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
 }

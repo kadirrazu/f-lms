@@ -21,7 +21,7 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <p class="text-center small">Enter your personal details to create user account</p>
                   </div>
 
                   <x-flash/>
@@ -132,13 +132,18 @@
                         Already have an account? <a href="{{ url('login') }}">Login</a>
                       </p>
                     </div>
+                    
+                    <div class="col-12 text-center">
+                      <a href="{{ url('/') }}">Back to Main Page</a>
+                    </div>
+                    
                   </form>
 
                 </div>
               </div>
 
-              <div class="credits">
-                Develped by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
+              <div class="credits mt-3">
+                Develped and Maintained by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
               </div>
 
             </div>

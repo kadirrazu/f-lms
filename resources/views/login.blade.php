@@ -20,7 +20,7 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Administration Area</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">User Authorization</h5>
                     <p class="text-center small">Enter your email & password to login</p>
                   </div>
 
@@ -30,7 +30,7 @@
 
                     @csrf
 
-                    <input type="hidden" name="refferer" value="{{ $_GET['refferer'] ?? '' }}">
+                    <input type="hidden" name="refferer" value="{!! $_GET['refferer'] ?? '' !!}">
 
                     <div class="col-12">
 
@@ -65,13 +65,16 @@
                         Don't have an user account? <a href="{{ url('registration') }}">Register!</a>
                       </p>
                     </div>
+                    <div class="col-12 text-center">
+                      <a href="{{ url('/') }}">Back to Main Page</a>
+                    </div>
                   </form>
 
                 </div>
               </div>
 
-              <div class="credits">
-                Develped by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
+              <div class="credits mt-3">
+                Develped and Maintained by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
               </div>
 
             </div>

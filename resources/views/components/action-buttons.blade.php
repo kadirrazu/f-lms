@@ -1,4 +1,4 @@
-@props(['model', 'id'])
+@props(['model', 'id', 'edit' => true])
 
 <div class="action-buttons" x-data="{
     confirm : function(event){
@@ -9,7 +9,11 @@
     }
 }">
     <a class="btn btn-sm btn-success" href="{{ url('admin/' . $model . '/' . $id) }}">View</a> &nbsp;
-    <a class="btn btn-sm btn-info" href="{{ url('admin/' . $model . '/' . $id . '/edit') }}">Edit</a> &nbsp;
+
+    @if($edit != false )
+        <a class="btn btn-sm btn-info" href="{{ url('admin/' . $model . '/' . $id . '/edit') }}">Edit</a> &nbsp;
+    @endif
+
     <form class="d-inline" method="POST" action="{{ url('admin/' . $model . '/' . $id) }}">
         @csrf 
         @method('DELETE')

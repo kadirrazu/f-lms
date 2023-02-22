@@ -51,7 +51,7 @@
 
             <form method="POST" x-on:submit.prevent="">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
-                <input type="text" class="form-control" x-model="searchQuery" @input.debounce="searchQuerySubmit" placeholder="Search Here. Hints: Book Title, Author, Publisher etc.">
+                <input type="text" class="form-control border border-info" x-model="searchQuery" @input.debounce="searchQuerySubmit" placeholder="Search Here. Hints: Book Title, Author, Publisher etc.">
             </form>
 
             <div class="search-results position-absolute">
@@ -119,7 +119,7 @@
 
     <div class="col-12 pt-2">
         
-    @if( $models->count() > 0 )
+    @if( $books->count() > 0 )
 
     <table class="table table-bordered align-middle">
         <thead>
@@ -136,21 +136,23 @@
         </thead>
         <tbody>
 
-            @php( $count = ($models->perPage() * ($models->currentPage() - 1)) + 1 )
+            @php( $count = ($books->perPage() * ($books->currentPage() - 1)) + 1 )
 
-            @foreach( $models as $book )
+            @foreach( $books as $book )
 
                 <tr class="align-middle">
                     <td class="text-center">{{ $count }}</td>
                     <td scope="row">
-                        @if( $book->image != null )
-                            <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
-                        @else
-                            <img src="https://via.placeholder.com/75x80?text=No+Image" alt="IMG" class="table-thumb-img">
-                        @endif
+                        <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
+                            @if( $book->image != null )
+                                <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
+                            @else
+                                <img src="https://via.placeholder.com/75x80?text=No+Image" alt="IMG" class="table-thumb-img">
+                            @endif
+                        </a>
                     </td>
                     <td>
-                        <a href="{{ url('view-book/' . $book->id) }}">
+                        <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
                             {{ $book->title_bn }}
                         </a>
                     </td>
@@ -160,7 +162,7 @@
 
                             @foreach($book->authors as $author)
 
-                                <a href="{{ url('admin/view-author/' . $author->id) }}">
+                                <a href="{{ url('view-author/' . $author->id) }}">
                                     {{ $author->title_bn }}
                                 </a>
 
@@ -174,7 +176,7 @@
                     </td>
                     
                     <td class="text-center">
-                        <a href="{{ url('admin/view-publisher/' . $book->publisher->id) }}">
+                        <a href="{{ url('view-publisher/' . $book->publisher->id) }}">
                             {{ $book->publisher->title_bn }}
                         </a>
                     </td>
@@ -207,7 +209,7 @@
     </table>
 
     <div class="my-5">
-        {{ $models->links() }}
+        {{ $books->links() }}
     </div>
 
     @else

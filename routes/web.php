@@ -16,6 +16,7 @@ use App\Http\Controllers\ReadController;
 use App\Http\Controllers\AdminUtilityController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\FavouriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,12 @@ Route::get('/registration', [UserController::class, 'registration'])->middleware
 Route::post('/registration', [UserController::class, 'processRegistration']);
 
 Route::get('/view-book/{id}', [FrontendController::class, 'viewBookById']);
+Route::get('/view-author/{id}', [FrontendController::class, 'viewAuthorBooksById']);
+Route::get('/view-publisher/{id}', [FrontendController::class, 'viewPublisherBooksById']);
+Route::get('/view-category/{id}', [FrontendController::class, 'viewCategoryBooksById']);
+Route::get('/favourite-list', [FrontendController::class, 'favouriteListByUser']);
+Route::get('/add-favourite/{id}', [FrontendController::class, 'addIntoFavouriteList']);
+Route::get('/remove-favourite/{id}', [FrontendController::class, 'removeFromFavouriteList']);
 
 //Dashboard and Admin Area Routes
 Route::prefix('admin')->group(function () {
@@ -61,8 +68,12 @@ Route::prefix('admin')->group(function () {
         Route::resource('/reading-list', ReadController::class)->except([
             'create'
         ]);
+        Route::resource('/favourite', FavouriteController::class)->except([
+            'create'
+        ]);
 
         Route::get('/reading-list-add/{book_id?}', [ReadController::class, 'create']);
+        Route::get('/favourite-add/{book_id?}', [FavouriteController::class, 'create']);
 
         Route::post('/book-search', [BookController::class, 'ajaxBookSearch']);
         Route::post('/publisher-search', [PublisherController::class, 'ajaxPublisherSearch']);

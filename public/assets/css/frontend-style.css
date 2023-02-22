@@ -56,10 +56,30 @@ a{
     content: ':';
 }
 
-.tbl-col-sep span{
+.tbl-col-sep span, .table-col-sep p{
     padding-left: 15px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
 .book-comment-block p{
     font-size: 14px !important;
+}
+
+.blockquote-footer span{
+    color: #101010;
+}
+
+.blockquote-footer .badge{
+    font-style: normal;
+}
+
+.login-notice{
+    font-size: 14px;
+    line-height: 3.0;
+}
+
+.login-notice span{
+    font-style: normat;
+    font-weight: bold;
 }

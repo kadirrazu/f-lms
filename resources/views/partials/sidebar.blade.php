@@ -14,7 +14,7 @@
     <a class="nav-link collapsed" data-bs-target="#books-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-book"></i><span>Books</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="books-nav" class="nav-content collapse {{ (request()->is('admin/book') || request()->is('admin/book/create') || request()->is('admin/reading-list') || request()->is('admin/export')) ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+    <ul id="books-nav" class="nav-content collapse {{ (request()->is('admin/book') || request()->is('admin/book/create') || request()->is('admin/reading-list') || request()->is('admin/favourite') || request()->is('admin/export')) ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
       <li>
         <a href="{{ url('admin/book') }}" class="{{ (request()->is('admin/book')) ? 'active' : '' }}">
           <i class="bi bi-circle"></i><span>All Books</span>
@@ -28,6 +28,11 @@
       <li>
         <a href="{{ url('admin/reading-list') }}" class="{{ (request()->is('admin/reading-list')) ? 'active' : '' }}">
           <i class="bi bi-circle"></i><span>Reading List</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ url('admin/favourite') }}" class="{{ (request()->is('admin/favourite')) ? 'active' : '' }}">
+          <i class="bi bi-circle"></i><span>Favourite Books</span>
         </a>
       </li>
       <li>

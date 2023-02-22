@@ -35,6 +35,12 @@
                                 </li>
                             @endif
                             <li>
+                                <a class="dropdown-item" href="{{ url('favourite-list') }}">
+                                    <i class="bi bi-heart"></i>
+                                    Favourite Books
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{{ url('guest-logout?refferer=/') }}">
                                     <i class="bi bi-box-arrow-in-left me-1"></i>
                                     Log Out
