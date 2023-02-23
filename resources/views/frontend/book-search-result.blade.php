@@ -3,7 +3,11 @@
 <div class="row">
 
     <div class="col-12 text-center border-bottom pb-2">
-        <h5 class="h5">List of Books for <span class="text-info">{{ '<'. $title . '>' }}</span> in type <span class="text-warning">{{ '<'. $type . '>' }}</span></h5>
+        <h5 class="h5">
+            বইয়ের তালিকা
+            <span class="text-info">{{ '<'. $title . '>' }}</span>
+            <span class="text-warning">{{ '<'. $type . '>' }}</span>
+        </h5>
     </div>
 
     <div class="col-12 pt-2">
@@ -12,15 +16,15 @@
 
     <table class="table table-bordered align-middle">
         <thead>
-            <tr class="align-middle">
-                <th scope="col" class="text-center">Sr</th>
-                <th scope="col">Image</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">Author</th>
-                <th scope="col" class="text-center">Publisher</th>
-                <th scope="col" class="tbl-category-col">Category</th>
-                <th scope="col" class="text-center">Entry No</th>
-                <th scope="col" class="text-center">Collection Date</th>
+            <tr class="align-middle tbl-header-row">
+                <th scope="col" class="text-center">ক্রমিক</th>
+                <th scope="col" class="text-center">ছবি</th>
+                <th scope="col" class="text-center">বইয়ের শিরোনাম</th>
+                <th scope="col" class="text-center">লেখক</th>
+                <th scope="col" class="text-center">প্রকাশক</th>
+                <th scope="col" class="tbl-category-col text-center">ক্যাটাগরী/ধরণ</th>
+                <th scope="col" class="text-center tbl-entry-col">এন্ট্রি নম্বর</th>
+                <th scope="col" class="text-center tbl-entry-date-col">সংগ্রহের তারিখ</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +34,7 @@
             @foreach( $books as $book )
 
                 <tr class="align-middle">
-                    <td class="text-center">{{ $count }}</td>
+                    <td class="text-center">{{ convertEnToBnNumber($count) }}</td>
                     <td scope="row">
                         <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
                             @if( $book->image != null )

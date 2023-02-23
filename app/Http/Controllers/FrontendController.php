@@ -71,11 +71,17 @@ class FrontendController extends Controller
 
     public function favouriteListByUser()
     {
-        $favourites = Favourite::where('user_id', auth()->user()->id )->get();
+        if( auth()->check() )
+        {
+            $favourites = Favourite::where('user_id', auth()->user()->id )->get();
 
-        return view('frontend.favourite-books',[
-            'favourites' => $favourites
-        ]);
+            return view('frontend.favourite-books',[
+                'favourites' => $favourites
+            ]);
+        }
+
+        return redirect('/')->with('error', 'Access violation error!');
+        
     }
 
     public function removeFromFavouriteList($id)

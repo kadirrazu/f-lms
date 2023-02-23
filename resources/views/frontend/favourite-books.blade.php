@@ -3,7 +3,7 @@
 <div class="row">
 
     <div class="col-12 text-center border-bottom pb-2">
-        <h5 class="h5">List of Favourite/Liked Books</h5>
+        <h5 class="h5">প্রিয় বইয়ের তালিকা</h5>
     </div>
 
     <div class="col-12 pt-2">
@@ -13,13 +13,13 @@
     <table class="table table-bordered align-middle">
         <thead>
             <tr class="align-middle text-center">
-                <th scope="col" class="text-center">Sr</th>
-                <th scope="col">Image</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Publisher</th>
-                <th scope="col">Added On</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center">ক্রমিক</th>
+                <th scope="col">ছবি</th>
+                <th scope="col">বইয়ের শিরোনাম</th>
+                <th scope="col">লেখক</th>
+                <th scope="col">প্রকাশক</th>
+                <th scope="col">যে তারিখে যুক্ত করা হয়েছে</th>
+                <th scope="col">ডিলিট/রিমুভ</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
             @foreach( $favourites as $favourite )
             <tr class="align-middle">
                 <td class="text-center">
-                    {{ $count }}
+                    {{ convertEnToBnNumber($count) }}
                 </td>
 
                 <td class="text-center">
@@ -84,8 +84,8 @@
                         }
                     }
                 }">
-                    <a href="{{ url('remove-favourite/' . $favourite->toArray()['id']) }}" class="btn btn-secondary" confirm="Sure? You really want to Delete?" @click="confirm">
-                        Remove
+                    <a href="{{ url('remove-favourite/' . $favourite->toArray()['id']) }}" class="btn btn-sm btn-outline-danger" confirm="Sure? You really want to Delete?" @click="confirm" title="Remove">
+                        <i class="bi bi-x-circle"></i>
                     </a>
                 </td>
 
@@ -98,7 +98,7 @@
     @else
 
         <p class="alert alert-info text-center">
-            No books were found in your favourite list!
+            আপনার প্রিয় বইয়ের তালিকায় এখন পর্যন্ত কোন বই যোগ করা হয়নি।
         </p>
 
     @endif

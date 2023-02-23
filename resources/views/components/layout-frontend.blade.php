@@ -1,57 +1,58 @@
 @include('frontend/frontend-partials/header')
 
-<div class="container py-3">
+<div class="container px-5 py-3">
 
-    <header>
-        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <header class="align-items-center pb-3 mb-4 border-bottom">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 text-center">
+                <a href="{{ url('/') }}" class="d-flex align-items-center text-dark text-decoration-none" title="Family Library Management System">
+                    <img src="{{ asset('assets/img/book-store-50.png') }}" alt="Logo">
+                    <span class="fs-4">FLMS</span>
+                </a>
+            </div>
+            <div class="col-md-9 col-sm-12 text-md-end text-sm-center">
+                <nav class="d-inline-flex mt-2 mt-md-2 ms-md-auto main-navigation">
+                    
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/') }}">মূলপাতা</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">এ্যাডভান্স সার্চ</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">ক্যাটাগরী ক্লাউডস্‌</a>
+                    <a class="py-2 text-dark text-decoration-none me-3" href="#">ফ্যাক্টস</a>
 
-            <a href="{{ url('/') }}" class="d-flex align-items-center text-dark text-decoration-none">
-                <img src="{{ asset('assets/img/book-store-50.png') }}" alt="Logo">
-                <span class="fs-4">FLMS</span>
-            </a>
-
-            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/') }}">Home</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#">Advance Search</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#">Category Clouds</a>
-                <a class="py-2 text-dark text-decoration-none me-3" href="#">Facts</a>
-
-                @if( !auth()->check() )  
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/login?refferer=/') }}">Login</a>
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/registration') }}">Register</a>
-                @else
-                    <div class="dropdown">
-                        <button class="btn btn-light border-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome, {{ auth()->user()->name }}
-                        </button>
-                        <ul class="dropdown-menu dr-align-right">
-                            @if( auth()->check() && auth()->user()->role == 'administrator' )
+                    @if( !auth()->check() )  
+                        <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/login?refferer=/') }}">লগইন</a>
+                        <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/registration') }}">রেজিস্ট্রেশন</a>
+                    @else
+                        <div class="dropdown">
+                            <button class="btn btn-light border-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                স্বাগতম, {{ auth()->user()->name_bn ?? auth()->user()->name }}
+                            </button>
+                            <ul class="dropdown-menu dr-align-right">
+                                @if( auth()->check() && auth()->user()->role == 'administrator' )
+                                    <li>
+                                        <a class="dropdown-item" href="{{ url('admin/dashboard') }}" target="_blank">
+                                            <i class="bi bi-speedometer me-1"></i>
+                                            এ্যাডমিন ড্যাশবোর্ড
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
-                                    <a class="dropdown-item" href="{{ url('admin/dashboard') }}" target="_blank">
-                                        <i class="bi bi-speedometer me-1"></i>
-                                        Dashboard
+                                    <a class="dropdown-item" href="{{ url('favourite-list') }}">
+                                        <i class="bi bi-heart"></i>
+                                        প্রিয় বইয়ের তালিকা
                                     </a>
                                 </li>
-                            @endif
-                            <li>
-                                <a class="dropdown-item" href="{{ url('favourite-list') }}">
-                                    <i class="bi bi-heart"></i>
-                                    Favourite Books
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ url('guest-logout?refferer=/') }}">
-                                    <i class="bi bi-box-arrow-in-left me-1"></i>
-                                    Log Out
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                @endif
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('guest-logout?refferer=/') }}">
+                                        <i class="bi bi-box-arrow-in-left me-1"></i>
+                                        লগ আউট
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
 
-            </nav>
-
+                </nav>
+            </div>
         </div>
 
     </header>

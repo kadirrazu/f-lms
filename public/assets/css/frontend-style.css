@@ -4,7 +4,8 @@ body {
 }
 
 .container {
-    max-width: 960px;
+    max-width: 1200px;
+    background-color: #f9f9f9;
 }
 
 a{
@@ -82,4 +83,24 @@ a{
 .login-notice span{
     font-style: normat;
     font-weight: bold;
+}
+
+.main-navigation a:hover{
+    color: #0d6efd !important;
+}
+
+.tbl-header-row th{
+    padding: 15px 8px;
+}
+
+.tbl-entry-col{
+    min-width: 80px;
+}
+
+.tbl-entry-date-col{
+    min-width: 115px;
+}
+
+.tbl-category-col a:hover{
+    background-color: none !important;
 }

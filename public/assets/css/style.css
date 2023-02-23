@@ -1295,3 +1295,7 @@ table.admin-table tr th{
   max-width: 175px;
   word-wrap: break-word;
 }
+
+.credits{
+  font-size: 13px;
+}

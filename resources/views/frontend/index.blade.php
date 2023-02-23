@@ -51,7 +51,7 @@
 
             <form method="POST" x-on:submit.prevent="">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
-                <input type="text" class="form-control border border-info" x-model="searchQuery" @input.debounce="searchQuerySubmit" placeholder="Search Here. Hints: Book Title, Author, Publisher etc.">
+                <input type="text" class="form-control border border-info" x-model="searchQuery" @input.debounce="searchQuerySubmit" placeholder="বই খুজে পেতে এখানে সার্চ করুন। কী-ওয়ার্ডঃ বইয়ের নাম, লেখক, প্রকাশক ইত্যাদি...">
             </form>
 
             <div class="search-results position-absolute">
@@ -86,7 +86,7 @@
                 </div>
 
                 <p x-show="showNothingInSearch" class="nothing-result text-danger positive-result bg-light p-2 border border-dark rounded-bottom" style="display: none;">
-                    Nothing found according to the query.
+                    দুঃখিত, আপনার প্রদত্ত কী-ওয়ার্ড অনুসারে কোন বই খুজে পাওয়া যায়নি!
                 </p>
 
             </div>
@@ -114,7 +114,7 @@
 <div class="row">
 
     <div class="col-12 text-center border-bottom pb-2">
-        <span class="h5">List of Books</span>
+        <span class="h5">বইয়ের তালিকা</span>
     </div>
 
     <div class="col-12 pt-2">
@@ -123,15 +123,15 @@
 
     <table class="table table-bordered align-middle">
         <thead>
-            <tr class="align-middle">
-                <th scope="col" class="text-center">Sr</th>
-                <th scope="col">Image</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">Author</th>
-                <th scope="col" class="text-center">Publisher</th>
-                <th scope="col" class="tbl-category-col">Category</th>
-                <th scope="col" class="text-center">Entry No</th>
-                <th scope="col" class="text-center">Collection Date</th>
+            <tr class="align-middle tbl-header-row">
+                <th scope="col" class="text-center">ক্রমিক</th>
+                <th scope="col" class="text-center">ছবি</th>
+                <th scope="col" class="text-center">বইয়ের শিরোনাম</th>
+                <th scope="col" class="text-center">লেখক</th>
+                <th scope="col" class="text-center">প্রকাশক</th>
+                <th scope="col" class="tbl-category-col text-center">ক্যাটাগরী/ধরণ</th>
+                <th scope="col" class="text-center tbl-entry-col">এন্ট্রি নম্বর</th>
+                <th scope="col" class="text-center tbl-entry-date-col">সংগ্রহের তারিখ</th>
             </tr>
         </thead>
         <tbody>
@@ -141,8 +141,8 @@
             @foreach( $books as $book )
 
                 <tr class="align-middle">
-                    <td class="text-center">{{ $count }}</td>
-                    <td scope="row">
+                    <td class="text-center">{{ convertEnToBnNumber($count) }}</td>
+                    <td scope="row" class="text-center">
                         <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
                             @if( $book->image != null )
                                 <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
