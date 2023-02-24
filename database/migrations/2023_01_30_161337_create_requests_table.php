@@ -15,14 +15,19 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('book_id')->references('id')->on('books');
-            $table->string('name_bn'); //Requester Name in Bangla
-            $table->string('name_en')->nullable(); //Requester Name in English
             $table->string('mobile');
-            $table->boolean('return_ack')->default(0);
-            $table->unsignedBigInteger('book_status_id');
+            $table->text('address')->nullable();
+            $table->text('request_notes')->nullable();
+            $table->boolean('terms_agreed')->default(0);
+            $table->boolean('issued')->default(0);
+            $table->boolean('returned')->default(0);
+            $table->date('issue_date')->nullable();
+            $table->date('return_date')->nullable();
+            $table->text('admin_notes')->nullable();
             $table->timestamps();
         });
     }

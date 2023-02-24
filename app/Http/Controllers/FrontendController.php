@@ -121,4 +121,22 @@ class FrontendController extends Controller
         return back()->with('error', 'Something went wrong in performing operaton.'); 
 
     }
+
+    public function getFactsPage()
+    {
+        $books = Book::with(['authors', 'publisher', 'categories'])->orderBy('entry_date', 'desc')->get();
+
+        return view('frontend.facts',[
+            'books' => $books
+        ]);
+    }
+
+    public function getCategoryCloudsPage()
+    {
+        $categories = Category::orderBy('id', 'asc')->get();
+
+        return view('frontend.category',[
+            'categories' => $categories
+        ]);
+    }
 }

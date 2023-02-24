@@ -1,6 +1,6 @@
 @include('frontend/frontend-partials/header')
 
-<div class="container px-5 py-3">
+<div class="container frontend-container px-5 py-3">
 
     <header class="align-items-center pb-3 mb-4 border-bottom">
         <div class="row">
@@ -14,9 +14,9 @@
                 <nav class="d-inline-flex mt-2 mt-md-2 ms-md-auto main-navigation">
                     
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/') }}">মূলপাতা</a>
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">এ্যাডভান্স সার্চ</a>
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="#">ক্যাটাগরী ক্লাউডস্‌</a>
-                    <a class="py-2 text-dark text-decoration-none me-3" href="#">ফ্যাক্টস</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/advance-search') }}">এ্যাডভান্স সার্চ</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/category-clouds') }}">ক্যাটাগরী ক্লাউডস্‌</a>
+                    <a class="py-2 text-dark text-decoration-none me-3" href="{{ url('/facts') }}">ফ্যাক্টস</a>
 
                     @if( !auth()->check() )  
                         <a class="me-3 py-2 text-dark text-decoration-none" href="{{ url('/login?refferer=/') }}">লগইন</a>
@@ -71,7 +71,7 @@
             <div class="col-12 col-md text-center">
                 Developed and Maintained by <a href="http://www.kadir.tech" target="_blank">Md. Abdul Kadir</a> 
                 <br>
-                Copyright &copy; {{ date('Y') }} <strong><span>Md. Abdul Kadir</span></strong>. All Rights Reserved
+                Copyright &copy; {{ date('Y') }} <strong><span>Md. Abdul Kadir</span></strong>. All Rights Reserved.
             </div>
         </div>
     </footer>

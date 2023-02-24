@@ -141,10 +141,56 @@
                 <tr class="text-center">
                     @if(auth()->check())
                         <td colspan=2>
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookRequestModal">
-                                <i class="bi bi-bookmark-plus"></i>
-                                বইটি পড়ার জন্য নিতে চান কি?
-                            </button>
+
+                            <?php
+
+                                $requestCheck = \App\Models\Request::where('user_id', auth()->user()->id)->where('book_id', $book->id)->get();
+
+                                $accessStatus = '';
+
+                                $issue = '';
+
+                                if( $requestCheck->count() > 0 ){
+
+                                    $issue = $requestCheck->last()->issued;
+
+                                }
+
+                                if( $issue == 0 ){
+                                    $accessStatus = 'Pending';
+                                }
+                                elseif( $issue == 1 ){
+                                    $accessStatus = 'Issued';
+                                }
+                                elseif( $issue == 2 ){
+                                    $accessStatus = 'Canceled';
+                                }
+                                else{
+                                    $accessStatus = 'Undefined';
+                                }
+
+                            ?>
+
+                            @if( count($requestCheck) < 1 )
+
+                                <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#bookRequestModal">
+                                    <i class="bi bi-bookmark-plus"></i>
+                                    বইটি পড়ার জন্য নিতে চান কি?
+                                </button>
+
+                            @else
+
+                                <span class="btn border border-danger text-danger mt-2" x-data="{}">
+                                    <i class="bi bi-bookmark-check"></i>
+                                    এই বইটির জন্য আপনি ইতিমধ্যে অনুরোধ করেছেন। 
+                                    <a href="#" class="text-secondary bg-light" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="অনুরোধের বর্তমান অবস্থা - {{ $accessStatus }}" data-bs-custom-class="access-status-tooltip" @click.prevent="">
+                                        <i class="bi bi-info-circle"></i>
+                                        স্ট্যাটাস
+                                    </a>
+                                </span>
+
+                            @endif
+
                             @php
 
                                 $favCheckForBooks = \App\Models\Favourite::where('user_id', auth()->user()->id)->where('book_id', $book->id)->get();
@@ -152,85 +198,27 @@
                             @endphp
 
                             @if( count($favCheckForBooks) < 1 )
-                                <a class="btn btn-light border border-success text-success" href="{{ url('add-favourite/' . $book->id) }}">
+
+                                <a class="btn btn-light border border-success text-success mt-2" href="{{ url('add-favourite/' . $book->id) }}">
                                     <i class="bi bi-bookmark-heart"></i>
-                                    বইটি পছন্দ তালিকায় যুক্ত করুন
+                                    বইটি প্রিয় বইয়ের তালিকায় যুক্ত করুন
                                 </a>
+
                             @else
-                            <button class="btn border border-info text-dark">
-                                <i class="bi bi-bookmark-check"></i>
-                                এই বইটি আপনার পছন্দ তালিকায় যুক্ত রয়েছে
-                            </button>
+
+                                <button class="btn border border-info text-dark mt-2">
+                                    <i class="bi bi-bookmark-check"></i>
+                                    এই বইটি আপনার প্রিয় বইয়ের তালিকায় যুক্ত রয়েছে
+                                </button>
+
                             @endif
                         </td>
-                        <!-- Modal -->
-                        <div class="modal modal-lg fade" id="bookRequestModal" tabindex="-1" aria-labelledby="bookRequestModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="bookRequestModalLabel">
-                                        <span class="text-info">"{{ $book->title_bn }}"</span> - 
-                                        বইটি পড়ার জন্য সংগ্রহের অনুরোধ ফরম -
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">অনুরোধকারীর নাম</label>
-                                            <input class="form-control" type="text" name="name" value="{{ auth()->user()->name_bn ?? auth()->user()->name }}" disabled>
-                                        </div>    
-                                        <div class="mb-3">
-                                            <label for="book_name" class="form-label">বইয়ের নাম</label>
-                                            <input class="form-control" type="text" name="book_name" value="{{ $book->title_bn }}" disabled>
-                                        </div>    
-                                        <div class="mb-3">
-                                            <label for="mobile_number" class="form-label">
-                                                যোগাযোগের মোবাইল নম্বর
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input class="form-control" type="text" name="mobile_number" value="" placeholder="আপনার সাথে যোগাযোগের মোবাইল নম্বর">
-                                        </div>    
-                                        <div class="mb-3">
-                                            <label for="address" class="form-label">
-                                                কোন ঠিকানায় বইটি পেতে চান?
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <textarea class="form-control" name="address" id="address" rows="2"></textarea>
-                                        </div>    
-                                        <div class="mb-3">
-                                            <label for="notes" class="form-label">
-                                                আর কিছু বলতে চান কি?
-                                            </label>
-                                            <textarea class="form-control" name="notes" id="address" rows="2"></textarea>
-                                        </div>
+                        
+                        <x-frontend.book-request-modal :book="$book"/>
 
-                                        <div class="border border-info px-4 py-3 mb-3">
-                                            <span class="text-info text-decoration-underline">শর্তাবলীঃ</span><br>
-                                            <span class="text-danger">১) বইটি আমি যত্নের সাথে ব্যবহার করবো।</span><br>
-                                            <span class="text-danger">২) বইটি হাতে পাবার পর সর্বোচ্চ ২১ (একুশ) দিনের মধ্যে নিজ দায়িত্ত্বে ফেরৎ প্রদান করবো।</span>
-                                        </div>
-
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" name="terms" type="checkbox" value="1" id="termsCheckDefault">
-                                            <label class="form-check-label" for="termsCheckDefault">
-                                                আমি বইটি পাবার শর্তসমূহ পড়েছি এবং সবগুলো শর্তের ব্যাপারে সম্মত আছি।
-                                            </label>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">অনুরোধ প্রেরণ করুন</button>
-                                        
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
                     @else
                         <td colspan=2 class="login-notice">
-                            <span class="text-success">আপনি কি এই বইটি পড়ার জন্য নিতে ইচ্ছুক?</span> অথবা <span class="text-primary">এই বইটি কি আপনার পছন্দ তালিকায় যুক্ত করতে চান?</span> তাহলে 
+                            <span class="text-success">আপনি কি এই বইটি পড়ার জন্য নিতে ইচ্ছুক?</span> অথবা <span class="text-primary">এই বইটি কি আপনার প্রিয় বইয়ের তালিকায় যুক্ত করতে চান?</span> তাহলে 
                             <a href="{{ url( 'login/?refferer=' . url()->full() ) }}" class="btn btn-sm btn-outline-success">লগইন করুন</a>
                         </td>
                     @endif

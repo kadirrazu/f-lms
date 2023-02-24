@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminUtilityController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ use App\Http\Controllers\FavouriteController;
 
 //Frontend Routes
 Route::get('/', [FrontendController::class, 'index']);
+Route::get('/facts', [FrontendController::class, 'getFactsPage']);
+Route::get('/category-clouds', [FrontendController::class, 'getCategoryCloudsPage']);
 Route::post('front-end/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
 //Login and Registration Routes
@@ -49,6 +52,8 @@ Route::get('/favourite-list', [FrontendController::class, 'favouriteListByUser']
 Route::get('/add-favourite/{id}', [FrontendController::class, 'addIntoFavouriteList']);
 Route::get('/remove-favourite/{id}', [FrontendController::class, 'removeFromFavouriteList']);
 
+Route::post('/book-request-submission', [RequestController::class, 'fronendRequestSubmission']);
+
 //Dashboard and Admin Area Routes
 Route::prefix('admin')->group(function () {
 
@@ -65,10 +70,16 @@ Route::prefix('admin')->group(function () {
         Route::resource('/category', CategoryController::class);
         Route::resource('/author', AuthorController::class);
         Route::resource('/book', BookController::class);
+
         Route::resource('/reading-list', ReadController::class)->except([
             'create'
         ]);
+
         Route::resource('/favourite', FavouriteController::class)->except([
+            'create'
+        ]);
+        
+        Route::resource('/request', RequestController::class)->except([
             'create'
         ]);
 

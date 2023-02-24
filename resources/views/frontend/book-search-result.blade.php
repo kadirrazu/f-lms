@@ -107,7 +107,9 @@
 
     @else
 
-    <x-items-not-found/>
+        <p class="alert alert-info text-danger fw-strong p-3 text-center mt-3">
+            দুঃখিত, আপনার কোয়েরী/কী-ওয়ার্ড অনুসারে কোন বই খুজে পাওয়া যায়নি। আবার চেষ্টা করুন।
+        </p>
 
     @endif
 
