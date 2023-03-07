@@ -47,7 +47,11 @@
                                         @foreach( $models as $book )
 
                                             <tr>
-                                                <th scope="row">{{ $count }}</th>
+                                                <th scope="row">
+                                                    <a href="{{ url('view-book/' . $book->id) }}" target="_blank" title="View in Fronend">
+                                                        {{ $count }}
+                                                    </a>
+                                                </th>
                                                 <td>
                                                     <a href="{{ url('admin/book/' . $book->id) }}">
                                                         {{ $book->title_bn }}

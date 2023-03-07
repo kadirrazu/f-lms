@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2023 at 05:48 PM
+-- Generation Time: Mar 07, 2023 at 05:13 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `f-lms`
 --
+CREATE DATABASE IF NOT EXISTS `f-lms` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `f-lms`;
 
 -- --------------------------------------------------------
 
@@ -196,7 +198,10 @@ INSERT INTO `authors` (`id`, `title_bn`, `title_en`, `slug`, `status`, `created_
 (159, 'E Balagurusamy', 'E Balagurusamy', 'e-balagurusamy', 1, '2023-02-15 07:59:14', '2023-02-15 07:59:14'),
 (160, 'Naresh Chauhan', 'Naresh Chauhan', 'naresh-chauhan', 1, '2023-02-15 08:04:33', '2023-02-15 08:04:33'),
 (161, 'মোঃ মাহবুবুল হাসান', 'Md. Mahbubul Hasan', 'md.-mahbubul-hasan', 1, '2023-02-15 08:16:22', '2023-02-15 08:16:22'),
-(162, 'এ পি জে আবদুল কালাম', 'A P J Abdul Kalam', 'a-p-j-abdul-kalam', 1, '2023-02-15 09:36:00', '2023-02-15 09:36:00');
+(162, 'এ পি জে আবদুল কালাম', 'A P J Abdul Kalam', 'a-p-j-abdul-kalam', 1, '2023-02-15 09:36:00', '2023-02-15 09:36:00'),
+(163, 'হারুন-অর-রশিদ', 'Harun-Or-Rashid', 'harun-or-rashid', 1, '2023-02-28 09:28:25', '2023-02-28 09:28:25'),
+(164, 'আনোয়ারা বেগম', 'Anowara Begum', 'anowara-begum', 1, '2023-03-02 21:43:01', '2023-03-02 21:43:01'),
+(165, 'মাহবুব তালুকদার', 'Mahbub Talukdar', 'mahbub-talukdar', 1, '2023-03-06 09:06:10', '2023-03-06 09:06:10');
 
 -- --------------------------------------------------------
 
@@ -288,7 +293,6 @@ INSERT INTO `author_book` (`author_id`, `book_id`) VALUES
 (63, 80),
 (28, 81),
 (40, 82),
-(147, 83),
 (151, 84),
 (151, 85),
 (118, 86),
@@ -494,7 +498,10 @@ INSERT INTO `author_book` (`author_id`, `book_id`) VALUES
 (44, 280),
 (149, 280),
 (58, 281),
-(8, 282);
+(8, 282),
+(163, 83),
+(164, 283),
+(165, 284);
 
 -- --------------------------------------------------------
 
@@ -600,11 +607,11 @@ INSERT INTO `books` (`id`, `title_bn`, `title_en`, `slug`, `publisher_id`, `prin
 (76, 'বাংলার কিশোর মুক্তিযোদ্ধা', 'Banglar Kishore Muktijoddha', 'banglar-kishore-muktijoddha', 11, 100, 90, 72, 'thumbnails/cnpCXTPRQf4Rax6JsgWnwMvfPA7IOtmIX3JLpltG.jpg', 1, 68, '2018-05-30', 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:36:37', '2023-02-13 09:36:37'),
 (77, 'বীরশ্রেষ্ট শহীদ ফ্লাইট লেফটেন্যান্ট মতিউর রহমান', 'Birshersto Shaid Floyet Left. Motiur Rahaman', 'birshersto-shaid-floyet-left-motiur-rahaman', 11, 150, 115, 70, 'thumbnails/BDPdOQS9toMuZISMatyYWzdsbggHfRiWjZpMq3UJ.jpg', 1, 69, '2018-05-30', 16, 1, 0, NULL, 1, 1, '2023-02-13 09:38:44', '2023-02-13 09:41:39'),
 (78, 'মুক্তিযোদ্ধা শহীদ ক্যাপ্টেন আফতাব কাদের বীরউত্তম', 'Muktijuddha Shohid Captain Aftab Kader Beeruttom', 'muktijuddha-shohid-captain-aftab-kader-beeruttom', 11, 160, 140, 84, 'thumbnails/RpiS7G1MCCSiT0XCXARq8js5WNQNVBXVlCIeKBLy.jpg', 1, 70, '2018-05-30', 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:41:22', '2023-02-13 09:41:22'),
-(79, 'বাংলাদেশের লোকজ সংস্কৃতি গ্রন্থমালা - মাগুরা', 'Bangladesher Lokoj Songskriti Gronthomala Magura', 'bangladesher-lokoj-songskriti-gronthomala-magura', 11, 340, 300, 371, 'thumbnails/y8qxbK42r2iwRal9mkPVCzkOMSFIPakFB4r4oqmf.jpg', 1, 71, '2017-02-18', 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:44:54', '2023-02-13 09:44:54'),
+(79, 'বাংলাদেশের লোকজ সংস্কৃতি গ্রন্থমালা - মাগুরা', 'Bangladesher Lokoj Songskriti Gronthomala Magura', 'bangladesher-lokoj-songskriti-gronthomala-magura', 11, 340, 300, 371, 'thumbnails/y8qxbK42r2iwRal9mkPVCzkOMSFIPakFB4r4oqmf.jpg', 1, 71, '2017-02-18', 16, 1, 0, NULL, 1, 1, '2023-02-13 09:44:54', '2023-02-24 10:54:35'),
 (80, 'অসমাপ্ত আত্মজীবনী', 'Osomapto Attojiboni', 'osomapto-attojiboni', 71, 525, 395, 303, 'thumbnails/XHqAJi97NAhowWy7mTRn4qhp0PoiotUfwNO0rvn5.jpg', 1, 72, '2016-06-29', 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:47:47', '2023-02-13 09:47:47'),
 (81, 'শেখ মুজিব আমার পিতা', 'Sheikh Mujib Amar Pita', 'sheikh-mujib-amar-pita', 10, 250, 205, 111, 'thumbnails/dz0JghCsPoykaBceiMoZE2E0wc1G0IvMCP8YYuYN.jpg', 1, 73, NULL, 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:49:19', '2023-02-13 09:49:19'),
 (82, '১৯৭১ ভেতরে বাইরে', '1971 Vetore Baire', '1971-vetore-baire', 21, 450, 400, 216, 'thumbnails/kQ8foAIt0h1IA82lbi7nEf7kv8ORg2ASH7fXL10Q.jpg', 1, 74, '2014-09-22', 16, 1, 1, NULL, 1, NULL, '2023-02-13 09:51:16', '2023-02-13 09:51:16'),
-(83, '৭ই মার্চের ভাষণ কেন বিশ্ব-ঐতিহ্য সম্পদ', '7 marcher vashon keno bisso oitijjo sompod', '7-marcher-vashon-keno-bisso-oitijjo-sompod', 7, 250, 200, 117, 'thumbnails/OMTByxoCeCjXaS7sdb2lEfIG7z9yfkylQecUGz92.jpg', 1, 75, '2018-09-09', 16, 1, 0, NULL, 1, NULL, '2023-02-13 09:53:49', '2023-02-13 09:53:49'),
+(83, '৭ই মার্চের ভাষণ কেন বিশ্ব-ঐতিহ্য সম্পদ', '7 marcher vashon keno bisso oitijjo sompod', '7-marcher-vashon-keno-bisso-oitijjo-sompod', 7, 250, 200, 117, 'thumbnails/OMTByxoCeCjXaS7sdb2lEfIG7z9yfkylQecUGz92.jpg', 1, 75, '2018-09-09', 16, 1, 0, NULL, 1, 1, '2023-02-13 09:53:49', '2023-02-28 09:29:28'),
 (84, 'গণপ্রজাতন্ত্রী বাংলাদেশের সংবিধান', 'The Constitution of the Peoples Republic of Bangladesh: Government Publication', 'the-constitution-of-the-peoples-republic-of-bangladesh-government-publication', 95, 340, 270, 225, 'thumbnails/SpT3tVWPNn6Dag67zB5LSTePGTWpPQfq7dKdMEjY.jpg', 1, 76, NULL, 16, 1, 0, NULL, 1, 1, '2023-02-13 09:57:45', '2023-02-13 09:58:12'),
 (85, 'সচিবালয় নির্দেশমালা ২০১৪', 'Secretariet Instruction 2014', 'secretariet-instruction-2014', 95, 170, 140, 105, 'thumbnails/q27qBUCyp4hr7zR5rWgyMp0uhR8UUV6Q0VMYNkJP.jpg', 1, 77, NULL, 16, 1, 0, NULL, 1, NULL, '2023-02-13 10:00:09', '2023-02-13 10:00:09'),
 (86, 'চাকরির বিধানাবলী', 'Chakrir Bidhanaboli', 'chakrir-bidhanaboli', 100, 525, 525, 687, 'thumbnails/NxI3IGI7exV6cwi9KC8I23j18gR4eLp3hwi5TrIB.jpg', 1, 78, NULL, 16, 1, 0, NULL, 1, NULL, '2023-02-13 10:19:20', '2023-02-13 10:19:20'),
@@ -665,7 +672,7 @@ INSERT INTO `books` (`id`, `title_bn`, `title_en`, `slug`, `publisher_id`, `prin
 (141, 'Software Testing - Principles and Practices', 'Software Testing Principles and Practices', 'software-testing-principles-and-practices', 135, 1200, 750, 605, 'thumbnails/hnzpra6WykXVdUVWVQa00dDyF0hlScDJVx02uERQ.jpg', 1, 133, NULL, 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:06:55', '2023-02-15 08:06:55'),
 (142, 'কম্পিউটার প্রোগ্রামিং - ১ম খন্ড', 'Computer Programming Prothom Khondo', 'computer-programming-prothom-khondo', 25, 240, 200, 197, 'thumbnails/iahWrcRbnwqgME94cyQvELCGBAy43DoyGlqanYEi.jpg', 1, 134, '2014-01-01', 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:09:15', '2023-02-15 08:09:15'),
 (143, 'কম্পিউটার প্রোগ্রামিং - ২য় খন্ড', 'Computer Programming Ditiyo Khondo', 'computer-programming-ditiyo-khondo', 104, 250, 210, 180, 'thumbnails/knVrV8ca2Z7zHMQBHqz6653guQ8PQ9EXu8T9soB1.jpg', 1, 135, '2016-09-24', 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:10:37', '2023-02-15 08:10:37'),
-(144, 'পাইথম পরিচিতি', 'Python Porichiti', 'python-porichiti', 25, 260, 215, 184, 'thumbnails/pQxbWt9hzvdhM4gGvDs4IUF1TclpcFx9sW5AdrIn.jpg', 1, 136, '2016-09-24', 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:11:59', '2023-02-15 08:11:59'),
+(144, 'পাইথন পরিচিতি', 'Python Porichiti', 'python-porichiti', 25, 260, 215, 184, 'thumbnails/pQxbWt9hzvdhM4gGvDs4IUF1TclpcFx9sW5AdrIn.jpg', 1, 136, '2016-09-24', 16, 1, 0, NULL, 1, 1, '2023-02-15 08:11:59', '2023-02-23 07:24:01'),
 (145, 'গ্রাফ অ্যালগরিদম', 'Graph Algorithm', 'graph-algorithm', 104, 220, 180, 124, 'thumbnails/gpWUpRzmtbZMevUHjDvh1NOSHixQXalbU5UUf4F9.jpg', 1, 137, '2016-10-23', 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:13:30', '2023-02-15 08:13:30'),
 (146, 'আমার দেখা নয়াচীন', 'Amar Dekha Noya Chin', 'amar-dekha-noya-chin', 11, 400, 350, 199, 'thumbnails/EeAgTzMon2I1stChQDd8Xj7iuBfKsePbDWrcl1ix.jpg', 1, 138, '2022-02-01', 16, 1, 0, NULL, 1, 1, '2023-02-15 08:14:37', '2023-02-16 05:44:33'),
 (147, 'প্রোগ্রামিং কনটেস্ট - ডেটা স্ট্রাকচার ও অ্যালগরিদম', 'Programming Contest Data Structure and Algorithm', 'programming-contest-data-structure-and-algorithm', 104, 360, 280, 276, 'thumbnails/6qJdPrPo5zIh8ikiBBMR3mtLDlGG2gih60vMtDpk.jpg', 1, 139, '2016-09-24', 16, 1, 0, NULL, 1, NULL, '2023-02-15 08:17:20', '2023-02-15 08:17:20'),
@@ -712,7 +719,7 @@ INSERT INTO `books` (`id`, `title_bn`, `title_en`, `slug`, `publisher_id`, `prin
 (188, 'হিন্দুধর্ম কী', 'Hindhudhormo Ki', 'hindhudhormo-ki', 19, 75, 68, 92, 'thumbnails/PC1xUa1rEREAq09RWf4T7em8COrmZf1558QO88aq.jpg', 1, 180, '2019-11-28', 16, 1, 0, NULL, 1, NULL, '2023-02-16 06:05:08', '2023-02-16 06:05:08'),
 (189, 'সিন্ধু থেকে হিন্দু', 'Sindhu Theke Hindu', 'sindhu-theke-hindu', 130, 300, 255, 214, 'thumbnails/c9ZR2O9H8DxI1aPWcApKiAq1HfUXYbowB4UB9gNd.jpg', 1, 181, '2019-11-28', 16, 1, 0, NULL, 1, NULL, '2023-02-16 06:07:33', '2023-02-16 06:07:33'),
 (190, 'হিন্দু ধর্ম - রহস্য ও দেবলীলা', 'Hindudhormo Rohossho O Deblila', 'hindudhormo-rohossho-o-deblila', 113, 200, 120, 142, 'thumbnails/r8Uxj5DpXTwLJxUCNGfVz8KfOlDZNsVwN1mCLIMp.jpg', 1, 182, '2019-11-28', 16, 1, 0, NULL, 1, 1, '2023-02-16 06:09:22', '2023-02-16 06:10:03'),
-(191, 'জাপান যাত্রী', 'Japan Jatri', 'japan-jatri', 24, 100, 100, 72, 'thumbnails/CDhRHwhCoCpnU5rmIOkMy3JwNqUZ4oUF2xnbh9Bt.jpg', 1, 183, '2023-08-29', 16, 1, 0, NULL, 1, NULL, '2023-02-16 06:13:53', '2023-02-16 06:13:53'),
+(191, 'জাপান যাত্রী', 'Japan Jatri', 'japan-jatri', 24, 100, 100, 72, 'thumbnails/CDhRHwhCoCpnU5rmIOkMy3JwNqUZ4oUF2xnbh9Bt.jpg', 1, 183, '2020-08-29', 16, 1, 0, NULL, 1, 1, '2023-02-16 06:13:53', '2023-02-24 09:39:39'),
 (192, 'ওড়াউড়ির দিন', 'Oraurir Din', 'oraurir-din', 18, 275, 220, 192, 'thumbnails/6O3yb6mZJc6fgTslc4AlVKxm5mr9c0biI0WF5cTS.jpg', 1, 184, '2020-08-29', 16, 1, 0, NULL, 1, NULL, '2023-02-16 06:16:56', '2023-02-16 06:16:56'),
 (193, 'ওড়াউড়ির দিন - দ্বিতীয় খন্ড - ইংল্যান্ড', 'Oraurir Din Ditiyo Khondo England', 'oraurir-din-ditiyo-khondo-england', 18, 250, 200, 163, 'thumbnails/YQrpCMsFWQ2omD4JW956qCpY7QE736ZTimCnR7Mg.jpg', 1, 185, '2020-08-29', 16, 1, 0, NULL, 1, NULL, '2023-02-16 06:19:10', '2023-02-16 06:19:10'),
 (194, 'কোয়ান্টাম মেথড', 'Quantum Method', 'quantum-method', 55, 340, 300, 223, 'thumbnails/CTPtHZNteGiHxW8JA0gAUP2gmWwWYiPlihMNZibk.jpg', 1, 186, '2020-12-13', 16, 1, 0, NULL, 1, NULL, '2023-02-16 07:19:09', '2023-02-16 07:19:09'),
@@ -804,7 +811,9 @@ INSERT INTO `books` (`id`, `title_bn`, `title_en`, `slug`, `publisher_id`, `prin
 (279, 'প্রত্যাবর্তন', 'Prottaborton', 'prottaborton', 118, 330, 180, 221, 'thumbnails/xGKi67APBrK2O2hVGSzumxZ4xlMH8UkQWlv3sOSz.jpg', 1, 271, '2023-02-13', 16, 1, 0, NULL, 1, NULL, '2023-02-17 02:59:56', '2023-02-17 02:59:56'),
 (280, 'স্টোরিজ ফর প্যারেন্টস, চিলড্রেন অ্যান্ড গ্র্যান্ড চিলড্রেন - ২', 'Stories for Parents Children and Grand Children', 'stories-for-parents-children-and-grand-children', 121, 350, 0, 111, 'thumbnails/s04JMdAPuj3xYydxRmqIgS6maDJMG7ivA9I38duH.jpg', 2, 272, '2023-02-13', 16, 1, 0, NULL, 1, NULL, '2023-02-17 03:01:45', '2023-02-17 03:01:45'),
 (281, 'সুস্থ্য থাকার সহজ উপায়', 'Sustho Thakar Sohoj Upay', 'sustho-thakar-sohoj-upay', 34, 250, 200, 208, 'thumbnails/tqSBuwN1sNl3FZqEPhZwBajdtK5J2cMuPmU3c1a9.jpg', 1, 273, '2014-02-01', 16, 1, 0, NULL, 1, NULL, '2023-02-17 03:03:06', '2023-02-17 03:03:06'),
-(282, 'নিউইয়র্কের নীলাকাশে ঝকঝকে রোদ', 'Newyorker Nilakashe Jhokjhoke Rod', 'newyorker-nilakashe-jhokjhoke-rod', 7, 200, 160, 93, 'thumbnails/8AslqiMC1A5Kmtxi5qi8z3PtvBH51PSVx8cwG07K.jpg', 1, 274, '2016-02-24', 16, 1, 0, NULL, 1, NULL, '2023-02-17 03:04:57', '2023-02-17 03:04:57');
+(282, 'নিউইয়র্কের নীলাকাশে ঝকঝকে রোদ', 'Newyorker Nilakashe Jhokjhoke Rod', 'newyorker-nilakashe-jhokjhoke-rod', 7, 200, 160, 93, 'thumbnails/8AslqiMC1A5Kmtxi5qi8z3PtvBH51PSVx8cwG07K.jpg', 1, 274, '2016-02-24', 16, 1, 0, NULL, 1, NULL, '2023-02-17 03:04:57', '2023-02-17 03:04:57'),
+(283, 'ক্যালেন্ডারে যত বুদ্ধি', 'Calendar e Joto Buddhi', 'calendar-e-joto-buddhi', 39, 72, 60, 44, 'thumbnails/lCPSbWPjvTqwveoEWbA1T3DwmsE5WUPO0ER4fb9h.jpg', 1, 275, '2023-02-25', 16, 1, 0, NULL, 1, NULL, '2023-03-02 21:45:03', '2023-03-02 21:45:03'),
+(284, 'নির্বাচননামা', 'Nirbachon Nama', 'nirbachon-nama', 21, 750, 563, 344, 'thumbnails/Wnbb12QQjSZJwe7wKLykOsAZqWvOq2q5KfcX6HwH.jpg', 1, 276, '2023-03-06', 16, 1, 0, NULL, 1, NULL, '2023-03-06 09:07:59', '2023-03-06 09:07:59');
 
 -- --------------------------------------------------------
 
@@ -1399,7 +1408,13 @@ INSERT INTO `book_category` (`book_id`, `category_id`) VALUES
 (280, 12),
 (281, 35),
 (282, 22),
-(282, 39);
+(282, 39),
+(79, 29),
+(83, 21),
+(83, 27),
+(283, 17),
+(284, 20),
+(284, 27);
 
 -- --------------------------------------------------------
 
@@ -1506,6 +1521,36 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favourites`
+--
+
+CREATE TABLE `favourites` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `book_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favourites`
+--
+
+INSERT INTO `favourites` (`id`, `user_id`, `book_id`, `created_at`, `updated_at`) VALUES
+(5, 3, 57, '2023-02-22 12:30:14', '2023-02-22 12:30:14'),
+(6, 3, 248, '2023-02-22 12:30:43', '2023-02-22 12:30:43'),
+(8, 3, 126, '2023-02-22 13:03:36', '2023-02-22 13:03:36'),
+(9, 1, 154, '2023-02-23 07:21:13', '2023-02-23 07:21:13'),
+(10, 5, 256, '2023-02-23 11:06:12', '2023-02-23 11:06:12'),
+(12, 5, 204, '2023-02-23 11:06:44', '2023-02-23 11:06:44'),
+(13, 5, 175, '2023-02-23 11:06:45', '2023-02-23 11:06:45'),
+(14, 1, 249, '2023-02-23 20:45:18', '2023-02-23 20:45:18'),
+(15, 1, 113, '2023-02-24 00:45:50', '2023-02-24 00:45:50'),
+(16, 1, 82, '2023-02-24 00:48:53', '2023-02-24 00:48:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lends`
 --
 
@@ -1554,9 +1599,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2023_01_30_154743_create_books_table', 1),
 (12, '2023_01_30_154904_create_lends_table', 1),
 (13, '2023_01_30_154937_create_reads_table', 1),
-(14, '2023_01_30_161337_create_requests_table', 1),
 (15, '2023_02_07_023015_create_book_category_table', 1),
-(16, '2023_02_07_023106_create_author_book_table', 1);
+(16, '2023_02_07_023106_create_author_book_table', 1),
+(17, '2023_02_22_161618_create_favourites_table', 2),
+(19, '2023_01_30_161337_create_requests_table', 3);
 
 -- --------------------------------------------------------
 
@@ -1829,7 +1875,8 @@ INSERT INTO `reads` (`id`, `user_id`, `book_id`, `start_date`, `end_date`, `read
 (74, 1, 204, '2022-12-22', '2022-12-31', 1, 'জীবনকে ভিন্নভাবে চিন্তা করার অনুষঙ্গ যোগাতে পারে এই বইটি।', '2023-02-17 08:11:20', '2023-02-17 08:11:20'),
 (75, 1, 260, '2023-01-18', '2023-01-21', 1, 'অসাধারণ একটি বই। ৩-৪ দিন এই বইয়ের ক্যারেক্টারে ডুবে ছিলাম। শেষ করার পর বুকের মধ্যে হু হু করা অনুভূতি হয়েছে।', '2023-02-17 08:12:19', '2023-02-17 08:12:19'),
 (76, 1, 262, '2023-01-22', '2023-01-23', 1, 'কাব্য ধাচে লেখা উপন্যাস আমার ভালো লাগে না। কিন্ত জসীম উদ্‌দীন এঁর \"সোজন বাদিয়ার ঘাট\" নিঃসন্দেহে একটি মাস্টারপিস!', '2023-02-17 08:13:09', '2023-02-17 08:13:09'),
-(77, 3, 46, '2023-02-17', '2023-02-18', 1, NULL, '2023-02-18 10:18:58', '2023-02-18 10:18:58');
+(77, 3, 46, '2023-02-17', '2023-02-18', 1, NULL, '2023-02-18 10:18:58', '2023-02-18 10:18:58'),
+(79, 1, 46, '2023-03-02', '2023-03-03', 1, '১৯৯৪ সালে লেখা হুমায়ুন আহমেদ এঁর বিজ্ঞান ভিত্তিক কল্পকাহিনী। অল্প সময়ে পড়ে শেষ করা যায়, খারাপ না। গণিতের শিক্ষক মনসুর সাহেব এবং তাঁর কল্পনার ক্যারেক্টার শূণ্য জগত থেকে আসা ফিবোন্নাক্কির আলোচনাগুলো ভালোই লেগেছে।', '2023-03-02 20:49:46', '2023-03-02 20:49:46');
 
 -- --------------------------------------------------------
 
@@ -1839,16 +1886,28 @@ INSERT INTO `reads` (`id`, `user_id`, `book_id`, `start_date`, `end_date`, `read
 
 CREATE TABLE `requests` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `book_id` bigint(20) UNSIGNED NOT NULL,
-  `name_bn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_en` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `return_ack` tinyint(1) NOT NULL DEFAULT 0,
-  `book_status_id` bigint(20) UNSIGNED NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `request_notes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `terms_agreed` tinyint(1) NOT NULL DEFAULT 0,
+  `issued` tinyint(1) NOT NULL DEFAULT 0,
+  `returned` tinyint(1) NOT NULL DEFAULT 0,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  `admin_notes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `requests`
+--
+
+INSERT INTO `requests` (`id`, `user_id`, `book_id`, `mobile`, `address`, `request_notes`, `terms_agreed`, `issued`, `returned`, `issue_date`, `return_date`, `admin_notes`, `created_at`, `updated_at`) VALUES
+(4, 3, 82, '01913021608', 'বড় বাজার, চুয়াডাঙ্গা।', NULL, 1, 1, 1, '2023-02-24', '2023-02-28', NULL, '2023-02-24 09:41:45', '2023-02-24 09:43:42'),
+(5, 3, 192, '01913021608', 'মসজিদ পাড়া, চুয়াডাঙ্গা।', NULL, 1, 0, 0, NULL, NULL, NULL, '2023-02-24 23:47:39', '2023-02-24 23:47:39');
 
 -- --------------------------------------------------------
 
@@ -1936,7 +1995,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `name_bn`, `avatar`, `email`, `username`, `email_verified_at`, `password`, `mobile`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Md Abdul Kadir', 'মোঃ আব্দুল কাদির', NULL, 'admin@kadir.tech', 'kadirrazu', NULL, '$2y$10$Z1jBRl65PxNp4YcM.xk2.uXgc2h0ydd9edWfgJiFsZcFdj3ZF2kzi', '01911683706', 'administrator', NULL, '2023-01-31 03:01:23', '2023-01-31 03:01:23'),
 (2, 'Ramisha Nujhat', 'রামিশা নুজহাত', NULL, 'nujhat@kadir.tech', 'nujhat', NULL, '$2y$10$kUXuSehkjl6zGsxTJaidCu5n/io4TOqk/Wm5U5Jioj64BjsRn/UDq', NULL, 'user', NULL, '2023-01-31 03:01:23', '2023-01-31 03:01:23'),
-(3, 'Mousumi Aktar', 'মৌসুমি আক্তার', NULL, 'mousumi.jnu@gmail.com', 'mousumi.jnu', NULL, '$2y$10$fH9mlW/AyzYH0Ojs0EzMeOmPsbk2oFXH2kMiNLINtasberW9tJebq', '01913021608', 'user', NULL, '2023-02-01 01:18:30', '2023-02-01 01:18:30');
+(3, 'Mousumi Aktar', 'মৌসুমি আক্তার', NULL, 'mousumi.jnu@gmail.com', 'mousumi.jnu', NULL, '$2y$10$fH9mlW/AyzYH0Ojs0EzMeOmPsbk2oFXH2kMiNLINtasberW9tJebq', '01913021608', 'user', NULL, '2023-02-01 01:18:30', '2023-02-01 01:18:30'),
+(5, 'Mazeda Khatun', 'মাজেদা খাতুন', NULL, 'sample@kadir.tech', 'majeda', NULL, '$2y$10$zSb1HcytBh8mf.k9uJas6eQDJiUmywC40HRHaNxerUZr/EFSxueF2', '01970021608', 'user', NULL, '2023-02-23 11:03:47', '2023-02-23 11:03:47');
 
 --
 -- Indexes for dumped tables
@@ -1994,6 +2054,14 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `favourites`
+--
+ALTER TABLE `favourites`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `favourites_user_id_foreign` (`user_id`),
+  ADD KEY `favourites_book_id_foreign` (`book_id`);
+
+--
 -- Indexes for table `lends`
 --
 ALTER TABLE `lends`
@@ -2039,6 +2107,7 @@ ALTER TABLE `reads`
 --
 ALTER TABLE `requests`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `requests_user_id_foreign` (`user_id`),
   ADD KEY `requests_book_id_foreign` (`book_id`);
 
 --
@@ -2069,13 +2138,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=283;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -2096,6 +2165,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `favourites`
+--
+ALTER TABLE `favourites`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `lends`
 --
 ALTER TABLE `lends`
@@ -2105,7 +2180,7 @@ ALTER TABLE `lends`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -2123,13 +2198,13 @@ ALTER TABLE `publishers`
 -- AUTO_INCREMENT for table `reads`
 --
 ALTER TABLE `reads`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `states`
@@ -2147,7 +2222,7 @@ ALTER TABLE `storages`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -2179,6 +2254,13 @@ ALTER TABLE `book_category`
   ADD CONSTRAINT `book_category_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 --
+-- Constraints for table `favourites`
+--
+ALTER TABLE `favourites`
+  ADD CONSTRAINT `favourites_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `favourites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `lends`
 --
 ALTER TABLE `lends`
@@ -2195,7 +2277,8 @@ ALTER TABLE `reads`
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
-  ADD CONSTRAINT `requests_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
+  ADD CONSTRAINT `requests_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `requests_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

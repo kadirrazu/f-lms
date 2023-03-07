@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Request as BookRequest;
+use Mail;
+use App\Mail\BookRequestMail;
 
 class RequestController extends Controller
 {
@@ -123,6 +125,14 @@ class RequestController extends Controller
             $returnArray['message'] = 'Reques successfully logged into the system and administrator was notified.';
 
             //Prepare and Send Email to admin
+            /*
+            $mailData = [
+                'title' => 'A New Request for Accessing Books',
+                'body' => 'A new request are placed in your FLMS system by a visitor, for book ID - ' . $attributes['bookId'] . '. Please Check.'
+            ];
+             
+            Mail::to('razu121@gmail.com')->send(new BookRequestMail($mailData));
+            */
             
         }
 

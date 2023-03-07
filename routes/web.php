@@ -34,6 +34,7 @@ use App\Http\Controllers\RequestController;
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/facts', [FrontendController::class, 'getFactsPage']);
 Route::get('/category-clouds', [FrontendController::class, 'getCategoryCloudsPage']);
+Route::get('/advance-search', [FrontendController::class, 'getAdvanceSearchPage']);
 Route::post('front-end/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
 //Login and Registration Routes

@@ -121,7 +121,7 @@
         
     @if( $books->count() > 0 )
 
-    <table class="table table-bordered align-middle">
+    <table class="table table-bordered align-middle filter-table">
         <thead>
             <tr class="align-middle tbl-header-row">
                 <th scope="col" class="text-center">ক্রমিক</th>

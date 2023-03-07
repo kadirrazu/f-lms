@@ -29,9 +29,12 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/frontend-style.css') }}" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+
   <script defer src="{{ asset('assets/js/alpinejs.js') }}"></script>
 
   <script type="text/javascript">
+
     function googleTranslateElementInit() {
       new google.translate.TranslateElement(
         {
@@ -42,6 +45,7 @@
         'google_translate_element'
       );
     }
+
   </script>
 
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

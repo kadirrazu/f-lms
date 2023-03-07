@@ -11,6 +11,7 @@ use App\Models\Publisher;
 use App\Models\CollectionMethod;
 use App\Models\Storage;
 use App\Models\State;
+use Illuminate\Support\Facades\Cache;
 
 class BookController extends Controller
 {
@@ -75,6 +76,13 @@ class BookController extends Controller
         $book->authors()->attach($authors);
         $book->categories()->attach($categories);
 
+        
+        if(Cache::has('books.all')) 
+        {
+            Cache::forget('books.all');
+        }
+
+
         return redirect('/admin/book')->withSuccess('Book added successfully.');
     }
 
@@ -135,6 +143,12 @@ class BookController extends Controller
 
         $book->authors()->sync($authors);
         $book->categories()->sync($categories);
+
+        
+        if(Cache::has('books.all')) 
+        {
+            Cache::forget('books.all');
+        }
 
         return redirect('/admin/book')->withSuccess('Book was updated successfully.');
         

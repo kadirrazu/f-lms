@@ -9,12 +9,13 @@ use App\Models\Favourite;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        $books = Book::with(['authors', 'publisher', 'categories'])->orderBy('title_bn', 'asc')->paginate(10);
+        $books = Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->paginate(10);
 
         return view('frontend.index',[
             'books' => $books
@@ -124,11 +125,17 @@ class FrontendController extends Controller
 
     public function getFactsPage()
     {
-        $books = Book::with(['authors', 'publisher', 'categories'])->orderBy('entry_date', 'desc')->get();
+
+        $books = cache()->remember('books.all', now()->addDay(1), function () {
+
+            return Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->get();
+
+        });
 
         return view('frontend.facts',[
             'books' => $books
         ]);
+
     }
 
     public function getCategoryCloudsPage()
@@ -138,5 +145,20 @@ class FrontendController extends Controller
         return view('frontend.category',[
             'categories' => $categories
         ]);
+    }
+
+    public function getAdvanceSearchPage()
+    {
+
+        $books = cache()->remember('books.all', now()->addDay(1), function () {
+
+            return Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->get();
+            
+        });
+
+        return view('frontend.advance-search',[
+            'books' => $books
+        ]);
+
     }
 }

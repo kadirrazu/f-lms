@@ -174,7 +174,7 @@
         </thead>
         <tbody>
 
-            @foreach( $books->take(5) as $book )
+            @foreach( $books->sortByDesc('entry_date')->take(5) as $book )
 
                 <tr class="align-middle">
                     <td class="text-center">{{ convertEnToBnNumber($count) }}</td>
