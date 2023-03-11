@@ -1,5 +1,21 @@
 <x-layout-frontend>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
+
+<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.datatable2').DataTable({
+            "order": [],
+            columnDefs: [
+                { orderable: false, targets: [0,1] }
+            ]
+        });
+    });
+</script>
+
 <div class="row">
 
     <div class="col-12 text-center border-bottom pb-2">
@@ -12,7 +28,9 @@
 
         @if( $books->count() > 0 )
 
-            <table class="table table-bordered datatable align-middle">
+        <div class="table-responsive">
+
+            <table class="table table-bordered datatable2 align-middle">
                 <thead>
                     <tr class="align-middle tbl-header-row">
                         <th scope="col" class="text-center">ক্রমিক</th>
@@ -98,6 +116,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+        </div>
 
         @else
 

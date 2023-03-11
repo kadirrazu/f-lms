@@ -20,8 +20,6 @@
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
 
-  <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -32,23 +30,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
 
   <script defer src="{{ asset('assets/js/alpinejs.js') }}"></script>
-
-  <script type="text/javascript">
-
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement(
-        {
-          pageLanguage: 'bn',
-          includedLanguages: 'en', 
-          layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-        }, 
-        'google_translate_element'
-      );
-    }
-
-  </script>
-
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </head>
 

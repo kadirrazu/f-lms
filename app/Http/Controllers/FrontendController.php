@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Publisher;
 use App\Models\User;
+use App\Models\Read;
+use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -17,8 +19,15 @@ class FrontendController extends Controller
     {
         $books = Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->paginate(10);
 
+        $quotes = cache()->remember('quotes.all', now()->addDay(7), function () {
+
+            return Quote::orderBy('id', 'desc')->get();
+            
+        });
+
         return view('frontend.index',[
-            'books' => $books
+            'books' => $books,
+            'quotes' => $quotes
         ]);
     }
 
@@ -126,7 +135,7 @@ class FrontendController extends Controller
     public function getFactsPage()
     {
 
-        $books = cache()->remember('books.all', now()->addDay(1), function () {
+        $books = cache()->remember('books.all', now()->addDay(3), function () {
 
             return Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->get();
 
@@ -150,7 +159,7 @@ class FrontendController extends Controller
     public function getAdvanceSearchPage()
     {
 
-        $books = cache()->remember('books.all', now()->addDay(1), function () {
+        $books = cache()->remember('books.all', now()->addDay(3), function () {
 
             return Book::with(['authors', 'publisher', 'categories'])->orderBy('title_en', 'asc')->get();
             
@@ -160,5 +169,14 @@ class FrontendController extends Controller
             'books' => $books
         ]);
 
+    }
+
+    public function getLatestReadsPage()
+    {
+        $reads = Read::with(['book'])->orderBy('id', 'desc')->paginate(10);
+
+        return view('frontend.latest-reads',[
+            'reads' => $reads
+        ]);
     }
 }

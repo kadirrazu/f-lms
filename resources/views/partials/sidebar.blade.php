@@ -92,6 +92,13 @@
     </a>
   </li><!-- End Nav Item -->
 
+  <li class="nav-item {{ request()->is('admin/quote') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="{{ url('admin/quote') }}">
+      <i class="bi bi-chat-quote"></i>
+      <span>Quotes</span>
+    </a>
+  </li><!-- End Nav Item -->
+
   <li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-people"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>

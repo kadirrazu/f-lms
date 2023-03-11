@@ -12,6 +12,10 @@ a{
     text-decoration: none;
 }
 
+.search-wrapper{
+    z-index: 99;
+}
+
 .search-wrapper .search-results {
     width: 100%;
     overflow-y: scroll;
@@ -85,7 +89,16 @@ a{
     font-weight: bold;
 }
 
-.main-navigation a:hover{
+.main-navigation a{
+    color: #000;
+    transition: 0.5s;
+}
+
+a, .btn{
+    transition: 0.5s; 
+}
+
+.main-navigation a:hover, .main-navigation a.active{
     color: #0d6efd !important;
 }
 
@@ -191,4 +204,80 @@ a{
     font-size: 80%;
     color: #333;
     margin-top: 10px;
+}
+
+.lreads-table tr td:first-child{
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.lreads-table tr td:last-child{
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.back-to-top.active {
+    visibility: visible;
+    opacity: 1;
+    color: #fff;
+}
+
+.back-to-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 99999;
+    background: #4154f1;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all 0.4s;
+}
+
+.dataTables_length, .dataTables_info{
+    text-align: left;
+}
+
+.dt-row{
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+
+/*Responsive Utilities*/
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (max-width: 576px)  { 
+    .pagination{
+        margin: 0 auto !important;
+    }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 577px) and (max-width: 767px) {
+    .pagination-holder nav div:not(:first-child){
+        display: block !important;
+        text-align: center;
+    } 
+
+    .pagination-holder .pagination{
+        margin: 0 auto !important;
+    } 
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+
+}
+
+/*X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+
+}
+
+/*XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px) {
+    
 }

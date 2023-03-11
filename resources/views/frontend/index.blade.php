@@ -97,118 +97,156 @@
 </div>
 
 <div class="row mb-4">
+
     <div class="col-12 text-center">
 
-        <figure class="text-center">
-            <blockquote class="blockquote">
-                <p>Books are mirrors: you only see in them what you already have inside you.</p>
-            </blockquote>
-            <figcaption class="blockquote-footer">
-                Carlos Ruiz Zafón, <cite title="Source Title">The Shadow of the Wind</cite>
-            </figcaption>
-        </figure>
+        @if(count($quotes) > 0)
+
+        <div id="QuoteCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($quotes as $quote)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+
+                    <figure class="text-center">
+                        <blockquote class="blockquote">
+                            <p>{{ $quote->quote_text }}</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer">
+                            {{ $quote->quote_by }} 
+                            @if( $quote->quote_from != null ), <cite title="Source Title">{{ $quote->quote_from }}</cite>@endif
+                        </figcaption>
+                    </figure>
+
+                </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#QuoteCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#QuoteCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        @else
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>Books are mirrors: you only see in them what you already have inside you.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Carlos Ruiz Zafón, <cite title="Source Title">The Shadow of the Wind</cite>
+                </figcaption>
+            </figure>
+
+        @endif
 
     </div>
+
 </div>
 
 <div class="row">
 
     <div class="col-12 text-center border-bottom pb-2">
-        <span class="h5">বইয়ের তালিকা</span>
+        <span class="h5">সকল বইয়ের তালিকা</span>
     </div>
 
-    <div class="col-12 pt-2">
+    <div class="col-12 pt-2 table-responsive">
         
     @if( $books->count() > 0 )
 
-    <table class="table table-bordered align-middle filter-table">
-        <thead>
-            <tr class="align-middle tbl-header-row">
-                <th scope="col" class="text-center">ক্রমিক</th>
-                <th scope="col" class="text-center">ছবি</th>
-                <th scope="col" class="text-center">বইয়ের শিরোনাম</th>
-                <th scope="col" class="text-center">লেখক</th>
-                <th scope="col" class="text-center">প্রকাশক</th>
-                <th scope="col" class="tbl-category-col text-center">ক্যাটাগরী/ধরণ</th>
-                <th scope="col" class="text-center tbl-entry-col">এন্ট্রি নম্বর</th>
-                <th scope="col" class="text-center tbl-entry-date-col">সংগ্রহের তারিখ</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @php( $count = ($books->perPage() * ($books->currentPage() - 1)) + 1 )
-
-            @foreach( $books as $book )
-
-                <tr class="align-middle">
-                    <td class="text-center">{{ convertEnToBnNumber($count) }}</td>
-                    <td scope="row" class="text-center">
-                        <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
-                            @if( $book->image != null )
-                                <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
-                            @else
-                                <img src="https://via.placeholder.com/75x80?text=No+Image" alt="IMG" class="table-thumb-img">
-                            @endif
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
-                            {{ $book->title_bn }}
-                        </a>
-                    </td>
-
-                    <td>
-                        @if(count($book->authors) > 0)
-
-                            @foreach($book->authors as $author)
-
-                                <a href="{{ url('view-author/' . $author->id) }}">
-                                    {{ $author->title_bn }}
-                                </a>
-
-                                {!! ($loop->count > 1 && !$loop->last) ? '<br>' : '' !!}
-
-                            @endforeach
-
-                        @else
-                            -
-                        @endif
-                    </td>
-                    
-                    <td class="text-center">
-                        <a href="{{ url('view-publisher/' . $book->publisher->id) }}">
-                            {{ $book->publisher->title_bn }}
-                        </a>
-                    </td>
-                    
-                    <td class="tbl-category-col">
-                        @if(count($book->categories) > 0)
-
-                            @foreach($book->categories as $category)
-
-                                <a class="badge bg-secondary fw-light" href="{{ url('view-category/' . $category->id) }}">
-                                    {{ $category->title_bn }}
-                                </a>
-
-                                {!! ($loop->count > 1 && !$loop->last) ? ' ' : '' !!}
-
-                            @endforeach
-
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td class="text-center">{{ convertEnToBnNumber($book->entry_no) }}</td>
-                    <td class="text-center">{{ convertEnToBnNumber(date("d-m-Y", strtotime($book->entry_date))) }}</td>
+        <table class="table table-bordered align-middle filter-table">
+            <thead>
+                <tr class="align-middle tbl-header-row">
+                    <th scope="col" class="text-center">ক্রমিক</th>
+                    <th scope="col" class="text-center">ছবি</th>
+                    <th scope="col" class="text-center">বইয়ের শিরোনাম</th>
+                    <th scope="col" class="text-center">লেখক</th>
+                    <th scope="col" class="text-center">প্রকাশক</th>
+                    <th scope="col" class="tbl-category-col text-center">ক্যাটাগরী/ধরণ</th>
+                    <th scope="col" class="text-center tbl-entry-col">এন্ট্রি নম্বর</th>
+                    <th scope="col" class="text-center tbl-entry-date-col">সংগ্রহের তারিখ</th>
                 </tr>
+            </thead>
+            <tbody>
 
-            @php($count++)
+                @php( $count = ($books->perPage() * ($books->currentPage() - 1)) + 1 )
 
-            @endforeach
-        </tbody>
-    </table>
+                @foreach( $books as $book )
 
-    <div class="my-5">
+                    <tr class="align-middle">
+                        <td class="text-center">{{ convertEnToBnNumber($count) }}</td>
+                        <td scope="row" class="text-center">
+                            <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
+                                @if( $book->image != null )
+                                    <img src="{{ asset('/resized-images/thumbs-75/' . str_replace('thumbnails/', '', $book->image)) }}" alt="IMG" class="table-thumb-img">
+                                @else
+                                    <img src="https://via.placeholder.com/75x80?text=No+Image" alt="IMG" class="table-thumb-img">
+                                @endif
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('view-book/' . $book->id) }}" title="Book Details">
+                                {{ $book->title_bn }}
+                            </a>
+                        </td>
+
+                        <td>
+                            @if(count($book->authors) > 0)
+
+                                @foreach($book->authors as $author)
+
+                                    <a href="{{ url('view-author/' . $author->id) }}">
+                                        {{ $author->title_bn }}
+                                    </a>
+
+                                    {!! ($loop->count > 1 && !$loop->last) ? '<br>' : '' !!}
+
+                                @endforeach
+
+                            @else
+                                -
+                            @endif
+                        </td>
+                        
+                        <td class="text-center">
+                            <a href="{{ url('view-publisher/' . $book->publisher->id) }}">
+                                {{ $book->publisher->title_bn }}
+                            </a>
+                        </td>
+                        
+                        <td class="tbl-category-col">
+                            @if(count($book->categories) > 0)
+
+                                @foreach($book->categories as $category)
+
+                                    <a class="badge bg-secondary fw-light" href="{{ url('view-category/' . $category->id) }}">
+                                        {{ $category->title_bn }}
+                                    </a>
+
+                                    {!! ($loop->count > 1 && !$loop->last) ? ' ' : '' !!}
+
+                                @endforeach
+
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="text-center">{{ convertEnToBnNumber($book->entry_no) }}</td>
+                        <td class="text-center">{{ convertEnToBnNumber(date("d-m-Y", strtotime($book->entry_date))) }}</td>
+                    </tr>
+
+                @php($count++)
+
+                @endforeach
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="my-5 pagination-holder">
         {{ $books->links() }}
     </div>
 
@@ -217,8 +255,7 @@
     <x-items-not-found/>
 
     @endif
-
-    </div>
+    
 </div>
 
 </x-layout-frontend>

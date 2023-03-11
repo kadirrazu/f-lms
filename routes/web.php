@@ -18,6 +18,7 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/facts', [FrontendController::class, 'getFactsPage']);
 Route::get('/category-clouds', [FrontendController::class, 'getCategoryCloudsPage']);
 Route::get('/advance-search', [FrontendController::class, 'getAdvanceSearchPage']);
+Route::get('/latest-reads', [FrontendController::class, 'getLatestReadsPage']);
 Route::post('front-end/anything-search', [AdminSearchController::class, 'ajaxAnythingSearch']);
 
 //Login and Registration Routes
@@ -71,6 +73,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/category', CategoryController::class);
         Route::resource('/author', AuthorController::class);
         Route::resource('/book', BookController::class);
+        Route::resource('/quote', QuoteController::class);
 
         Route::resource('/reading-list', ReadController::class)->except([
             'create'

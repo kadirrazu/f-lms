@@ -11,7 +11,7 @@
     @if( $book->count() > 0 )
 
     <div class="row">
-        <div class="col-md-4 col-sm-12 mb-3">
+        <div class="col-md-4 col-sm-12 mb-3 book-thumbnail">
             <div class="img-block-left mt-2 text-center">
                 @if( $book->image != null )
                     <img src="{{ asset('/storage/' . $book->image) }}" alt="IMG" class="detail-thumb-img">
@@ -20,7 +20,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-md-8 col-sm-12 ps-5 border-start">
+        <div class="col-md-8 col-sm-12 ps-5 border-start book-details">
             <table class="table table-stripped">
                 <tr>
                     <th>এন্ট্রি/ইনডেক্স নম্বর</th>
@@ -243,7 +243,7 @@
                         <blockquote class="blockquote">
 
                             @if( $read->comments != null )
-                                <p class="text-secondary">{{ convertEnToBnNumber($count) }}) {{ $read->comments ?? 'No comment texts were made by the reader!' }}</p>
+                                <p class="text-secondary">{{ convertEnToBnNumber($count) }}) {{ $read->comments ?? 'No comments have been written by the reader!' }}</p>
                             @else
                                 <p class="text-secondary">{{ convertEnToBnNumber($count) }}) No comments have been written by the reader!</p>
                             @endif
