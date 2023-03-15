@@ -21,7 +21,7 @@ class FrontendController extends Controller
 
         $quotes = cache()->remember('quotes.all', now()->addDay(7), function () {
 
-            return Quote::orderBy('id', 'desc')->get();
+            return Quote::where('show', 1)->orderBy('id', 'desc')->get();
             
         });
 

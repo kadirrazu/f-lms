@@ -87,10 +87,10 @@
 
     <footer class="pt-4 border-top mt-4">
         <div class="row">
-            <div class="col-12 col-md text-center">
-                Developed and Maintained by <a href="http://www.kadir.tech" target="_blank">Md. Abdul Kadir</a>
-                <br>
-                Copyright &copy; {{ date('Y') }} <strong><span>Md. Abdul Kadir</span></strong>. All Rights Reserved.
+            <div class="col-12 col-md text-center py-3">
+
+                Crafted in 2023 @ Chuadanga, Bangladesh by <a href="http://www.kadir.tech" target="_blank">Md. Abdul Kadir</a>
+
             </div>
         </div>
     </footer>

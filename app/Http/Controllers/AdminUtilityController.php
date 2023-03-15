@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Book;
 use Image;
 
@@ -29,6 +30,10 @@ class AdminUtilityController extends Controller
     {
         
         $directory = 'app/public/thumbnails';
+
+        $directory1 = 'resized-images/thumbs-75';
+        $directory2 = 'resized-images/thumbs-150';
+
         $imagesExistsInFolder = [];
         $imagesExistsInTable = [];
         $imagesDeleted = [];
@@ -58,8 +63,21 @@ class AdminUtilityController extends Controller
             if(!in_array($folderImage, $imagesExistsInTable))
             {
                 $imagesDeleted[] = $folderImage;
+
                 File::delete( storage_path( $directory . '/' . $folderImage ) );
+
                 $deleteCount++;
+
+                if(File::exists( public_path( $directory1 . '/' . $folderImage ) ) )
+                {
+                    File::delete( public_path( $directory1 . '/' . $folderImage ) );
+                }
+
+                if(File::exists( public_path( $directory2 . '/' . $folderImage ) ) )
+                {
+                    File::delete( public_path( $directory2 . '/' . $folderImage ) );
+                }
+
             }
         }
 
@@ -131,4 +149,12 @@ class AdminUtilityController extends Controller
         return redirect()->back()->withSuccess($msg);
             
     }
+
+    public function cleanCache()
+    {
+        Cache::flush();
+
+        return redirect()->back()->withSuccess("All Cache Cleaned Successfully.");
+    }
+
 }

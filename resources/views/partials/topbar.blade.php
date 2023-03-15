@@ -16,6 +16,7 @@
     showResultInSearch : false,
 
     baseUrl : '<?php echo url('admin/book') ?>',
+    baseUrlFront : '<?php echo url('/') ?>',
 
     async searchQuerySubmit(){
 
@@ -66,17 +67,24 @@
         <template x-for="book in books">
           <li>
             <a x-bind:href=" baseUrl + '/' + book.id">
-              <span x-text="book.title_bn"></span>
-              <p class="fw-sm text-secondary">
-                <template x-for="author in book.authors">
-                    <span x-text="author.title_bn"></span>
-                </template>
-                <span class="s-publisher text-info d-block">
-                  <template x-if="typeof(book.publisher) !== 'undefined'">
-                    <span class="fw-light" x-text="book.publisher.title_bn"></span>
+              <template x-if="typeof(book.image) !== 'undefined'">
+                  <div class="search-thumb-wrapper">
+                      <img x-bind:src=" baseUrlFront + '/resized-images/thumbs-150/' + book.image.replace('thumbnails/','')" alt="IMG" class="search-thumb-img">
+                  </div>
+              </template>
+              <div class="search-info">
+                <span x-text="book.title_bn"></span>
+                <p class="fw-sm text-secondary">
+                  <template x-for="author in book.authors">
+                      <span x-text="author.title_bn"></span>
                   </template>
-                </span>
-              </p>
+                  <span class="s-publisher text-info d-block">
+                    <template x-if="typeof(book.publisher) !== 'undefined'">
+                      <span class="fw-light" x-text="book.publisher.title_bn"></span>
+                    </template>
+                  </span>
+                </p>
+              </div>
             </a>
           </li>
         </template>      

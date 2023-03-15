@@ -97,6 +97,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/utility', [AdminUtilityController::class, 'index']);
         Route::get('/utility/delete-unused-images', [AdminUtilityController::class, 'deleteUnusedImages']);
         Route::get('/utility/resize-images', [AdminUtilityController::class, 'resizeImages']);
+        Route::get('/utility/clean-cache', [AdminUtilityController::class, 'cleanCache']);
 
         Route::get('/export', [ExportController::class, 'index']);
         Route::get('/export/excel', [ExportController::class, 'exportToExcel']);

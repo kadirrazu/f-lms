@@ -143,7 +143,7 @@
               </div>
 
               <div class="credits mt-3">
-                Develped and Maintained by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
+                Developed and Maintained by <a href="http://kadir.tech/" target="_blank">Md. Abdul Kadir</a>
               </div>
 
             </div>

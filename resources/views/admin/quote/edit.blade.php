@@ -65,8 +65,8 @@
                                             <label class="col-sm-4 form-label">Select Status</label>
                                             <div class="col-sm-8">
                                                 <select name="show" class="form-select" aria-label="Select Status">
-                                                    <option value="1" <?php echo old("show", $model->status) == '1' ? "selected" : "" ?>>Show</option>
-                                                    <option value="0" <?php echo old("show", $model->status) == '0' ? "selected" : "" ?>>Hide</option>
+                                                    <option value="1" <?php echo old("show", $model->show) == '1' ? "selected" : "" ?>>Show</option>
+                                                    <option value="0" <?php echo old("show", $model->show) == '0' ? "selected" : "" ?>>Hide</option>
                                                 </select>
 
                                                 <x-form.error name="status"/>

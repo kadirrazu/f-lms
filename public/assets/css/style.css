@@ -1299,3 +1299,18 @@ table.admin-table tr th{
 .credits{
   font-size: 13px;
 }
+
+.search-thumb-img{
+  position: relative;
+  height: 70px;
+  display: flex;
+}
+
+.search-bar .search-thumb-wrapper, .search-bar .search-info{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.search-bar .search-thumb-wrapper{
+  margin-right: 10px;
+}

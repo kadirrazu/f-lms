@@ -109,7 +109,7 @@
 
                     <figure class="text-center">
                         <blockquote class="blockquote">
-                            <p>{{ $quote->quote_text }}</p>
+                            <p>"{{ $quote->quote_text }}"</p>
                         </blockquote>
                         <figcaption class="blockquote-footer">
                             {{ $quote->quote_by }} 
