@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>FLMS - Library Management System</title>
+  <title>FLMS - Family Library Management System</title>
   <meta content="Family Library Management System of Md. Abdul Kadir" name="description">
   <meta content="Library, Family Library" name="keywords">
 

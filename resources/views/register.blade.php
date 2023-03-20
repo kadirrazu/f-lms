@@ -54,7 +54,7 @@
 
                     <div class="col-md-6 col-sm-12">
 
-                      <label for="avatar" class="form-label">Avatar ID (optional)</label>
+                      <label for="avatar" class="form-label">Gravatar ID (optional, if any)</label>
                       <div class="input-group has-validation">
                         <x-form.input name="avatar" type="text"/>
                       </div>
@@ -124,6 +124,7 @@
                         <label class="form-check-label" for="agree">I agree with the Terms and Conditions.</label>
                       </div>
                     </div>
+
                     <div class="col-md-6 col-sm-12">
                       <button class="btn btn-primary w-auto" type="submit">Create Account</button>
                     </div>

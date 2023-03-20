@@ -11,7 +11,10 @@
             "order": [],
             columnDefs: [
                 { orderable: false, targets: [0,1] }
-            ]
+            ],
+            language: {
+                url: '<?php echo asset('assets/datatable-bn.json'); ?>',
+            },
         });
     });
 </script>

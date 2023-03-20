@@ -17,6 +17,8 @@
 
     baseUrl : '<?php echo url('admin/book') ?>',
     baseUrlFront : '<?php echo url('/') ?>',
+                                
+    searchUrl : '<?php echo url('/admin/anything-search') ?>',
 
     async searchQuerySubmit(){
 
@@ -24,7 +26,7 @@
 
         this.books = await(
             
-            await fetch('/admin/anything-search', {
+            await fetch( this.searchUrl, {
                 method : 'POST',
                 headers : {
                     'Content-type' : 'application/json',

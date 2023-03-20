@@ -40,12 +40,14 @@
 
                                 showNothing : false,
                                 showResult : false,
+                                
+                                searchUrl : '<?php echo url('/admin/book-search') ?>',
 
                                 async querySubmit(){
 
                                     this.books = await(
                                         
-                                        await fetch('/admin/book-search', {
+                                        await fetch( this.searchUrl, {
                                             method : 'POST',
                                             headers : {
                                                 'Content-type' : 'application/json',

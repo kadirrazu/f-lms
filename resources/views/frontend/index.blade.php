@@ -10,15 +10,21 @@
             showNothingInSearch : false,
             showResultInSearch : false,
 
+            showSearchingIcon : false,
+
             baseUrl : '<?php echo url('/') ?>',
+
+            searchUrl : '<?php echo url('/front-end/anything-search') ?>',
 
             async searchQuerySubmit(){
 
             if(this.searchQuery.trim().length > 2){
 
+                this.showSearchingIcon = true;
+
                 this.books = await(
                     
-                    await fetch('/front-end/anything-search', {
+                    await fetch( this.searchUrl, {
                         method : 'POST',
                         headers : {
                             'Content-type' : 'application/json',
@@ -29,6 +35,8 @@
                         }),
                     })).json();
 
+                this.showSearchingIcon = false;
+                
                 if(this.books.length < 1 ){
                     this.showNothingInSearch = true;
                     this.showResultInSearch = false;
@@ -43,6 +51,7 @@
             {
                 this.showNothingInSearch = false;
                 this.showResultInSearch = false;
+                this.showSearchingIcon = false;
             }
 
             }, 
@@ -55,6 +64,8 @@
             </form>
 
             <div class="search-results position-absolute">
+
+                <img class="search-wait-img" src="{{ asset('assets/img/searching.gif') }}" alt="Searching..." x-show="showSearchingIcon" style="display: none;">
     
                 <div class="positive-result bg-light p-2 border border-info rounded-bottom" x-show="showResultInSearch" style="display: none;">
                 <ul class="m-0 list-unstyled p-2">

@@ -27,6 +27,7 @@ a{
     position: relative;
     height: 70px;
     display: flex;
+    width: auto;
 }
 
 .search-wrapper .search-thumb-wrapper, .search-wrapper .search-info{
@@ -36,6 +37,17 @@ a{
 
 .search-wrapper .search-thumb-wrapper{
     margin-right: 10px;
+    min-width: 50px;
+}
+
+.positive-result li:not(:last-child){
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 10px;
+}
+
+.search-wait-img {
+    width: 55px;
+    height: 55px;
 }
 
 .table-thumb-img{

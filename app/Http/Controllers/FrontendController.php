@@ -83,7 +83,7 @@ class FrontendController extends Controller
     {
         if( auth()->check() )
         {
-            $favourites = Favourite::where('user_id', auth()->user()->id )->get();
+            $favourites = Favourite::where('user_id', auth()->user()->id )->paginate(10);
 
             return view('frontend.favourite-books',[
                 'favourites' => $favourites

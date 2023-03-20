@@ -28,11 +28,15 @@
                                 authorQuery : '', 
                                 publishers : '',
                                 authors : [],
+
+                                searchUrl : '<?php echo url('/admin/publisher-search') ?>',
+                                searchUrl2 : '<?php echo url('/admin/author-search') ?>',
+
                                 async publisherQuerySubmit(){
 
                                     this.publishers = await(
                                         
-                                        await fetch('/admin/publisher-search', {
+                                        await fetch( this.searchUrl, {
                                             method : 'POST',
                                             headers : {
                                                 'Content-type' : 'application/json',
@@ -48,7 +52,7 @@
 
                                     this.authors = await(
                                         
-                                        await fetch('/admin/author-search', {
+                                        await fetch( this.searchUrl2, {
                                             method : 'POST',
                                             headers : {
                                                 'Content-type' : 'application/json',

@@ -15,6 +15,8 @@
         showTermsCheckError : false,
         showRequestForm : true,
         requestResult : '',
+                                
+        remoteUrl : '<?php echo url('/book-request-submission') ?>',
 
         checkAndClearError : function(e){
             if( this.contactNumber.trim().length !== 0 ){
@@ -59,7 +61,7 @@
 
             this.requestResult = await(
                     
-            await fetch('/book-request-submission', {
+            await fetch( this.remoteUrl, {
                 method : 'POST',
                 headers : {
                     'Content-type' : 'application/json',

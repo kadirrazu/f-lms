@@ -99,6 +99,10 @@
         
     </div>
 
+    <div class="my-5 pagination-holder">
+        {{ $favourites->links() }}
+    </div>
+
     @else
 
         <p class="alert alert-info text-center">
